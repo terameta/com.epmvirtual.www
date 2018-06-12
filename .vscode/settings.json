@@ -1,0 +1,5 @@
+{
+	"editor.minimap.enabled": false,
+	"editor.fontLigatures": true,
+	"html.format.wrapLineLength": 180
+}
