@@ -1,9 +1,13 @@
 @import './style.variables';
 @import '../node_modules/bootstrap/scss/bootstrap';
 @import '~angular-tree-component/dist/angular-tree-component.css';
+@import url('https://fonts.googleapis.com/css?family=Ubuntu:400,700,900');
 
-html {
+html, body {
 	font-size: 14px;
+	// background-color: #E8EAE9;
+	// background-color: #F3F3F1;
+	background-color: white;
 }
 @media (min-width: 768px) {
 	html {
@@ -26,4 +30,5 @@ html {
 .border-top { border-top: 1px solid #e5e5e5; }
 .border-bottom { border-bottom: 1px solid #e5e5e5; }
 
-.box-shadow { box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05); }
+// .box-shadow { box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05); }
+.box-shadow { box-shadow: 0px 3px 3px 0px rgba(0,0,0,0.5); }
