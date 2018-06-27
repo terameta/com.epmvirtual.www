@@ -2,7 +2,7 @@
 	font-size: 18px;
 	font-family: 'Ubuntu', sans-serif;
 	text-align: left;
-	margin: 30px 0 135px 0;
+	margin: 30px 0 30px 0;
 	text-shadow: 1px 1px 0 white;
 }
 
@@ -81,4 +81,15 @@
 
 .itiseasybanner {
 	width: 100%;
+}
+
+.mastfoot {
+	background-color: aqua;
+}
+
+.form-signin {
+	width: 100%;
+	// max-width: 420px;
+	// padding: 15px;
+	margin: auto;
 }
