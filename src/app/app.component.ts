@@ -1,10 +1,17 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { CentralStatusService } from './centralstatus.service';
 
-@Component({
+@Component( {
 	selector: 'app-root',
 	templateUrl: './app.component.html',
-	styleUrls: ['./app.component.scss']
-})
-export class AppComponent {
-	title = 'app';
+	styleUrls: [ './app.component.scss' ]
+} )
+export class AppComponent implements OnInit {
+	constructor(
+		public centralStatus: CentralStatusService
+	) { }
+
+	ngOnInit() {
+	}
+
 }
