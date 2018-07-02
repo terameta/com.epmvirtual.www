@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { systemSettings } from './app.settings';
@@ -10,6 +11,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { TermsOfServiceComponent } from './terms-of-service/terms-of-service.component';
 import { SignInComponent } from './sign-in/sign-in.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
+import { AuthService } from './auth.service';
+import { AngularFireAuthModule } from 'angularfire2/auth';
 
 const routes: Routes = [
 	{ path: '', component: FrontPageComponent },
@@ -19,7 +22,7 @@ const routes: Routes = [
 ];
 
 
-@NgModule({
+@NgModule( {
 	declarations: [
 		AppComponent,
 		FrontPageComponent,
@@ -29,11 +32,15 @@ const routes: Routes = [
 	],
 	imports: [
 		BrowserModule,
-		AngularFireModule.initializeApp(systemSettings.firebase),
-		RouterModule.forRoot(routes),
+		FormsModule,
+		AngularFireModule.initializeApp( systemSettings.firebase ),
+		AngularFireAuthModule,
+		RouterModule.forRoot( routes ),
 		SharedModule
 	],
-	providers: [],
-	bootstrap: [AppComponent]
-})
+	exports: [
+		FormsModule
+	],
+	bootstrap: [ AppComponent ]
+} )
 export class AppModule { }
