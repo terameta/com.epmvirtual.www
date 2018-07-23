@@ -11,14 +11,15 @@ import { Routes, RouterModule } from '@angular/router';
 import { TermsOfServiceComponent } from './terms-of-service/terms-of-service.component';
 import { SignInComponent } from './sign-in/sign-in.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
-import { AuthService } from './auth.service';
 import { AngularFireAuthModule } from 'angularfire2/auth';
+import { LibraryModule } from './library/library.module';
 
 const routes: Routes = [
 	{ path: '', component: FrontPageComponent },
 	{ path: 'terms-of-service', component: TermsOfServiceComponent },
 	{ path: 'signin', component: SignInComponent },
-	{ path: 'signup', component: SignUpComponent }
+	{ path: 'signup', component: SignUpComponent },
+	{ path: 'library', loadChildren: './library/library.module#LibraryModule' }
 ];
 
 
@@ -31,12 +32,13 @@ const routes: Routes = [
 		SignUpComponent,
 	],
 	imports: [
-		BrowserModule,
+		BrowserModule.withServerTransition( { appId: 'www-epmvirtual-com' } ),
 		FormsModule,
 		AngularFireModule.initializeApp( systemSettings.firebase ),
 		AngularFireAuthModule,
 		RouterModule.forRoot( routes ),
-		SharedModule
+		SharedModule,
+		LibraryModule
 	],
 	exports: [
 		FormsModule

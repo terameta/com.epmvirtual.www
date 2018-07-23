@@ -10,15 +10,16 @@
 					<h2 class="card-title epmsignupheader">
 						Sign In
 					</h2>
-					<form class="form-signin mb-4" #signinForm="ngForm" (ngSubmit)="signin()">
+					<form class="form-signin mb-4" #signinForm="ngForm" (ngSubmit)="signin(signinForm)">
 						<div class="form-label-group">
-							<input type="email" name="siemail" id="siemail" class="form-control" placeholder="Email address" required autofocus>
-							<label for="siemail">Email address</label>
+							<input type="email" name="email" id="email" class="form-control" placeholder="Email address" ngModel required autofocus>
+							<label for="email">Email address</label>
 						</div>
 						<div class="form-label-group">
-							<input type="password" name="siepass" id="siepass" class="form-control" placeholder="Password" required>
-							<label for="siepass">Password</label>
+							<input type="password" name="password" id="password" class="form-control" placeholder="Password" ngModel required>
+							<label for="password">Password</label>
 						</div>
+						<div class="alert alert-danger" *ngIf="signInError">{{ signInError }}</div>
 						<button type="submit" class="btn btn-evwarning epmsignupbutton">Sign In</button>
 					</form>
 					<a routerLink="/passwordrecovery">Forgot password?</a>

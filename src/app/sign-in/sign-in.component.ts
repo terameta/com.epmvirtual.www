@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth.service';
+import { NgForm } from '@angular/forms';
 
 @Component( {
 	selector: 'app-sign-in',
@@ -7,8 +8,7 @@ import { AuthService } from '../auth.service';
 	styleUrls: [ './sign-in.component.scss' ]
 } )
 export class SignInComponent implements OnInit {
-	public email: string;
-	public password: string;
+	public signInError = '';
 
 	constructor(
 		private authService: AuthService
@@ -17,8 +17,15 @@ export class SignInComponent implements OnInit {
 	ngOnInit() {
 	}
 
-	public signin = () => {
-		this.authService.signin( this.email, this.password ).then( console.log ).catch( console.log );
+	public signin = ( form: NgForm ) => {
+		this.signInError = '';
+		this.authService.signin( form.value.email, form.value.password ).
+			then( ( result ) => {
+				console.log( 'Sign in succeded' );
+				console.log( result );
+			} ).catch( ( error: firebase.auth.Error ) => {
+				this.signInError = error.message;
+			} );
 	}
 
 }
