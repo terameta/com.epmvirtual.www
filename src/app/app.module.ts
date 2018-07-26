@@ -8,10 +8,12 @@ import { AngularFireModule } from 'angularfire2';
 import { Routes, RouterModule } from '@angular/router';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 
+import { AuthGuardService as AuthGuard } from './auth-guard.service';
+
 const routes: Routes = [
 	{ path: '', loadChildren: './end-user/end-user.module#EndUserModule' },
-	{ path: 'admin', loadChildren: './admin/admin.module#AdminModule' },
-	{ path: 'cloud', loadChildren: './cloud/cloud.module#CloudModule' }
+	{ path: 'admin', canActivate: [ AuthGuard ], data: { expectedRole: 'admin' }, loadChildren: './admin/admin.module#AdminModule' },
+	{ path: 'cloud', canActivate: [ AuthGuard ], loadChildren: './cloud/cloud.module#CloudModule' }
 ];
 
 

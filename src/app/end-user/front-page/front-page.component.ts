@@ -9,6 +9,7 @@ export class FrontPageComponent implements OnInit {
 
 	constructor() {
 		console.log( 'Fix the sign up form in the front page' );
+		console.log( 'Create a central-status service' );
 	}
 
 	ngOnInit() {
