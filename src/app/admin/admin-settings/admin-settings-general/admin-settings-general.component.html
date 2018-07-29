@@ -1,0 +1,90 @@
+<form #f="ngForm" (ngSubmit)="save(f)">
+	<div class="btn-toolbar" role="toolbar">
+		<div class="btn-group btn-group-sm ml-auto">
+			<button class="btn btn-success" type="submit" [disabled]="f.invalid && f.dirty">Save</button>
+		</div>
+	</div>
+	<br>
+	<div class="table-responsive">
+		<table class="table table-condensed table-striped table-sm table-hover">
+			<tbody class="text-nowrap">
+				<tr>
+					<th width="100px">Company Name:</th>
+					<td>
+						<input type="text" name="companyname" class="form-control form-control-sm" [(ngModel)]="settings.companyName">
+					</td>
+				</tr>
+				<tr>
+					<th>Company Start Date:</th>
+					<td>
+						<input type="date" name="companyStartDate" class="form-control form-control-sm" [(ngModel)]="settings.companyStartDate">
+					</td>
+				</tr>
+				<tr>
+					<th>Admin E-mail Address:</th>
+					<td>
+						<input type="email" name="adminemail" class="form-control form-control-sm" [(ngModel)]="settings.adminEmailAddress">
+					</td>
+				</tr>
+				<tr>
+					<th>Support E-mail Address:</th>
+					<td>
+						<input type="email" name="supportemail" class="form-control form-control-sm" [(ngModel)]="settings.supportEmailAddress">
+					</td>
+				</tr>
+				<tr>
+					<th>Accounting E-mail Address:</th>
+					<td>
+						<input type="email" name="accountingemail" class="form-control form-control-sm" [(ngModel)]="settings.accountingEmailAddress">
+					</td>
+				</tr>
+				<tr>
+					<th>Sales E-mail Address:</th>
+					<td>
+						<input type="email" name="salesemail" class="form-control form-control-sm" [(ngModel)]="settings.salesEmailAddress">
+					</td>
+				</tr>
+				<tr>
+					<th>Domain:</th>
+					<td>
+						<input type="url" name="domain" class="form-control form-control-sm" [(ngModel)]="settings.domain">
+					</td>
+				</tr>
+				<tr>
+					<th>Logo URL:</th>
+					<td>
+						<input type="url" name="logourl" class="form-control form-control-sm" [(ngModel)]="settings.logoURL">
+					</td>
+				</tr>
+				<tr>
+					<th>Pay to Text:</th>
+					<td></td>
+				</tr>
+				<tr>
+					<th>Phone Numbers:</th>
+					<td></td>
+				</tr>
+				<tr>
+					<th>Counters:</th>
+					<td></td>
+				</tr>
+				<tr>
+					<th>Selected E-mail Transport:</th>
+					<td></td>
+				</tr>
+				<tr>
+					<th>E-mail Letter Head Color:</th>
+					<td>
+						<input type="color" name="emailletterheadcolor" class="form-control form-control-sm" [(ngModel)]="settings.eMailLetterHeadColor">
+					</td>
+				</tr>
+				<tr>
+					<th>E-mail Letter Head Logo URL:</th>
+					<td>
+						<input type="url" name="emailletterheadurl" class="form-control form-control-sm" [(ngModel)]="settings.eMailLetterHeadLogoURL">
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</form>

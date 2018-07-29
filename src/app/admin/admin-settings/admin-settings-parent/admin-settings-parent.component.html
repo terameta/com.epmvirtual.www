@@ -1,0 +1,23 @@
+<div class="container-fluid">
+	<div class="row">
+		<ul class="nav nav-tabs w-100">
+			<li class="nav-item ml-3">
+				<a class="nav-link" routerLinkActive="active" routerLink="general" data-toggle="tab">
+					<i class="fas fa-sliders-h"></i> General
+				</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" routerLinkActive="active" routerLink="paypal" data-toggle="tab">
+					<i class="fab fa-paypal"></i> PayPal
+				</a>
+			</li>
+		</ul>
+	</div>
+	<div class="row">
+		<div class="tab-content p-3 w-100">
+			<div class="tab-pane active">
+				<router-outlet></router-outlet>
+			</div>
+		</div>
+	</div>
+</div>

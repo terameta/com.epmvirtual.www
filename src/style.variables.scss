@@ -1,8 +1,10 @@
+$evwarning: #C05C11;
+
 $theme-colors: (
   "accent": #aec9ce,
   "maindark": #3A474C,
   "activedark": #242a2f,
-  "evwarning": #C05C11,
+  "evwarning": $evwarning,
   "evblue": #23779C
 );
 
