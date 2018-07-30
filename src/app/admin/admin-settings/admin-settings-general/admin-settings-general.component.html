@@ -7,7 +7,7 @@
 	</div>
 	<br>
 	<div class="table-responsive">
-		<table class="table table-condensed table-striped table-sm table-hover">
+		<table class="table table-condensed table-sm">
 			<tbody class="text-nowrap">
 				<tr>
 					<th width="100px">Company Name:</th>
@@ -18,7 +18,7 @@
 				<tr>
 					<th>Company Start Date:</th>
 					<td>
-						<input type="text" name="companyStartDate" class="form-control form-control-sm" [(ngModel)]="settings.companyStartDate" date>
+						<input type="date" name="companyStartDate" class="form-control form-control-sm" [(ngModel)]="settings.companyStartDate" date>
 					</td>
 				</tr>
 				<tr>
@@ -59,11 +59,39 @@
 				</tr>
 				<tr>
 					<th>Pay to Text:</th>
-					<td></td>
+					<td>
+						<input type="text" name="paytotext" class="form-control form-control-sm" [(ngModel)]="settings.paytoText">
+					</td>
 				</tr>
 				<tr>
 					<th>Phone Numbers:</th>
-					<td></td>
+					<td class="text-right">
+						<ng-container *ngFor="let phone of settings.phoneNumbers">
+							<div class="input-group input-group-sm">
+								<div class="input-group-prepend">
+									<span class="input-group-text" id="inputGroupPrepend">{{phone.position + 1}}</span>
+								</div>
+								<input type="text" name="phonecountry{{phone.position}}" class="form-control form-control-sm" [(ngModel)]="phone.country" placeholder="Country">
+								<input type="text" name="phonenumbern{{phone.position}}" class="form-control form-control-sm" [(ngModel)]="phone.number" placeholder="Phone Number">
+								<input type="text" name="phonenumberl{{phone.position}}" class="form-control form-control-sm" [(ngModel)]="phone.linkNumber" placeholder="Link Number">
+								<div class="input-group-append">
+									<button class="btn btn-outline-secondary" type="button">
+										<i class="fas fa-caret-down"></i>
+									</button>
+									<button class="btn btn-outline-secondary" type="button">
+										<i class="fas fa-caret-up"></i>
+									</button>
+									<button class="btn btn-outline-danger" type="button">
+										<i class="fas fa-trash-alt"></i>
+									</button>
+								</div>
+							</div>
+						</ng-container>
+						<br>
+						<button class="btn btn-sm btn-outline-success" type="button">
+							<i class="fas fa-plus-circle"></i>
+						</button>
+					</td>
 				</tr>
 				<tr>
 					<th>Counters:</th>
