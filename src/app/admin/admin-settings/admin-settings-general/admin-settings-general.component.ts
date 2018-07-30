@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
 
-import { AngularFirestore } from 'angularfire2/firestore';
+import { AngularFirestore, AngularFirestoreDocument } from 'angularfire2/firestore';
 
 import { SettingsGeneral, settingsGeneralDefault } from '../../../../models/settings.general';
+import { Observable } from '../../../../../node_modules/rxjs';
 
 @Component( {
 	selector: 'app-admin-settings-general',
@@ -17,16 +19,17 @@ export class AdminSettingsGeneralComponent implements OnInit {
 	) {
 		this.db.
 			doc<SettingsGeneral>( 'settings/general' ).
-			snapshotChanges().
-			subscribe( console.log );
-		console.log( this.settings );
+			valueChanges().
+			subscribe( payload => this.settings = Object.assign( this.settings, payload ) );
 	}
 
 	ngOnInit() {
 	}
 
-	public save = () => {
-		this.db.doc( 'settings/general' ).update( this.settings );
+	public save = ( form: NgForm ) => {
+		this.db.doc( 'settings/general' ).set( this.settings ).then( () => {
+			form.form.markAsPristine();
+		} );
 	}
 
 }

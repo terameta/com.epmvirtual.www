@@ -1,5 +1,6 @@
 <form #f="ngForm" (ngSubmit)="save(f)">
 	<div class="btn-toolbar" role="toolbar">
+		<span *ngIf="f.dirty">Changes pending, please remember to click save...</span>
 		<div class="btn-group btn-group-sm ml-auto">
 			<button class="btn btn-success" type="submit" [disabled]="f.invalid && f.dirty">Save</button>
 		</div>
@@ -17,13 +18,13 @@
 				<tr>
 					<th>Company Start Date:</th>
 					<td>
-						<input type="date" name="companyStartDate" class="form-control form-control-sm" [(ngModel)]="settings.companyStartDate">
+						<input type="text" name="companyStartDate" class="form-control form-control-sm" [(ngModel)]="settings.companyStartDate" date>
 					</td>
 				</tr>
 				<tr>
 					<th>Admin E-mail Address:</th>
 					<td>
-						<input type="email" name="adminemail" class="form-control form-control-sm" [(ngModel)]="settings.adminEmailAddress">
+						<input type="email" name="adminemail" class="form-control form-control-sm" [(ngModel)]="settings.adminEmailAddress" email>
 					</td>
 				</tr>
 				<tr>

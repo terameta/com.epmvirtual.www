@@ -28,7 +28,7 @@ export interface SettingsCounter {
 }
 
 export const settingsGeneralDefault = (): SettingsGeneral => {
-	return {
+	return <SettingsGeneral>{
 		companyName: '',
 		companyStartDate: ( new Date() ).toDateString(),
 		adminEmailAddress: 'admin@example.com',
