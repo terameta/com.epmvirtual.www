@@ -1,1 +1,57 @@
-PayPal
+<form #f="ngForm" (ngSubmit)="save(f)">
+	<div class="btn-toolbar" role="toolbar">
+		<span *ngIf="f.dirty">Changes pending, please remember to click save...</span>
+		<div class="btn-group btn-group-sm ml-auto">
+			<button class="btn btn-success" type="submit" [disabled]="f.invalid && f.dirty">Save</button>
+		</div>
+	</div>
+	<br>
+	<div class="table-responsive">
+		<table class="table table-condensed table-sm">
+			<tbody class="text-nowrap">
+				<tr>
+					<th width="100px">E-Mail:</th>
+					<td>
+						<input type="email" name="email" class="form-control form-control-sm" [(ngModel)]="settings.email" email>
+					</td>
+				</tr>
+				<tr>
+					<th>Username:</th>
+					<td>
+						<input type="text" name="username" class="form-control form-control-sm" [(ngModel)]="settings.username">
+					</td>
+				</tr>
+				<tr>
+					<th>Password:</th>
+					<td>
+						<input type="text" name="password" class="form-control form-control-sm" [(ngModel)]="settings.password">
+					</td>
+				</tr>
+				<tr>
+					<th>Signature:</th>
+					<td>
+						<input type="text" name="signature" class="form-control form-control-sm" [(ngModel)]="settings.signature">
+					</td>
+				</tr>
+				<tr>
+					<th>isSandBox:</th>
+					<td>
+						<input type="checkbox" name="issandbox" class="form-control form-control-sm" [(ngModel)]="settings.isSandBox">
+					</td>
+				</tr>
+				<tr>
+					<th>Client ID:</th>
+					<td>
+						<input type="text" name="cid" class="form-control form-control-sm" [(ngModel)]="settings.clientID">
+					</td>
+				</tr>
+				<tr>
+					<th>Secret:</th>
+					<td>
+						<input type="text" name="secret" class="form-control form-control-sm" [(ngModel)]="settings.secret">
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</form>

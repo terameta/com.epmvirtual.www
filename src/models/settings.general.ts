@@ -39,7 +39,7 @@ export const settingsGeneralDefault = (): SettingsGeneral => {
 		logoURL: '',
 		paytoText: '',
 		phoneNumbers: [ settingsPhoneNumberDefault() ],
-		counters: [ settingsCounterDefault() ],
+		counters: [],
 		selectedEMailTransport: '',
 		eMailLetterHeadColor: '',
 		eMailLetterHeadLogoURL: ''
@@ -52,12 +52,5 @@ export const settingsPhoneNumberDefault = (): SettingsPhoneNumber => {
 		country: '',
 		number: '',
 		linkNumber: ''
-	};
-};
-
-export const settingsCounterDefault = (): SettingsCounter => {
-	return {
-		name: '',
-		value: 1
 	};
 };

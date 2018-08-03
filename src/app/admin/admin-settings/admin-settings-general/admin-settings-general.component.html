@@ -64,10 +64,16 @@
 					</td>
 				</tr>
 				<tr>
-					<th>Phone Numbers:</th>
+					<th>
+						Phone Numbers:
+						<br>
+						<button class="btn btn-sm btn-link text-success" type="button" (click)="phoneNumberAdd(f)">
+							<i class="fas fa-plus-circle"></i>
+						</button>
+					</th>
 					<td class="text-right">
-						<ng-container *ngFor="let phone of settings.phoneNumbers">
-							<div class="input-group input-group-sm">
+						<ng-container *ngFor="let phone of settings.phoneNumbers; let i = index;">
+							<div class="input-group input-group-sm mb-1">
 								<div class="input-group-prepend">
 									<span class="input-group-text" id="inputGroupPrepend">{{phone.position + 1}}</span>
 								</div>
@@ -75,27 +81,44 @@
 								<input type="text" name="phonenumbern{{phone.position}}" class="form-control form-control-sm" [(ngModel)]="phone.number" placeholder="Phone Number">
 								<input type="text" name="phonenumberl{{phone.position}}" class="form-control form-control-sm" [(ngModel)]="phone.linkNumber" placeholder="Link Number">
 								<div class="input-group-append">
-									<button class="btn btn-outline-secondary" type="button">
+									<button class="btn btn-outline-secondary" type="button" (click)="phoneNumberMoveDown(i, f)">
 										<i class="fas fa-caret-down"></i>
 									</button>
-									<button class="btn btn-outline-secondary" type="button">
+									<button class="btn btn-outline-secondary" type="button" (click)="phoneNumberMoveUp(i, f)">
 										<i class="fas fa-caret-up"></i>
 									</button>
-									<button class="btn btn-outline-danger" type="button">
+									<button class="btn btn-outline-danger" type="button" (click)="phoneNumberDelete(i, f)">
 										<i class="fas fa-trash-alt"></i>
 									</button>
 								</div>
 							</div>
 						</ng-container>
-						<br>
-						<button class="btn btn-sm btn-outline-success" type="button">
-							<i class="fas fa-plus-circle"></i>
-						</button>
 					</td>
 				</tr>
 				<tr>
-					<th>Counters:</th>
-					<td></td>
+					<th>
+						Counters:
+						<br>
+						<button class="btn btn-sm btn-link text-success" type="button" (click)="counterAdd(f)">
+							<i class="fas fa-plus-circle"></i>
+						</button>
+					</th>
+					<td>
+						<ng-container *ngFor="let counter of settings.counters; let i = index;">
+							<div class="input-group input-group-sm mb-1">
+								<div class="input-group-prepend">
+									<span class="input-group-text"> {{ i + 1 }} </span>
+								</div>
+								<input type="text" name="counter{{counter.name}}name" class="form-control form-control-sm" [(ngModel)]="counter.name">
+								<input type="text" name="counter{{counter.name}}value" class="form-control form-control-sm" [(ngModel)]="counter.value">
+								<div class="input-group-append">
+									<button class="btn btn-outline-danger" type="button" (click)="counterDelete(i, f)">
+										<i class="fas fa-trash-alt"></i>
+									</button>
+								</div>
+							</div>
+						</ng-container>
+					</td>
 				</tr>
 				<tr>
 					<th>Selected E-mail Transport:</th>
@@ -104,7 +127,10 @@
 				<tr>
 					<th>E-mail Letter Head Color:</th>
 					<td>
-						<input type="color" name="emailletterheadcolor" class="form-control form-control-sm" [(ngModel)]="settings.eMailLetterHeadColor">
+						<div class="input-group input-group-sm">
+							<input type="color" name="emailletterheadcolor" class="form-control form-control-sm" [(ngModel)]="settings.eMailLetterHeadColor">
+							<input type="text" name="emailletterheadcolorCode" class="form-control form-control-sm" [(ngModel)]="settings.eMailLetterHeadColor">
+						</div>
 					</td>
 				</tr>
 				<tr>
