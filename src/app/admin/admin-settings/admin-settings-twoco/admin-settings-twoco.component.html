@@ -1,0 +1,94 @@
+<form #f="ngForm" (ngSubmit)="save(f)">
+	<div class="btn-toolbar" role="toolbar">
+		<span *ngIf="f.dirty">Changes pending, please remember to click save...</span>
+		<div class="btn-group btn-group-sm ml-auto">
+			<button class="btn btn-success" type="submit" [disabled]="f.invalid && f.dirty">Save</button>
+		</div>
+	</div>
+	<div class="table-responsive pt-1">
+		<table class="table table-condensed table-sm table-bordered">
+			<thead>
+				<tr>
+					<th>Setting</th>
+					<th>Production Value</th>
+					<th>Sandbox Value</th>
+					<th>Demo Value</th>
+				</tr>
+			</thead>
+			<tbody class="text-nowrap">
+				<tr>
+					<th width="100px">Username:</th>
+					<td>
+						<input type="text" name="pusername" class="form-control form-control-sm" [(ngModel)]="settings.production.username" required>
+					</td>
+					<td>
+						<input type="text" name="susername" class="form-control form-control-sm" [(ngModel)]="settings.sandbox.username" required>
+					</td>
+					<td>
+						<input type="text" name="dusername" class="form-control form-control-sm" [(ngModel)]="settings.demo.username" required>
+					</td>
+				</tr>
+				<tr>
+					<th width="100px">Password:</th>
+					<td>
+						<input type="text" name="ppassword" class="form-control form-control-sm" [(ngModel)]="settings.production.password" required>
+					</td>
+					<td>
+						<input type="text" name="spassword" class="form-control form-control-sm" [(ngModel)]="settings.sandbox.password" required>
+					</td>
+					<td>
+						<input type="text" name="dpassword" class="form-control form-control-sm" [(ngModel)]="settings.demo.password" required>
+					</td>
+				</tr>
+				<tr>
+					<th width="100px">Seller ID:</th>
+					<td>
+						<input type="text" name="psellerid" class="form-control form-control-sm" [(ngModel)]="settings.production.sellerid" required>
+					</td>
+					<td>
+						<input type="text" name="ssellerid" class="form-control form-control-sm" [(ngModel)]="settings.sandbox.sellerid" required>
+					</td>
+					<td>
+						<input type="text" name="dsellerid" class="form-control form-control-sm" [(ngModel)]="settings.demo.sellerid" required>
+					</td>
+				</tr>
+				<tr>
+					<th width="100px">Private Key:</th>
+					<td>
+						<input type="text" name="ppkey" class="form-control form-control-sm" [(ngModel)]="settings.production.privatekey" required>
+					</td>
+					<td>
+						<input type="text" name="spkey" class="form-control form-control-sm" [(ngModel)]="settings.sandbox.privatekey" required>
+					</td>
+					<td>
+						<input type="text" name="dpkey" class="form-control form-control-sm" [(ngModel)]="settings.demo.privatekey" required>
+					</td>
+				</tr>
+				<tr>
+					<th width="100px">Publishable Key:</th>
+					<td>
+						<input type="text" name="ppubkey" class="form-control form-control-sm" [(ngModel)]="settings.production.publishablekey" required>
+					</td>
+					<td>
+						<input type="text" name="spubkey" class="form-control form-control-sm" [(ngModel)]="settings.sandbox.publishablekey" required>
+					</td>
+					<td>
+						<input type="text" name="dpubkey" class="form-control form-control-sm" [(ngModel)]="settings.demo.publishablekey" required>
+					</td>
+				</tr>
+				<tr>
+					<th width="100px">Secret Word:</th>
+					<td>
+						<input type="text" name="psword" class="form-control form-control-sm" [(ngModel)]="settings.production.secretword" required>
+					</td>
+					<td>
+						<input type="text" name="ssword" class="form-control form-control-sm" [(ngModel)]="settings.sandbox.secretword" required>
+					</td>
+					<td>
+						<input type="text" name="dsword" class="form-control form-control-sm" [(ngModel)]="settings.demo.secretword" required>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</form>

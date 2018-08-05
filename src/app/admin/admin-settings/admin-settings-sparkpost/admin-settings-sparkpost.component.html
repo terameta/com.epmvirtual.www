@@ -1,0 +1,56 @@
+<form #f="ngForm" (ngSubmit)="save(f)">
+	<div class="btn-toolbar" role="toolbar">
+		<span *ngIf="f.dirty">Changes pending, please remember to click save...</span>
+		<div class="btn-group btn-group-sm ml-auto">
+			<button class="btn btn-success" type="submit" [disabled]="f.invalid && f.dirty">Save</button>
+		</div>
+	</div>
+	<div class="table-responsive pt-1">
+		<table class="table table-condensed table-sm table-bordered">
+			<thead>
+				<tr>
+					<th>Setting</th>
+					<th>Value</th>
+				</tr>
+			</thead>
+			<tbody class="text-nowrap">
+				<tr>
+					<th width="100px">Host:</th>
+					<td>
+						<input type="text" name="host" class="form-control form-control-sm" [(ngModel)]="settings.host" required>
+					</td>
+				</tr>
+				<tr>
+					<th>Port:</th>
+					<td>
+						<input type="number" name="port" class="form-control form-control-sm" [(ngModel)]="settings.port" required>
+					</td>
+				</tr>
+				<tr>
+					<th width="100px">Authentication:</th>
+					<td>
+						<input type="text" name="authentication" class="form-control form-control-sm" [(ngModel)]="settings.authentication">
+					</td>
+				</tr>
+				<tr>
+					<th width="100px">Encryption:</th>
+					<td>
+						<input type="text" name="encryption" class="form-control form-control-sm" [(ngModel)]="settings.encryption">
+					</td>
+				</tr>
+				<tr>
+					<th>Username:</th>
+					<td>
+						<input type="text" name="username" class="form-control form-control-sm" [(ngModel)]="settings.user">
+					</td>
+				</tr>
+				<tr>
+					<th>Password:</th>
+					<td>
+						<input type="text" name="password" class="form-control form-control-sm" [(ngModel)]="settings.pass">
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</form>

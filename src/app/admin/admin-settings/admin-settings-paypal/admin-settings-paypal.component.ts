@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SettingsPayPal } from '../../../../models/settings.paypal';
 import { NgForm } from '@angular/forms';
-import { AngularFirestore } from 'angularfire2/firestore';
+import { AngularFirestore, Action, DocumentSnapshot } from 'angularfire2/firestore';
 
 @Component( {
 	selector: 'app-admin-settings-paypal',
@@ -9,15 +9,19 @@ import { AngularFirestore } from 'angularfire2/firestore';
 	styleUrls: [ './admin-settings-paypal.component.scss' ]
 } )
 export class AdminSettingsPaypalComponent implements OnInit {
-	public settings = <SettingsPayPal>{};
+	public settings = <SettingsPayPal>{ production: {}, sandbox: {} };
 
 	constructor(
 		private db: AngularFirestore
 	) {
 		this.db.
 			doc<SettingsPayPal>( 'settings/paypal' ).
-			valueChanges().
-			subscribe( payload => this.settings = Object.assign( this.settings, payload ) );
+			snapshotChanges().
+			subscribe( this.initiate );
+	}
+
+	private initiate = ( action: Action<DocumentSnapshot<SettingsPayPal>> ) => {
+		this.settings = Object.assign( this.settings, action.payload.data() );
 	}
 
 	ngOnInit() {

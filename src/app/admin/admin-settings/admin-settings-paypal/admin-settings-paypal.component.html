@@ -5,50 +5,68 @@
 			<button class="btn btn-success" type="submit" [disabled]="f.invalid && f.dirty">Save</button>
 		</div>
 	</div>
-	<br>
-	<div class="table-responsive">
-		<table class="table table-condensed table-sm">
+	<div class="table-responsive pt-1">
+		<table class="table table-condensed table-sm table-bordered">
+			<thead>
+				<tr>
+					<th>Setting</th>
+					<th>Production Value</th>
+					<th>Sandbox Value</th>
+				</tr>
+			</thead>
 			<tbody class="text-nowrap">
 				<tr>
 					<th width="100px">E-Mail:</th>
 					<td>
-						<input type="email" name="email" class="form-control form-control-sm" [(ngModel)]="settings.email" email>
+						<input type="email" name="pemail" class="form-control form-control-sm" [(ngModel)]="settings.production.email" email>
+					</td>
+					<td>
+						<input type="email" name="semail" class="form-control form-control-sm" [(ngModel)]="settings.sandbox.email" email>
 					</td>
 				</tr>
 				<tr>
 					<th>Username:</th>
 					<td>
-						<input type="text" name="username" class="form-control form-control-sm" [(ngModel)]="settings.username">
+						<input type="text" name="puser" class="form-control form-control-sm" [(ngModel)]="settings.production.username">
+					</td>
+					<td>
+						<input type="text" name="suser" class="form-control form-control-sm" [(ngModel)]="settings.sandbox.username">
 					</td>
 				</tr>
 				<tr>
 					<th>Password:</th>
 					<td>
-						<input type="text" name="password" class="form-control form-control-sm" [(ngModel)]="settings.password">
+						<input type="text" name="ppass" class="form-control form-control-sm" [(ngModel)]="settings.production.password">
+					</td>
+					<td>
+						<input type="text" name="spass" class="form-control form-control-sm" [(ngModel)]="settings.sandbox.password">
 					</td>
 				</tr>
 				<tr>
 					<th>Signature:</th>
 					<td>
-						<input type="text" name="signature" class="form-control form-control-sm" [(ngModel)]="settings.signature">
+						<input type="text" name="psignature" class="form-control form-control-sm" [(ngModel)]="settings.production.signature">
 					</td>
-				</tr>
-				<tr>
-					<th>isSandBox:</th>
 					<td>
-						<input type="checkbox" name="issandbox" class="form-control form-control-sm" [(ngModel)]="settings.isSandBox">
+						<input type="text" name="ssignature" class="form-control form-control-sm" [(ngModel)]="settings.sandbox.signature">
 					</td>
 				</tr>
 				<tr>
 					<th>Client ID:</th>
 					<td>
-						<input type="text" name="cid" class="form-control form-control-sm" [(ngModel)]="settings.clientID">
+						<input type="text" name="pclientID" class="form-control form-control-sm" [(ngModel)]="settings.production.clientID">
+					</td>
+					<td>
+						<input type="text" name="sclientID" class="form-control form-control-sm" [(ngModel)]="settings.sandbox.clientID">
 					</td>
 				</tr>
 				<tr>
 					<th>Secret:</th>
 					<td>
-						<input type="text" name="secret" class="form-control form-control-sm" [(ngModel)]="settings.secret">
+						<input type="text" name="psecret" class="form-control form-control-sm" [(ngModel)]="settings.production.secret">
+					</td>
+					<td>
+						<input type="text" name="ssecret" class="form-control form-control-sm" [(ngModel)]="settings.sandbox.secret">
 					</td>
 				</tr>
 			</tbody>
