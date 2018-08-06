@@ -86,10 +86,10 @@
 								<input type="text" name="phonenumbern{{phone.position}}" class="form-control form-control-sm" [(ngModel)]="phone.number" placeholder="Phone Number">
 								<input type="text" name="phonenumberl{{phone.position}}" class="form-control form-control-sm" [(ngModel)]="phone.linkNumber" placeholder="Link Number">
 								<div class="input-group-append">
-									<button class="btn btn-outline-secondary" type="button" (click)="phoneNumberMoveDown(i, f)">
+									<button class="btn btn-outline-secondary border-right-0" type="button" (click)="phoneNumberMoveDown(i, f)">
 										<i class="fas fa-caret-down"></i>
 									</button>
-									<button class="btn btn-outline-secondary" type="button" (click)="phoneNumberMoveUp(i, f)">
+									<button class="btn btn-outline-secondary border-right-0" type="button" (click)="phoneNumberMoveUp(i, f)">
 										<i class="fas fa-caret-up"></i>
 									</button>
 									<button class="btn btn-outline-danger" type="button" (click)="phoneNumberDelete(i, f)">
@@ -117,7 +117,15 @@
 								<input type="text" name="counter{{counter.name}}name" class="form-control form-control-sm" [(ngModel)]="counter.name">
 								<input type="text" name="counter{{counter.name}}value" class="form-control form-control-sm" [(ngModel)]="counter.value">
 								<div class="input-group-append">
-									<button class="btn btn-outline-danger" type="button" (click)="counterDelete(i, f)">
+									<button class="btn btn-outline-secondary border-right-0" type="button" (click)="counterIncrement(i, 1, f)"> +1 </button>
+									<button class="btn btn-outline-secondary border-right-0" type="button" (click)="counterIncrement(i, 10, f)"> +10 </button>
+									<button class="btn btn-outline-secondary border-right-0" type="button" (click)="counterIncrement(i, 100, f)"> +100 </button>
+									<button class="btn btn-outline-secondary border-right-0" type="button" (click)="counterIncrement(i, 1000, f)"> +1K </button>
+									<button class="btn btn-outline-secondary border-right-0" type="button" (click)="counterIncrement(i, -1, f)"> -1 </button>
+									<button class="btn btn-outline-secondary border-right-0" type="button" (click)="counterIncrement(i, -10, f)"> -10 </button>
+									<button class="btn btn-outline-secondary border-right-0" type="button" (click)="counterIncrement(i, -100, f)"> -100 </button>
+									<button class="btn btn-outline-secondary border-right-0" type="button" (click)="counterIncrement(i, -1000, f)"> -1K </button>
+									<button class="btn btn-outline-secondary" type="button" (click)="counterDelete(i, f)">
 										<i class="fas fa-trash-alt"></i>
 									</button>
 								</div>

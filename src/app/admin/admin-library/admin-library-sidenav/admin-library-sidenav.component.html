@@ -1,0 +1,7 @@
+<tree-root [nodes]="folderTree" [options]="treeOptions" (activate)="onTreeNodeActive($event)" (initialized)="onTreeInitialized($event)" [focused]="true">
+	<ng-template #treeNodeTemplate let-node let-index="index">
+		<i class="fas fa-folder fa-fw" *ngIf="node.data.isFolder"></i>
+		<i class="fas fa-file fa-fw" *ngIf="!node.data.isFolder"></i>
+		<span>{{ node.data.name }}</span>
+	</ng-template>
+</tree-root>

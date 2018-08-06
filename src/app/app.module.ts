@@ -10,6 +10,8 @@ import { AppComponent } from './app.component';
 import { systemSettings } from './app.settings';
 import { Routes, RouterModule } from '@angular/router';
 
+import { TreeModule } from 'angular-tree-component';
+
 import { AuthGuardService as AuthGuard } from './auth-guard.service';
 
 const routes: Routes = [
@@ -29,7 +31,8 @@ const routes: Routes = [
 		AngularFireModule.initializeApp( systemSettings.firebase ),
 		AngularFireAuthModule,
 		AngularFirestoreModule,
-		RouterModule.forRoot( routes )
+		RouterModule.forRoot( routes ),
+		TreeModule
 	],
 	exports: [
 		FormsModule

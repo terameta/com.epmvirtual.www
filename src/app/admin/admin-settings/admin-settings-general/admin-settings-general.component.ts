@@ -5,6 +5,7 @@ import { AngularFirestore, Action, DocumentSnapshot } from 'angularfire2/firesto
 
 import { SettingsGeneral, settingsGeneralDefault, SettingsPhoneNumber } from '../../../../models/settings.general';
 import { SortByPosition } from '../../../../utilities/utilityFunctions';
+import { AdminSettingsService } from '../admin-settings.service';
 
 @Component( {
 	selector: 'app-admin-settings-general',
@@ -15,7 +16,8 @@ export class AdminSettingsGeneralComponent implements OnInit {
 	public settings: SettingsGeneral = settingsGeneralDefault();
 
 	constructor(
-		private db: AngularFirestore
+		private db: AngularFirestore,
+		private ms: AdminSettingsService
 	) {
 		this.db.
 			doc<SettingsGeneral>( 'settings/general' ).
@@ -70,6 +72,12 @@ export class AdminSettingsGeneralComponent implements OnInit {
 	public counterDelete = ( index: number, form: NgForm ) => {
 		this.settings.counters.splice( index, 1 );
 		form.form.markAsDirty();
+	}
+
+	public counterIncrement = ( index: number, increment: number, form: NgForm ) => {
+		this.ms.counterIncrement( this.settings.counters[ index ].name, increment ).then( ( result ) => {
+			console.log( 'New counter value is assigned as', result );
+		} );
 	}
 
 }
