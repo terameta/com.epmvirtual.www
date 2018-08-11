@@ -1,6 +1,5 @@
 @import './style.variables';
 @import '../node_modules/bootstrap/scss/bootstrap';
-@import '~angular-tree-component/dist/angular-tree-component.css';
 @import url('https://fonts.googleapis.com/css?family=Ubuntu:400,700,900');
 
 :root {
@@ -96,7 +95,7 @@ color: #777;
 }
 
 section.content {
-padding-top: 4rem;
+	padding-top: 3.7rem;
 }
 
 a {

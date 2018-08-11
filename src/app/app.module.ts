@@ -10,8 +10,6 @@ import { AppComponent } from './app.component';
 import { systemSettings } from './app.settings';
 import { Routes, RouterModule } from '@angular/router';
 
-import { TreeModule } from 'angular-tree-component';
-
 import { AuthGuardService as AuthGuard } from './auth-guard.service';
 
 const routes: Routes = [
@@ -26,13 +24,12 @@ const routes: Routes = [
 		AppComponent
 	],
 	imports: [
-		BrowserModule.withServerTransition( { appId: 'www-epmvirtual-com' } ),
+		BrowserModule,
 		FormsModule,
 		AngularFireModule.initializeApp( systemSettings.firebase ),
 		AngularFireAuthModule,
 		AngularFirestoreModule,
-		RouterModule.forRoot( routes ),
-		TreeModule
+		RouterModule.forRoot( routes )
 	],
 	exports: [
 		FormsModule
