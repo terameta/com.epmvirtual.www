@@ -1,3 +1,2 @@
-<p>
-  admin-library-detail works!
-</p>
+<app-admin-library-detail-folder *ngIf="documentType == itemType.folder"></app-admin-library-detail-folder>
+<app-admin-library-detail-document *ngIf="documentType != itemType.folder"></app-admin-library-detail-document>

@@ -17,7 +17,7 @@ const routes: Routes = [
 	{ path: '2co', component: AdminSettingsTwocoComponent },
 	{ path: 'smtp', component: AdminSettingsSmtpComponent },
 	{ path: 'sparkpost', component: AdminSettingsSparkpostComponent }
-]
+];
 
 @NgModule( {
 	imports: [
