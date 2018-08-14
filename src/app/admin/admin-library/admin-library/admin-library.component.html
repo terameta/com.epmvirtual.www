@@ -1,14 +1,10 @@
 <nav aria-label="breadcrumb" class="p-0">
 	<ol class="breadcrumb py-1 rounded-0">
-		<li class="breadcrumb-item">
-			<a href="#">Library Home</a>
-		</li>
-		<li class="breadcrumb-item">
-			<a href="#">Hyperion Related</a>
-		</li>
-		<li class="breadcrumb-item active" aria-current="page">
-			<a href="#">Hyperion Related</a>
-		</li>
+		<ng-container *ngFor="let crumb of crumbs; let islast = last;">
+			<li class="breadcrumb-item" [ngClass]="{active: islast}">
+				<a routerLink="{{crumb.id}}">{{crumb.name}}</a>
+			</li>
+		</ng-container>
 	</ol>
 </nav>
 <main role="main">

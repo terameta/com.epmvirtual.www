@@ -1,3 +1,72 @@
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-12 p-0">
+			<span *ngIf="!docsReceived" style="text-align: center">
+				<i class="fas fa-circle-notch fa-spin"></i>
+				<br> Refreshing, please wait...
+				<br>
+			</span>
+			<span *ngIf="children.length == 0 && docsReceived">
+				<br> There are no items under this folder.
+				<br> Please use above buttons to create.
+				<br>
+				<br>
+			</span>
+			<div class="table-responsive" *ngIf="children.length > 0">
+				<table class="table table-sm" style="margin:0">
+					<thead>
+						<tr>
+							<th class="pt-1 pb-0 px-1" width="16">
+								<button class="btn btn-light p-0 m-0" type="button" title="Set All Selected" (click)="setAllSelected()" *ngIf="selectedItems.length === 0">
+									<i class="far fa-square fa-fw"></i>
+								</button>
+								<button class="btn btn-light p-0 m-0" type="button" title="Set None Selected" (click)="setNoneSelected()" *ngIf="selectedItems.length === children.length">
+									<i class="far fa-check-square fa-fw"></i>
+								</button>
+								<button class="btn btn-light p-0 m-0" type="button" title="Set None Selected" (click)="setNoneSelected()" *ngIf="selectedItems.length < children.length && selectedItems.length > 0">
+									<i class="far fa-minus-square fa-fw"></i>
+								</button>
+							</th>
+							<th>Name</th>
+							<th width="100">Created On</th>
+							<th width="60">Actions</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr *ngFor="let document of children">
+							<td class="pt-1 pb-0 px-1">
+								<button class="btn btn-light p-0 m-0" type="button" title="Select" (click)="setSelected(document.id)" *ngIf="!isSelected(document.id)">
+									<i class="far fa-square fa-fw"></i>
+								</button>
+								<button class="btn btn-light p-0 m-0" type="button" title="Unselect" (click)="setUnselected(document.id)" *ngIf="isSelected(document.id)">
+									<i class="far fa-check-square fa-fw"></i>
+								</button>
+							</td>
+							<td>
+								<a [routerLink]="'../' + document.id">{{document.name}}</a>
+							</td>
+							<td>
+								<span title="{{document.createdOn}}">
+									{{document.createdOn | date:'yyyy-MM-dd' }}
+								</span>
+							</td>
+							<td class="p-0 m-0">
+								<div class="btn-group btn-group-sm">
+									<button class="btn btn-light" type="button" title="Rename" (click)="openRenameDocumentDialog(document.id)">
+										<i class="fas fa-i-cursor fa-fw"></i>
+									</button>
+									<button class="btn btn-light" type="button" (click)="deleteDocument(document.id)" title="Delete">
+										<i class="far fa-trash-alt fa-fw text-danger"></i>
+									</button>
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
 <pre>{{ document | json }}</pre>
 <pre>Children:
 {{ children | json }}

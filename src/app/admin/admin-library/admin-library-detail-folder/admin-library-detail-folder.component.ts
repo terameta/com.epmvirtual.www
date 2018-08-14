@@ -18,6 +18,9 @@ export class AdminLibraryDetailFolderComponent implements OnInit, OnDestroy {
 
 	public document: Document;
 	public children: Document[] = [];
+	public selectedItems: string[] = [];
+
+	public docsReceived = false;
 
 	constructor(
 		private db: AngularFirestore,
@@ -26,22 +29,27 @@ export class AdminLibraryDetailFolderComponent implements OnInit, OnDestroy {
 	) { }
 
 	ngOnInit() {
-		this.idSubscription = this.ss.currentIDO.
+		this.idSubscription = this.ss.currentID$.
 			pipe( filter( a => !!a ) ).
 			subscribe( this.handleIDChange );
 	}
 
 	ngOnDestroy() {
-		if ( this.documentSubscription ) { this.documentSubscription.unsubscribe(); }
-		if ( this.idSubscription ) { this.idSubscription.unsubscribe(); }
-		if ( this.childrenSubscription ) { this.childrenSubscription.unsubscribe(); }
+		if ( this.documentSubscription ) this.documentSubscription.unsubscribe();
+		this.documentSubscription = null;
+		if ( this.idSubscription ) this.idSubscription.unsubscribe();
+		this.idSubscription = null;
+		if ( this.childrenSubscription ) this.childrenSubscription.unsubscribe();
+		this.childrenSubscription = null;
 	}
 
 	private handleIDChange = ( id: string ) => {
-		if ( this.documentSubscription ) { this.documentSubscription.unsubscribe(); }
+		this.docsReceived = false;
+		if ( this.documentSubscription ) this.documentSubscription.unsubscribe();
 		this.documentSubscription = this.db.
 			doc<Document>( '/library/' + id ).snapshotChanges().
 			subscribe( this.handleDocumentChange );
+		if ( this.childrenSubscription ) this.childrenSubscription.unsubscribe();
 		this.childrenSubscription = this.db.
 			collection( '/library', ref => ref.where( 'parent', '==', id ) ).snapshotChanges().
 			subscribe( this.handleChildrenChange );
@@ -52,8 +60,26 @@ export class AdminLibraryDetailFolderComponent implements OnInit, OnDestroy {
 	}
 
 	private handleChildrenChange = ( dChildrenActions: DocumentChangeAction<Document>[] ) => {
-		this.children = dChildrenActions.map( c => ( { id: c.payload.doc.id, ...c.payload.doc.data() } ) );
+		this.docsReceived = true;
+		this.children = dChildrenActions.
+			map( c => ( { id: c.payload.doc.id, ...c.payload.doc.data() } ) ).
+			map( d => { d.createdOn = ( d.createdOn as any ).toDate(); return d; } );
 		// this.document = dAction.payload.data();
 	}
+
+	public isSelected = ( id: string ) => {
+		return this.selectedItems.findIndex( e => e === id ) >= 0;
+	}
+
+	public setSelected = ( id: string ) => {
+		this.selectedItems.push( id );
+	}
+
+	public setUnselected = ( id: string ) => {
+		this.selectedItems = this.selectedItems.filter( i => i !== id );
+	}
+
+	public setAllSelected = () => this.selectedItems = this.children.map( item => item.id );
+	public setNoneSelected = () => this.selectedItems = [];
 
 }

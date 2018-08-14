@@ -7,10 +7,10 @@ import { BehaviorSubject } from 'rxjs';
 	providedIn: 'root'
 } )
 export class AdminSharedService {
-	public currentIDO: BehaviorSubject<string> = new BehaviorSubject( '' );
+	public currentID$: BehaviorSubject<string> = new BehaviorSubject( '' );
 	public currentID = '';
 	public currentURL = '';
-	public currentURLO: BehaviorSubject<string> = new BehaviorSubject( '' );
+	public currentURL$: BehaviorSubject<string> = new BehaviorSubject( '' );
 
 
 	constructor(
@@ -23,14 +23,14 @@ export class AdminSharedService {
 	private routeHandler = ( event: Event ) => {
 		if ( event instanceof NavigationEnd ) {
 			this.currentURL = event.url;
-			this.currentURLO.next( this.currentURL );
+			this.currentURL$.next( this.currentURL );
 			const urlSegments = this.currentURL.split( '/' );
 			if ( urlSegments.length < 4 ) {
 				this.currentID = '';
 			} else {
 				this.currentID = urlSegments[ 3 ];
 			}
-			this.currentIDO.next( this.currentID );
+			this.currentID$.next( this.currentID );
 		}
 	}
 }
