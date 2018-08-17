@@ -5,6 +5,7 @@ import { AdminSharedService } from '../../admin-shared-service.service';
 import { Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { Document } from '../../../models/library.models';
+import { SharedService } from '../../../shared/shared.service';
 
 @Component( {
 	selector: 'app-admin-library-detail-folder',
@@ -25,7 +26,8 @@ export class AdminLibraryDetailFolderComponent implements OnInit, OnDestroy {
 	constructor(
 		private db: AngularFirestore,
 		private ms: AdminLibraryService,
-		private ss: AdminSharedService
+		private ss: AdminSharedService,
+		private gss: SharedService
 	) { }
 
 	ngOnInit() {
@@ -64,7 +66,6 @@ export class AdminLibraryDetailFolderComponent implements OnInit, OnDestroy {
 		this.children = dChildrenActions.
 			map( c => ( { id: c.payload.doc.id, ...c.payload.doc.data() } ) ).
 			map( d => { d.createdOn = ( d.createdOn as any ).toDate(); return d; } );
-		// this.document = dAction.payload.data();
 	}
 
 	public isSelected = ( id: string ) => {
@@ -82,4 +83,14 @@ export class AdminLibraryDetailFolderComponent implements OnInit, OnDestroy {
 	public setAllSelected = () => this.selectedItems = this.children.map( item => item.id );
 	public setNoneSelected = () => this.selectedItems = [];
 
+	public rename = async ( id: string, oldName: string ) => {
+		const name: string = await this.gss.prompt( 'What is the new name?', oldName );
+		if ( name && name !== '' ) this.db.doc<Document>( '/library/' + id ).update( { name } );
+	}
+
+	public delete = async ( id: string, name: string ) => {
+		this.gss.confirm( 'Are you sure you want to delete ' + ( name || id ) ).
+			then( console.log ).
+			catch( console.error );
+	}
 }

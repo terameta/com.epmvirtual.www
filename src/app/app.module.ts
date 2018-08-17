@@ -11,6 +11,8 @@ import { systemSettings } from './app.settings';
 import { Routes, RouterModule } from '@angular/router';
 
 import { AuthGuardService as AuthGuard } from './auth-guard.service';
+import { SharedModule } from './shared/shared.module';
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 const routes: Routes = [
 	{ path: '', loadChildren: './end-user/end-user.module#EndUserModule' },
@@ -29,7 +31,9 @@ const routes: Routes = [
 		AngularFireModule.initializeApp( systemSettings.firebase ),
 		AngularFireAuthModule,
 		AngularFirestoreModule,
-		RouterModule.forRoot( routes )
+		RouterModule.forRoot( routes ),
+		SharedModule,
+		ModalModule.forRoot()
 	],
 	exports: [
 		FormsModule

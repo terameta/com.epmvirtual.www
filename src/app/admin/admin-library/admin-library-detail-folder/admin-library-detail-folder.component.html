@@ -1,6 +1,6 @@
 <div class="container-fluid">
 	<div class="row">
-		<div class="col-12 p-0">
+		<div class="col-12">
 			<span *ngIf="!docsReceived" style="text-align: center">
 				<i class="fas fa-circle-notch fa-spin"></i>
 				<br> Refreshing, please wait...
@@ -13,52 +13,36 @@
 				<br>
 			</span>
 			<div class="table-responsive" *ngIf="children.length > 0">
-				<table class="table table-sm" style="margin:0">
+				<table class="table table-sm table-bordered" style="margin:0">
 					<thead>
 						<tr>
-							<th class="pt-1 pb-0 px-1" width="16">
-								<button class="btn btn-light p-0 m-0" type="button" title="Set All Selected" (click)="setAllSelected()" *ngIf="selectedItems.length === 0">
-									<i class="far fa-square fa-fw"></i>
-								</button>
-								<button class="btn btn-light p-0 m-0" type="button" title="Set None Selected" (click)="setNoneSelected()" *ngIf="selectedItems.length === children.length">
-									<i class="far fa-check-square fa-fw"></i>
-								</button>
-								<button class="btn btn-light p-0 m-0" type="button" title="Set None Selected" (click)="setNoneSelected()" *ngIf="selectedItems.length < children.length && selectedItems.length > 0">
-									<i class="far fa-minus-square fa-fw"></i>
-								</button>
+							<th class="py-0 my-0" width="16">
+								<i class="far fa-square fa-fw pointer" title="Set All Selected" (click)="setAllSelected()" *ngIf="selectedItems.length === 0"></i>
+								<i class="far fa-check-square fa-fw pointer" title="Set None Selected" (click)="setNoneSelected()" *ngIf="selectedItems.length === children.length"></i>
+								<i class="far fa-minus-square fa-fw pointer" title="Set None Selected" (click)="setNoneSelected()" *ngIf="selectedItems.length < children.length && selectedItems.length > 0"></i>
 							</th>
-							<th>Name</th>
-							<th width="100">Created On</th>
-							<th width="60">Actions</th>
+							<th class="py-0 my-0">Name</th>
+							<th class="py-0 my-0" width="100">Created On</th>
+							<th class="py-0 my-0" width="60">Actions</th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr *ngFor="let document of children">
-							<td class="pt-1 pb-0 px-1">
-								<button class="btn btn-light p-0 m-0" type="button" title="Select" (click)="setSelected(document.id)" *ngIf="!isSelected(document.id)">
-									<i class="far fa-square fa-fw"></i>
-								</button>
-								<button class="btn btn-light p-0 m-0" type="button" title="Unselect" (click)="setUnselected(document.id)" *ngIf="isSelected(document.id)">
-									<i class="far fa-check-square fa-fw"></i>
-								</button>
+							<td class="py-0 my-0">
+								<i class="far fa-square fa-fw pointer" title="Select" (click)="setSelected(document.id)" *ngIf="!isSelected(document.id)"></i>
+								<i class="far fa-check-square fa-fw pointer" title="Unselect" (click)="setUnselected(document.id)" *ngIf="isSelected(document.id)"></i>
 							</td>
-							<td>
+							<td class="py-0 my-0">
 								<a [routerLink]="'../' + document.id">{{document.name}}</a>
 							</td>
-							<td>
+							<td class="py-0 my-0">
 								<span title="{{document.createdOn}}">
 									{{document.createdOn | date:'yyyy-MM-dd' }}
 								</span>
 							</td>
-							<td class="p-0 m-0">
-								<div class="btn-group btn-group-sm">
-									<button class="btn btn-light" type="button" title="Rename" (click)="openRenameDocumentDialog(document.id)">
-										<i class="fas fa-i-cursor fa-fw"></i>
-									</button>
-									<button class="btn btn-light" type="button" (click)="deleteDocument(document.id)" title="Delete">
-										<i class="far fa-trash-alt fa-fw text-danger"></i>
-									</button>
-								</div>
+							<td class="py-0 my-0 text-center">
+								<i class="fas fa-i-cursor fa-fw pointer" title="Rename" (click)="rename(document.id, document.name)"></i>
+								<i class="far fa-trash-alt fa-fw text-danger pointer" title="Delete" (click)="delete(document.id)"></i>
 							</td>
 						</tr>
 					</tbody>
