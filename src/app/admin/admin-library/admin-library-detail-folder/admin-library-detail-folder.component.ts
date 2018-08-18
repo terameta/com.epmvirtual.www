@@ -47,6 +47,7 @@ export class AdminLibraryDetailFolderComponent implements OnInit, OnDestroy {
 
 	private handleIDChange = ( id: string ) => {
 		this.docsReceived = false;
+		this.children = [];
 		if ( this.documentSubscription ) this.documentSubscription.unsubscribe();
 		this.documentSubscription = this.db.
 			doc<Document>( '/library/' + id ).snapshotChanges().

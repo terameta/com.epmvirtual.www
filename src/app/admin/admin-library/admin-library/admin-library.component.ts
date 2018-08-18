@@ -25,9 +25,11 @@ export class AdminLibraryComponent implements OnInit, OnDestroy {
 	) { }
 
 	ngOnInit() {
-		this.idSubscription = this.ss.currentID$.pipe( filter( a => !!a ) ).
+		this.idSubscription = this.ss.currentID$.
+			pipe( filter( a => !!a ) ).
 			subscribe( this.handleIDChange );
-		this.docSubscription = this.db.collection<Document>( '/library' ).
+		this.docSubscription = this.db.
+			collection<Document>( '/library' ).
 			snapshotChanges().
 			subscribe( this.handleDocChange );
 	}
@@ -39,11 +41,6 @@ export class AdminLibraryComponent implements OnInit, OnDestroy {
 		this.docSubscription = null;
 	}
 
-	private handleDocChange = ( dDocActions: DocumentChangeAction<Document>[] ) => {
-		this.docObject = _.keyBy( dDocActions.map( c => ( { id: c.payload.doc.id, ...c.payload.doc.data() } ) ), 'id' );
-		this.handleIDChange( this.currentID );
-	}
-
 	private handleIDChange = ( id: string ) => {
 		this.currentID = id;
 		this.crumbs = [];
@@ -53,4 +50,10 @@ export class AdminLibraryComponent implements OnInit, OnDestroy {
 			cID = this.docObject[ cID ].parent;
 		}
 	}
+
+	private handleDocChange = ( dDocActions: DocumentChangeAction<Document>[] ) => {
+		this.docObject = _.keyBy( dDocActions.map( c => ( { id: c.payload.doc.id, ...c.payload.doc.data() } ) ), 'id' );
+		this.handleIDChange( this.currentID );
+	}
+
 }

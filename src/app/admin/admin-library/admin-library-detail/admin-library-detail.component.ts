@@ -1,6 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AngularFirestore, Action, DocumentSnapshot } from 'angularfire2/firestore';
-import { AdminLibraryService } from '../admin-library.service';
 import { AdminSharedService } from '../../admin-shared-service.service';
 import { Document } from '../../../models/library.models';
 import { filter } from 'rxjs/operators';
@@ -31,12 +30,17 @@ export class AdminLibraryDetailComponent implements OnInit, OnDestroy {
 
 	ngOnDestroy() {
 		if ( this.documentSubscription ) { this.documentSubscription.unsubscribe(); }
+		this.documentSubscription = null;
 		if ( this.idSubscription ) { this.idSubscription.unsubscribe(); }
+		this.idSubscription = null;
 	}
 
 	private handleIDChange = ( id: string ) => {
 		if ( this.documentSubscription ) { this.documentSubscription.unsubscribe(); }
-		this.documentSubscription = this.db.doc<Document>( '/library/' + id ).snapshotChanges().subscribe( this.handleDocumentChange );
+		this.documentSubscription = this.db.
+			doc<Document>( '/library/' + id ).
+			snapshotChanges().
+			subscribe( this.handleDocumentChange );
 	}
 
 	private handleDocumentChange = ( dAction: Action<DocumentSnapshot<Document>> ) => {
