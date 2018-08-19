@@ -4,6 +4,7 @@ import { ItemType } from '../../../models/generic.models';
 import { AngularFirestore, Action, DocumentSnapshot } from 'angularfire2/firestore';
 import { AdminSharedService } from '../../admin-shared-service.service';
 import { Asset } from '../../../models/asset.models';
+import { filter } from 'rxjs/operators';
 
 @Component( {
 	selector: 'app-admin-assets-detail',
@@ -20,7 +21,11 @@ export class AdminAssetsDetailComponent implements OnInit, OnDestroy {
 	constructor(
 		private db: AngularFirestore,
 		private ss: AdminSharedService
-	) { }
+	) {
+		this.idSubscription = this.ss.currentID$.
+			pipe( filter( a => !!a ) ).
+			subscribe( this.handleIDChange );
+	}
 
 	ngOnInit() {
 	}

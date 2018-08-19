@@ -1,3 +1,55 @@
-<p>
-  admin-assets-detail-folder works!
-</p>
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-12">
+			<span *ngIf="!assetsReceived" style="text-align: center">
+				<i class="fas fa-circle-notch fa-spin"></i>
+				<br> Refreshing, please wait...
+				<br>
+			</span>
+			<span *ngIf="children.length == 0 && assetsReceived">
+				<br> There are no items under this folder.
+				<br> Please use above buttons to create.
+				<br>
+				<br>
+			</span>
+			<div class="table-responsive" *ngIf="children.length > 0">
+				<table class="table table-sm table-bordered m-0">
+					<thead>
+						<tr>
+							<th class="py-0 my-0" width="16">
+								<i class="far fa-square fa-fw pointer" title="Set All Selected" (click)="setAllSelected()" *ngIf="selectedItems.length === 0"></i>
+								<i class="far fa-check-square fa-fw pointer" title="Set None Selected" (click)="setNoneSelected()" *ngIf="selectedItems.length === children.length"></i>
+								<i class="far fa-minus-square fa-fw pointer" title="Set None Selected" (click)="setNoneSelected()" *ngIf="selectedItems.length < children.length && selectedItems.length > 0"></i>
+							</th>
+							<th class="py-0 my-0">Name</th>
+							<th class="py-0 my-0" width="100">Created On</th>
+							<th class="py-0 my-0" width="60">Actions</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr *ngFor="let item of children">
+							<td class="py-0 my-0">
+								<i class="far fa-square fa-fw pointer" title="Select" (click)="setSelected(item.id)" *ngIf="!isSelected(item.id)"></i>
+								<i class="far fa-check-square fa-fw pointer" title="Unselect" (click)="setUnselected(item.id)" *ngIf="isSelected(item.id)"></i>
+							</td>
+							<td class="py-0 my-0">
+								<a [routerLink]="'../' + item.id">{{item.name}}</a>
+							</td>
+							<td class="py-0 my-0">
+								<span title="{{item.createdOn}}">
+									{{item.createdOn | date:'yyyy-MM-dd' }}
+								</span>
+							</td>
+							<td class="py-0 my-0 text-center">
+								<i class="fas fa-i-cursor fa-fw pointer" title="Rename" (click)="rename(item.id, item.name)"></i>
+								<i class="far fa-trash-alt fa-fw text-danger pointer" title="Delete" (click)="delete(item.id)"></i>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+
+<pre>{{children | json}}</pre>

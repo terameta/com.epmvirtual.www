@@ -54,7 +54,8 @@ export class AdminLibraryDetailFolderComponent implements OnInit, OnDestroy {
 			subscribe( this.handleDocumentChange );
 		if ( this.childrenSubscription ) this.childrenSubscription.unsubscribe();
 		this.childrenSubscription = this.db.
-			collection( '/library', ref => ref.where( 'parent', '==', id ) ).snapshotChanges().
+			collection( '/library', ref => ref.where( 'parent', '==', id ) ).
+			snapshotChanges().
 			subscribe( this.handleChildrenChange );
 	}
 

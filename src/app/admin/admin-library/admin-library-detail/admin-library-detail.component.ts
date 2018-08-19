@@ -22,7 +22,9 @@ export class AdminLibraryDetailComponent implements OnInit, OnDestroy {
 		private db: AngularFirestore,
 		private ss: AdminSharedService
 	) {
-		this.idSubscription = this.ss.currentID$.pipe( filter( a => !!a ) ).subscribe( this.handleIDChange );
+		this.idSubscription = this.ss.currentID$.
+			pipe( filter( a => !!a ) ).
+			subscribe( this.handleIDChange );
 	}
 
 	ngOnInit() {

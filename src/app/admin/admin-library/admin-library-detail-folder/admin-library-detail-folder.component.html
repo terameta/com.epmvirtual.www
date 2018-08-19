@@ -13,7 +13,7 @@
 				<br>
 			</span>
 			<div class="table-responsive" *ngIf="children.length > 0">
-				<table class="table table-sm table-bordered" style="margin:0">
+				<table class="table table-sm table-bordered m-0">
 					<thead>
 						<tr>
 							<th class="py-0 my-0" width="16">
@@ -27,22 +27,22 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr *ngFor="let document of children">
+						<tr *ngFor="let item of children">
 							<td class="py-0 my-0">
-								<i class="far fa-square fa-fw pointer" title="Select" (click)="setSelected(document.id)" *ngIf="!isSelected(document.id)"></i>
-								<i class="far fa-check-square fa-fw pointer" title="Unselect" (click)="setUnselected(document.id)" *ngIf="isSelected(document.id)"></i>
+								<i class="far fa-square fa-fw pointer" title="Select" (click)="setSelected(item.id)" *ngIf="!isSelected(item.id)"></i>
+								<i class="far fa-check-square fa-fw pointer" title="Unselect" (click)="setUnselected(item.id)" *ngIf="isSelected(item.id)"></i>
 							</td>
 							<td class="py-0 my-0">
-								<a [routerLink]="'../' + document.id">{{document.name}}</a>
+								<a [routerLink]="'../' + item.id">{{item.name}}</a>
 							</td>
 							<td class="py-0 my-0">
-								<span title="{{document.createdOn}}">
-									{{document.createdOn | date:'yyyy-MM-dd' }}
+								<span title="{{item.createdOn}}">
+									{{item.createdOn | date:'yyyy-MM-dd' }}
 								</span>
 							</td>
 							<td class="py-0 my-0 text-center">
-								<i class="fas fa-i-cursor fa-fw pointer" title="Rename" (click)="rename(document.id, document.name)"></i>
-								<i class="far fa-trash-alt fa-fw text-danger pointer" title="Delete" (click)="delete(document.id)"></i>
+								<i class="fas fa-i-cursor fa-fw pointer" title="Rename" (click)="rename(item.id, item.name)"></i>
+								<i class="far fa-trash-alt fa-fw text-danger pointer" title="Delete" (click)="delete(item.id)"></i>
 							</td>
 						</tr>
 					</tbody>

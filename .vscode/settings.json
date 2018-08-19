@@ -7,5 +7,6 @@
 	"typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": true,
 	"editor.formatOnSave": true,
 	"editor.formatOnPaste": true,
-	"editor.formatOnType": true
+	"editor.formatOnType": true,
+	"workbench.editor.enablePreview": false
 }

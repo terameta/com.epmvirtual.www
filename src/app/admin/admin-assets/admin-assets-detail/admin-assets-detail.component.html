@@ -1,3 +1,2 @@
-<p>
-	admin-assets-detail works!
-</p>
+<app-admin-assets-detail-folder *ngIf="assetType == itemType.folder"></app-admin-assets-detail-folder>
+<app-admin-assets-detail-asset *ngIf="assetType != itemType.folder"></app-admin-assets-detail-asset>
