@@ -5,6 +5,9 @@ import { Asset } from '../../../models/asset.models';
 import { AngularFirestore, DocumentChangeAction } from 'angularfire2/firestore';
 import { AdminSharedService } from '../../admin-shared-service.service';
 import { filter } from 'rxjs/operators';
+import { SharedService } from '../../../shared/shared.service';
+import { ItemType } from '../../../models/generic.models';
+import { AdminAssetsService } from '../admin-assets.service';
 
 @Component( {
 	selector: 'app-admin-assets',
@@ -21,7 +24,9 @@ export class AdminAssetsComponent implements OnInit, OnDestroy {
 
 	constructor(
 		private db: AngularFirestore,
-		private ss: AdminSharedService
+		private ss: AdminSharedService,
+		private gss: SharedService,
+		private ms: AdminAssetsService
 	) { }
 
 	ngOnInit() {

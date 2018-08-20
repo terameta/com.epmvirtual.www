@@ -52,7 +52,7 @@ export class AdminAssetsDetailFolderComponent implements OnInit, OnDestroy {
 			subscribe( this.handleAssetChange );
 		if ( this.childrenSubscription ) this.childrenSubscription.unsubscribe();
 		this.childrenSubscription = this.db.
-			collection( '/assets', ref => ref.where( 'parent', '==', id ) ).
+			collection( 'assets', ref => ref.where( 'parent', '==', id ).orderBy( 'type', 'asc' ).orderBy( 'name', 'asc' ) ).
 			snapshotChanges().
 			subscribe( this.handleChildrenChange );
 	}
@@ -65,7 +65,10 @@ export class AdminAssetsDetailFolderComponent implements OnInit, OnDestroy {
 		this.assetsReceived = true;
 		this.children = dChildrenActions.
 			map( c => ( { id: c.payload.doc.id, ...c.payload.doc.data() } ) ).
-			map( d => { d.createdOn = ( d.createdOn as any ).toDate(); return d; } );
+			map( d => {
+				d.createdOn = d.createdOn ? ( d.createdOn as any ).toDate() : new Date();
+				return d;
+			} );
 	}
 
 	public isSelected = ( id: string ) => this.selectedItems.includes( id );
