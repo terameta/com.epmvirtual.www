@@ -3,7 +3,6 @@ import * as _ from 'lodash';
 import { Subscription } from 'rxjs';
 import { Asset } from '../../../models/asset.models';
 import { AngularFirestore, DocumentChangeAction } from 'angularfire2/firestore';
-import { AdminSharedService } from '../../admin-shared-service.service';
 import { filter } from 'rxjs/operators';
 import { SharedService } from '../../../shared/shared.service';
 import { ItemType } from '../../../models/generic.models';
@@ -24,13 +23,12 @@ export class AdminAssetsComponent implements OnInit, OnDestroy {
 
 	constructor(
 		private db: AngularFirestore,
-		private ss: AdminSharedService,
-		private gss: SharedService,
-		private ms: AdminAssetsService
+		public ss: SharedService,
+		public ms: AdminAssetsService
 	) { }
 
 	ngOnInit() {
-		this.idSubscription = this.ss.currentID$.
+		this.idSubscription = this.ss.cID$.
 			pipe( filter( a => !!a ) ).
 			subscribe( this.handleIDChange );
 		this.assetSubscription = this.db.

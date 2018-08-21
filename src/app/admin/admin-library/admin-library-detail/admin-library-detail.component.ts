@@ -1,10 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AngularFirestore, Action, DocumentSnapshot } from 'angularfire2/firestore';
-import { AdminSharedService } from '../../admin-shared-service.service';
 import { Document } from '../../../models/library.models';
 import { filter } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 import { ItemType } from '../../../models/generic.models';
+import { SharedService } from '../../../shared/shared.service';
 
 @Component( {
 	selector: 'app-admin-library-detail',
@@ -20,9 +20,9 @@ export class AdminLibraryDetailComponent implements OnInit, OnDestroy {
 
 	constructor(
 		private db: AngularFirestore,
-		private ss: AdminSharedService
+		private ss: SharedService
 	) {
-		this.idSubscription = this.ss.currentID$.
+		this.idSubscription = this.ss.cID$.
 			pipe( filter( a => !!a ) ).
 			subscribe( this.handleIDChange );
 	}

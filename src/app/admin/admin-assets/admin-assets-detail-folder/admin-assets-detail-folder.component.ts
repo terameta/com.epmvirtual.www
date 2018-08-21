@@ -1,6 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AngularFirestore, Action, DocumentSnapshot, DocumentChangeAction } from 'angularfire2/firestore';
-import { AdminSharedService } from '../../admin-shared-service.service';
 import { SharedService } from '../../../shared/shared.service';
 import { Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
@@ -24,12 +23,11 @@ export class AdminAssetsDetailFolderComponent implements OnInit, OnDestroy {
 
 	constructor(
 		private db: AngularFirestore,
-		private ss: AdminSharedService,
-		private gss: SharedService
+		private ss: SharedService
 	) { }
 
 	ngOnInit() {
-		this.idSubscription = this.ss.currentID$.
+		this.idSubscription = this.ss.cID$.
 			pipe( filter( a => !!a ) ).
 			subscribe( this.handleIDChange );
 	}
@@ -83,12 +81,12 @@ export class AdminAssetsDetailFolderComponent implements OnInit, OnDestroy {
 	public setNoneSelected = () => this.selectedItems = [];
 
 	public rename = async ( id: string, oldName: string ) => {
-		const name: string = await this.gss.prompt( 'What is the new name?', oldName );
+		const name: string = await this.ss.prompt( 'What is the new name?', oldName );
 		if ( name && name !== '' ) this.db.doc<Asset>( '/assets/' + id ).update( { name } );
 	}
 
 	public delete = async ( id: string, name: string ) => {
-		this.gss.confirm( 'Are you sure you want to delete ' + ( name || id ) ).
+		this.ss.confirm( 'Are you sure you want to delete ' + ( name || id ) ).
 			then( console.log ).
 			catch( console.error );
 	}

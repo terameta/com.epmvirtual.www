@@ -14,3 +14,5 @@ export interface Item {
 export interface EVMap<T> {
 	[ key: string ]: T
 }
+
+export const getDefaultItem = (): Item => <Item>{ id: '', name: '', type: null, parent: '0' };
