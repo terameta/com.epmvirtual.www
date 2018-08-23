@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CentralStatusService } from '../../centralstatus.service';
+import { SharedService } from '../../shared/shared.service';
 
 @Component( {
 	selector: 'app-end-user',
@@ -8,7 +8,7 @@ import { CentralStatusService } from '../../centralstatus.service';
 } )
 export class EndUserComponent implements OnInit {
 
-	constructor( public centralStatus: CentralStatusService ) { }
+	constructor( public ss: SharedService ) { }
 
 	ngOnInit() {
 	}

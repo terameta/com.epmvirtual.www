@@ -33,7 +33,11 @@
 								<i class="far fa-check-square fa-fw pointer" title="Unselect" (click)="setUnselected(item.id)" *ngIf="isSelected(item.id)"></i>
 							</td>
 							<td class="py-0 my-0">
-								<a [routerLink]="'../' + item.id">{{item.name}}</a>
+								<a [routerLink]="'../' + item.id">
+									<i class="fas fa-folder fa-fw" *ngIf="item.type == itemType.folder"></i>
+									<i class="fas fa-file fa-fw" *ngIf="item.type == itemType.asset"></i>
+									{{item.name}}
+								</a>
 							</td>
 							<td class="py-0 my-0">
 								<span title="{{item.createdOn}}">
@@ -42,7 +46,7 @@
 							</td>
 							<td class="py-0 my-0 text-center">
 								<i class="fas fa-i-cursor fa-fw pointer" title="Rename" (click)="rename(item.id, item.name)"></i>
-								<i class="far fa-trash-alt fa-fw text-danger pointer" title="Delete" (click)="delete(item.id)"></i>
+								<i class="far fa-trash-alt fa-fw text-danger pointer" title="Delete" (click)="ss.delete(item.id)"></i>
 							</td>
 						</tr>
 					</tbody>

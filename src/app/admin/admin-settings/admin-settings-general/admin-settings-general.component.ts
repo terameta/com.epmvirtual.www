@@ -6,6 +6,7 @@ import { AngularFirestore, Action, DocumentSnapshot } from 'angularfire2/firesto
 import { SettingsGeneral, settingsGeneralDefault, SettingsPhoneNumber } from '../../../../models/settings.general';
 import { SortByPosition } from '../../../../utilities/utilityFunctions';
 import { AdminSettingsService } from '../admin-settings.service';
+import { SharedService } from '../../../shared/shared.service';
 
 @Component( {
 	selector: 'app-admin-settings-general',
@@ -16,24 +17,23 @@ export class AdminSettingsGeneralComponent implements OnInit {
 	public settings: SettingsGeneral = settingsGeneralDefault();
 
 	constructor(
-		private db: AngularFirestore,
-		private ms: AdminSettingsService
-	) {
-		this.db.
-			doc<SettingsGeneral>( 'settings/general' ).
-			snapshotChanges().
-			subscribe( this.initiate );
-	}
+		private ms: AdminSettingsService,
+		public ss: SharedService
+	) { }
 
 	ngOnInit() {
+		this.ss.cItem$.subscribe( this.initiate );
 	}
 
-	private initiate = ( action: Action<DocumentSnapshot<SettingsGeneral>> ) => {
-		this.settings = Object.assign( this.settings, action.payload.data() );
+	private initiate = ( s ) => {
+		this.settings = Object.assign( this.settings, s );
 	}
 
 	public save = ( form: NgForm ) => {
-		this.db.doc( 'settings/general' ).set( this.settings ).then( () => {
+		// this.db.doc( 'settings/general' ).set( this.settings ).then( () => {
+		// 	form.form.markAsPristine();
+		// } );
+		this.ss.save( this.settings ).then( () => {
 			form.form.markAsPristine();
 		} );
 	}

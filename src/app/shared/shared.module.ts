@@ -4,6 +4,7 @@ import { ConfirmComponent } from './confirm/confirm.component';
 import { PromptComponent } from './prompt/prompt.component';
 import { FormsModule } from '@angular/forms';
 import { SharedService } from './shared.service';
+import { UploadComponent } from './upload/upload.component';
 
 @NgModule( {
 	imports: [
@@ -15,11 +16,13 @@ import { SharedService } from './shared.service';
 	],
 	declarations: [
 		ConfirmComponent,
-		PromptComponent
+		PromptComponent,
+		UploadComponent
 	],
 	entryComponents: [
 		ConfirmComponent,
-		PromptComponent
+		PromptComponent,
+		UploadComponent
 	]
 } )
 export class SharedModule { }

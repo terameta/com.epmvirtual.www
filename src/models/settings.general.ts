@@ -1,4 +1,6 @@
-export interface SettingsGeneral {
+import { Item } from '../app/models/generic.models';
+
+export interface SettingsGeneral extends Partial<Item> {
 	companyName: string,
 	companyStartDate: string,
 	adminEmailAddress: string,

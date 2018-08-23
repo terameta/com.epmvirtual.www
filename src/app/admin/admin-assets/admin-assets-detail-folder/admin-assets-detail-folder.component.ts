@@ -4,6 +4,7 @@ import { SharedService } from '../../../shared/shared.service';
 import { Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { Asset } from '../../../models/asset.models';
+import { ItemType } from '../../../models/generic.models';
 
 @Component( {
 	selector: 'app-admin-assets-detail-folder',
@@ -15,6 +16,8 @@ export class AdminAssetsDetailFolderComponent implements OnInit, OnDestroy {
 	private idSubscription: Subscription;
 	private childrenSubscription: Subscription;
 
+	public itemType = ItemType;
+
 	public asset: Asset;
 	public children: Asset[] = [];
 	public selectedItems: string[] = [];
@@ -23,7 +26,7 @@ export class AdminAssetsDetailFolderComponent implements OnInit, OnDestroy {
 
 	constructor(
 		private db: AngularFirestore,
-		private ss: SharedService
+		public ss: SharedService
 	) { }
 
 	ngOnInit() {

@@ -9,10 +9,10 @@
 </nav>
 <div class="btn-toolbar w-100 mb-3" role="toolbar">
 	<div class="btn-group btn-group-sm ml-auto mr-3" role="group">
-		<button class="btn btn-outline-dark" (click)="ss.itemCreate('assets', {parent:currentID})">
+		<button class="btn btn-outline-dark" (click)="ss.itemCreate({concept:'assets', details:{type: itemType.folder}})">
 			<i class="fas fa-folder fa-fw"></i> New Folder
 		</button>
-		<button class="btn btn-outline-dark">
+		<button class="btn btn-outline-dark" (click)="ss.itemUpload({concept:'assets', details:{type: itemType.asset}})">
 			<i class="fas fa-file fa-fw"></i> New Asset
 		</button>
 	</div>

@@ -16,7 +16,9 @@ import { AdminAssetsService } from '../admin-assets.service';
 export class AdminAssetsComponent implements OnInit, OnDestroy {
 	private idSubscription: Subscription;
 	private assetSubscription: Subscription;
-	public currentID = '0';
+	// public currentID = '0';
+
+	public itemType = ItemType;
 
 	private assetObject: { [ key: string ]: Asset } = {};
 	public crumbs: Asset[] = [ <Asset>{ name: 'Assets Home' } ];
@@ -30,7 +32,7 @@ export class AdminAssetsComponent implements OnInit, OnDestroy {
 	ngOnInit() {
 		this.idSubscription = this.ss.cID$.
 			pipe( filter( a => !!a ) ).
-			subscribe( this.handleIDChange );
+			subscribe( this.prepareCrumbs );
 		this.assetSubscription = this.db.
 			collection<Asset>( '/assets' ).
 			snapshotChanges().
@@ -44,19 +46,18 @@ export class AdminAssetsComponent implements OnInit, OnDestroy {
 		this.assetSubscription = null;
 	}
 
-	private handleIDChange = ( id: string ) => {
-		this.currentID = id;
+	private handleAssetChange = ( dAssetActions: DocumentChangeAction<Asset>[] ) => {
+		this.assetObject = _.keyBy( dAssetActions.map( c => ( { id: c.payload.doc.id, ...c.payload.doc.data() } ) ), 'id' );
+		this.prepareCrumbs();
+	}
+
+	private prepareCrumbs = () => {
 		this.crumbs = [];
-		let cID = id;
+		let cID = this.ss.cID$.getValue();
 		while ( this.assetObject[ cID ] ) {
 			this.crumbs.unshift( this.assetObject[ cID ] );
 			cID = this.assetObject[ cID ].parent;
 		}
-	}
-
-	private handleAssetChange = ( dAssetActions: DocumentChangeAction<Asset>[] ) => {
-		this.assetObject = _.keyBy( dAssetActions.map( c => ( { id: c.payload.doc.id, ...c.payload.doc.data() } ) ), 'id' );
-		this.handleIDChange( this.currentID );
 	}
 
 }

@@ -1,7 +1,8 @@
 export enum ItemType {
 	folder = 1,
 	asset = 2,
-	document = 3
+	document = 3,
+	setting = 4
 }
 
 export interface Item {
@@ -16,3 +17,22 @@ export interface EVMap<T> {
 }
 
 export const getDefaultItem = (): Item => <Item>{ id: '', name: '', type: null, parent: '0' };
+
+export class Upload {
+	$key: string;
+	uuid: string;
+	name: string;
+	contentType: string;
+	url: string;
+	progress: number;
+	parent: string;
+	path: string;
+	countdown: number;
+	createdAt: Date = new Date();
+
+	constructor( public file: File ) {
+		this.name = this.file.name;
+		this.contentType = this.file.type;
+		this.progress = 0;
+	}
+}

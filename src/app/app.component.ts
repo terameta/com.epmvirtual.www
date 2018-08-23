@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CentralStatusService } from './centralstatus.service';
+import { SharedService } from './shared/shared.service';
 
 @Component( {
 	selector: 'app-root',
@@ -7,11 +7,8 @@ import { CentralStatusService } from './centralstatus.service';
 	styleUrls: [ './app.component.scss' ]
 } )
 export class AppComponent implements OnInit {
-	constructor(
-		public centralStatus: CentralStatusService
-	) { }
+	constructor( private ss: SharedService ) { }
 
-	ngOnInit() {
-	}
+	ngOnInit() { }
 
 }
