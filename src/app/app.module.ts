@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AngularFirestoreModule } from '../../node_modules/angularfire2/firestore';
+import { AngularFireStorageModule } from 'angularfire2/storage';
 
 import { AppComponent } from './app.component';
 import { systemSettings } from './app.settings';
@@ -12,7 +13,9 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { AuthGuardService as AuthGuard } from './auth-guard.service';
 import { SharedModule } from './shared/shared.module';
+
 import { ModalModule } from 'ngx-bootstrap/modal';
+import { ProgressbarModule } from 'ngx-bootstrap/progressbar';
 
 const routes: Routes = [
 	{ path: '', loadChildren: './end-user/end-user.module#EndUserModule' },
@@ -31,9 +34,11 @@ const routes: Routes = [
 		AngularFireModule.initializeApp( systemSettings.firebase ),
 		AngularFireAuthModule,
 		AngularFirestoreModule,
+		AngularFireStorageModule,
 		RouterModule.forRoot( routes ),
 		SharedModule,
-		ModalModule.forRoot()
+		ModalModule.forRoot(),
+		ProgressbarModule.forRoot()
 	],
 	exports: [
 		FormsModule

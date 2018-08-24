@@ -20,7 +20,6 @@ export class AdminAssetsDetailFolderComponent implements OnInit, OnDestroy {
 
 	public asset: Asset;
 	public children: Asset[] = [];
-	public selectedItems: string[] = [];
 
 	public assetsReceived = false;
 
@@ -65,23 +64,23 @@ export class AdminAssetsDetailFolderComponent implements OnInit, OnDestroy {
 	private handleChildrenChange = ( dChildrenActions: DocumentChangeAction<Asset>[] ) => {
 		this.assetsReceived = true;
 		this.children = dChildrenActions.
-			map( c => ( { id: c.payload.doc.id, ...c.payload.doc.data() } ) ).
+			map( c => ( { ...c.payload.doc.data(), ...{ id: c.payload.doc.id } } ) ).
 			map( d => {
 				d.createdOn = d.createdOn ? ( d.createdOn as any ).toDate() : new Date();
 				return d;
 			} );
 	}
 
-	public isSelected = ( id: string ) => this.selectedItems.includes( id );
+	public isSelected = ( id: string ) => this.ss.selectedItems.includes( id );
 
-	public setSelected = ( id: string ) => this.selectedItems.push( id );
+	public setSelected = ( id: string ) => this.ss.selectedItems.push( id );
 
 	public setUnselected = ( id: string ) => {
-		this.selectedItems = this.selectedItems.filter( i => i !== id );
+		this.ss.selectedItems = this.ss.selectedItems.filter( i => i !== id );
 	}
 
-	public setAllSelected = () => this.selectedItems = this.children.map( c => c.id );
-	public setNoneSelected = () => this.selectedItems = [];
+	public setAllSelected = () => this.ss.selectedItems = this.children.map( c => c.id );
+	public setNoneSelected = () => this.ss.selectedItems = [];
 
 	public rename = async ( id: string, oldName: string ) => {
 		const name: string = await this.ss.prompt( 'What is the new name?', oldName );

@@ -17,9 +17,9 @@
 					<thead>
 						<tr>
 							<th class="py-0 my-0" width="16">
-								<i class="far fa-square fa-fw pointer" title="Set All Selected" (click)="setAllSelected()" *ngIf="selectedItems.length === 0"></i>
-								<i class="far fa-check-square fa-fw pointer" title="Set None Selected" (click)="setNoneSelected()" *ngIf="selectedItems.length === children.length"></i>
-								<i class="far fa-minus-square fa-fw pointer" title="Set None Selected" (click)="setNoneSelected()" *ngIf="selectedItems.length < children.length && selectedItems.length > 0"></i>
+								<i class="far fa-square fa-fw pointer" title="Set All Selected" (click)="setAllSelected()" *ngIf="ss.selectedItems.length === 0"></i>
+								<i class="far fa-check-square fa-fw pointer" title="Set None Selected" (click)="setNoneSelected()" *ngIf="ss.selectedItems.length === children.length"></i>
+								<i class="far fa-minus-square fa-fw pointer" title="Set None Selected" (click)="setNoneSelected()" *ngIf="ss.selectedItems.length < children.length && ss.selectedItems.length > 0"></i>
 							</th>
 							<th class="py-0 my-0">Name</th>
 							<th class="py-0 my-0" width="100">Created On</th>
@@ -56,4 +56,4 @@
 	</div>
 </div>
 
-<pre>{{children | json}}</pre>
+<pre>{{ss.selectedItems | json}}</pre>

@@ -47,7 +47,7 @@ export class AdminAssetsComponent implements OnInit, OnDestroy {
 	}
 
 	private handleAssetChange = ( dAssetActions: DocumentChangeAction<Asset>[] ) => {
-		this.assetObject = _.keyBy( dAssetActions.map( c => ( { id: c.payload.doc.id, ...c.payload.doc.data() } ) ), 'id' );
+		this.assetObject = _.keyBy( dAssetActions.map( c => ( { ...c.payload.doc.data(), ...{ id: c.payload.doc.id } } ) ), 'id' );
 		this.prepareCrumbs();
 	}
 

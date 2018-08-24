@@ -52,7 +52,7 @@ export class AdminLibraryComponent implements OnInit, OnDestroy {
 	}
 
 	private handleDocChange = ( dDocActions: DocumentChangeAction<Document>[] ) => {
-		this.docObject = _.keyBy( dDocActions.map( c => ( { id: c.payload.doc.id, ...c.payload.doc.data() } ) ), 'id' );
+		this.docObject = _.keyBy( dDocActions.map( c => ( { ...c.payload.doc.data(), ...{ id: c.payload.doc.id } } ) ), 'id' );
 		this.handleIDChange( this.currentID );
 	}
 

@@ -64,7 +64,7 @@ export class AdminLibraryDetailFolderComponent implements OnInit, OnDestroy {
 	private handleChildrenChange = ( dChildrenActions: DocumentChangeAction<Document>[] ) => {
 		this.docsReceived = true;
 		this.children = dChildrenActions.
-			map( c => ( { id: c.payload.doc.id, ...c.payload.doc.data() } ) ).
+			map( c => ( { ...c.payload.doc.data(), ...{ id: c.payload.doc.id } } ) ).
 			map( d => { d.createdOn = ( d.createdOn as any ).toDate(); return d; } );
 	}
 

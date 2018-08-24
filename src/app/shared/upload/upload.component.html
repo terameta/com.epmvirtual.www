@@ -1,3 +1,51 @@
-<p>
-  upload works!
-</p>
+<div class="modal-header">
+	<h4 class="modal-title">New Asset</h4>
+	<h4 class="modal-title">{{parentID}}</h4>
+</div>
+<div class="modal-body">
+	<form (ngSubmit)="close()" *ngIf="uploads.length == 0">
+		<div class="form-group">
+			<div class="custom-file">
+				<input type="file" class="custom-file-input" id="customFile" (change)="detectFiles($event)" multiple>
+				<label class="custom-file-label" for="customFile">Choose file</label>
+			</div>
+		</div>
+	</form>
+	<table class="table table-sm" *ngIf="uploads.length > 0" style="margin:0">
+		<tbody>
+			<tr *ngFor=" let item of uploads; let i = index; ">
+				<td style="border:0">
+					<div class="input-group input-group-sm">
+						<input class="form-control form-control-sm" type="text" placeholder="custom file name" [(ngModel)]="item.name">
+						<div class="input-group-append">
+							<button class="btn btn-outline-secondary btn-sm" type="button" (click)="uploads.splice(i,1);" *ngIf="!item.progress">
+								<i class="far fa-trash-alt fa-fw "></i>
+							</button>
+							<span class="input-group-text" *ngIf="item.progress">
+								<span *ngIf="!item.countdown">
+									{{item.progress.toFixed(1)}}%
+								</span>
+								<span *ngIf="item.countdown">
+									{{item.countdown}}
+								</span>
+							</span>
+						</div>
+					</div>
+					<progressbar type="success" [value]="item.progress" height="2px"></progressbar>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<div class="modal-footer ">
+	<div class="custom-file" *ngIf="uploads.length > 0">
+		<input type="file" class="custom-file-input" id="customFile" (change)="detectFiles($event)" multiple>
+		<label class="custom-file-label" for="customFile">Choose more files</label>
+	</div>
+	<button type="button" class="btn btn-success" (click)="upload()">
+		<i class="fas fa-save "></i> Upload
+	</button>
+	<!-- <button type="button" class="btn btn-default" (click)="activeModal.dismiss('Close click')">
+		<i class="fas fa-ban "></i> Close
+	</button> -->
+</div>

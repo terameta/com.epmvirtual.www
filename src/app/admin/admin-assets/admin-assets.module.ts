@@ -20,6 +20,11 @@ const routes: Routes = [
 		CommonModule,
 		RouterModule.forChild( routes )
 	],
-	declarations: [ AdminAssetsComponent, AdminAssetsDetailComponent, AdminAssetsDetailFolderComponent, AdminAssetsDetailAssetComponent ]
+	declarations: [
+		AdminAssetsComponent,
+		AdminAssetsDetailComponent,
+		AdminAssetsDetailFolderComponent,
+		AdminAssetsDetailAssetComponent
+	]
 } )
 export class AdminAssetsModule { }

@@ -5,11 +5,13 @@ import { PromptComponent } from './prompt/prompt.component';
 import { FormsModule } from '@angular/forms';
 import { SharedService } from './shared.service';
 import { UploadComponent } from './upload/upload.component';
+import { ProgressbarModule } from 'ngx-bootstrap/progressbar';
 
 @NgModule( {
 	imports: [
 		CommonModule,
-		FormsModule
+		FormsModule,
+		ProgressbarModule
 	],
 	providers: [
 		SharedService

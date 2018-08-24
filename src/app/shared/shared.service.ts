@@ -8,6 +8,8 @@ import { Router, Event, NavigationEnd, NavigationExtras } from '@angular/router'
 import { BehaviorSubject, timer, Subscription } from 'rxjs';
 import { debounce, take, map } from 'rxjs/operators';
 import { UploadComponent } from './upload/upload.component';
+import { AngularFireStorage } from 'angularfire2/storage';
+import { Asset } from '../models/asset.models';
 
 @Injectable( {
 	providedIn: 'root'
@@ -20,12 +22,15 @@ export class SharedService {
 	public shouldShowHeader = true;
 	public shouldShowFooter = true;
 
+	public selectedItems: string[] = [];
+
 	private dbURL$: BehaviorSubject<string> = new BehaviorSubject( '' );
 
 	private itemSubscription: Subscription;
 
 	constructor(
 		private db: AngularFirestore,
+		private storage: AngularFireStorage,
 		private modalService: BsModalService,
 		private router: Router
 	) {
@@ -44,7 +49,7 @@ export class SharedService {
 	}
 
 	private itemHandler = ( iAction: Action<DocumentSnapshot<Item>> ) => {
-		this.cItem$.next( { id: iAction.payload.id, ...iAction.payload.data() } );
+		this.cItem$.next( { ...iAction.payload.data(), ...{ id: iAction.payload.id } } );
 	}
 
 	private routeHandler = ( event: Event ) => {
@@ -71,6 +76,7 @@ export class SharedService {
 	private urlActOnAdmin = ( urlSegments: string[] ) => {
 		this.concept$.next( urlSegments[ 1 ] || '' );
 		this.cID$.next( urlSegments[ 2 ] || '0' );
+		this.selectedItems = [];
 		this.dbURL$.next( this.cURL$.getValue().replace( '/admin', '' ) );
 	}
 
@@ -92,7 +98,7 @@ export class SharedService {
 		}
 	}
 
-	public confirm = ( question: string ) => {
+	public confirm = ( question: string ): Promise<boolean> => {
 		const modalRef: BsModalRef = this.modalService.show( ConfirmComponent, { initialState: { question } } );
 		return new Promise( ( resolve, reject ) => {
 			modalRef.content.onClose.subscribe( resolve, reject );
@@ -106,49 +112,56 @@ export class SharedService {
 		} );
 	}
 
-	public folderDelete = ( concept: string, id: string ) => {
-
-	}
-
-	public itemCreate = ( payload: { concept?: string, details: Partial<Item> } ) => {
+	public itemCreate = async ( payload: { concept?: string, details: Partial<Item> } ) => {
 		if ( !payload.details.parent ) payload.details.parent = this.cID$.getValue();
 		if ( !payload.concept ) payload.concept = this.concept$.getValue();
-		this.prompt( 'What is the new folder name?' ).then( ( name: string ) => {
-			if ( name ) {
-				const item = { ...payload.details, ...{ name } };
-				this.db.collection( payload.concept ).add( item ).catch( console.error );
-			}
-		} ).catch( console.error );
+		if ( !payload.details.name ) payload.details.name = await this.prompt( 'Name?' );
+		if ( !payload.details.name ) payload.details.name = '-';
+		if ( !payload.details.id ) payload.details.id = this.db.createId();
+		await this.db.doc( payload.concept + '/' + payload.details.id ).set( payload.details ).catch( console.error );
 	}
 
 	public itemUpload = ( payload: { concept?: string, details: Partial<Item> } ) => {
-		console.log( payload );
-		const modalRef: BsModalRef = this.modalService.show( UploadComponent );
+		const modalRef: BsModalRef = this.modalService.show( UploadComponent, { initialState: { parentID: this.cID$.getValue() } } );
+		modalRef.content.onUpload.subscribe( i => this.itemCreate( { concept: 'assets', details: i } ) );
 		return new Promise( ( resolve, reject ) => {
-			// modalRef.content.onClose.subscribe
+			modalRef.content.onClose.subscribe( resolve, reject );
 		} );
 	}
 
 	public save = ( item ) => this.db.doc( this.dbURL$.getValue() ).set( item );
 	public update = ( item ) => this.db.doc( this.dbURL$.getValue() ).update( item );
-	public delete = ( id?: string ): Promise<void> => {
-		return new Promise( ( resolve, reject ) => {
-			if ( !id ) id = this.cID$.getValue();
-			this.db.collection( this.concept$.getValue() ).
-				snapshotChanges().
-				pipe(
-					take( 1 ),
-					map( i => i.map( a => ( a.payload.doc ) ) ),
-					map( i => i.map( a => ( { id: a.id, ...a.data() } ) ) )
-				).
-				subscribe( ( items: any[] ) => {
-					this.deleteAction( id, items ).then( resolve ).catch( reject );
-				} );
-		} );
-
+	public deleteSelected = async () => {
+		const shouldWe = await this.confirm( 'Are you sure?' );
+		if ( shouldWe === true ) {
+			for ( const id of this.selectedItems ) {
+				await this.delete( id, false );
+			}
+			this.selectedItems = [];
+		}
+	}
+	public delete = async ( id?: string, shouldConfirm = true ): Promise<any> => {
+		let confirmed = false;
+		if ( shouldConfirm ) confirmed = await this.confirm( 'Are you sure?' );
+		if ( !shouldConfirm ) confirmed = true;
+		if ( confirmed ) {
+			return new Promise( ( resolve, reject ) => {
+				if ( !id ) id = this.cID$.getValue();
+				this.db.collection( this.concept$.getValue() ).
+					snapshotChanges().
+					pipe(
+						take( 1 ),
+						map( i => i.map( a => ( a.payload.doc ) ) ),
+						map( i => i.map( a => ( { ...a.data(), ...{ id: a.id } } ) ) )
+					).
+					subscribe( ( items: any[] ) => {
+						this.deleteAction( id, items ).then( () => resolve() ).catch( reject );
+					} );
+			} );
+		}
 	}
 
-	private deleteAction = async ( id: string, items: any[] ) => {
+	private deleteAction = async ( id: string, items: any[] ): Promise<void> => {
 		if ( items.filter( a => a.id === id )[ 0 ].type === ItemType.folder ) {
 			await this.deleteFolder( id, items );
 		} else {
@@ -164,7 +177,11 @@ export class SharedService {
 	}
 
 	private deleteItem = async ( id: string, items: any[] ) => {
-		await this.db.doc( this.concept$.getValue() + '/' + id ).delete();
+		const item = items.find( i => i.id === id );
+		if ( item.type === ItemType.asset && item.storageAddress ) {
+			await this.storage.ref( item.storageAddress ).delete().toPromise().catch( console.error );
+		}
+		await this.db.doc( this.concept$.getValue() + '/' + id ).delete().catch( console.error );
 	}
 
 }
