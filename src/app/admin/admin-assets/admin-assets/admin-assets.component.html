@@ -7,7 +7,7 @@
 		</ng-container>
 	</ol>
 </nav>
-<div class="btn-toolbar w-100 mb-3" role="toolbar">
+<div class="btn-toolbar w-100 mb-3" role="toolbar" *ngIf="(ss.cItem$ | async).type === itemType.folder">
 	<div class="btn-group btn-group-sm ml-3" role="group">
 		<button type="button" class="btn btn-outline-evwarning" (click)="ss.deleteSelected()" *ngIf="ss.selectedItems.length > 0">
 			<i class="far fa-trash-alt fa-fw" title="Delete Selected"></i> Delete Selected

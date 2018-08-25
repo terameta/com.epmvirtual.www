@@ -184,4 +184,7 @@ export class SharedService {
 		await this.db.doc( this.concept$.getValue() + '/' + id ).delete().catch( console.error );
 	}
 
+	public unsub = ( subscriptions: Subscription[] ) => subscriptions.forEach( s => { s.unsubscribe(); s = null; } );
+	public getsubs = () => <Subscription[]>[];
+
 }

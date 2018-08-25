@@ -1,3 +1,40 @@
-<p>
-  admin-assets-detail-asset works!
-</p>
+<div class="container-fluid">
+	<div class="row">
+		<div class="col">
+			<div class="table-responsive">
+				<table class="table table-sm table-bordered">
+					<tbody>
+						<tr>
+							<td width="120">Name:</td>
+							<td>{{ item.name }}</td>
+						</tr>
+						<tr>
+							<td>Content Type:</td>
+							<td>{{ item.contentType }}</td>
+						</tr>
+						<tr>
+							<td>Created On:</td>
+							<td>{{ item.createdOn | date }}</td>
+						</tr>
+						<tr>
+							<td>Storage Address:</td>
+							<td>{{ item.storageAddress }}</td>
+						</tr>
+						<tr *ngIf="canPreview">
+							<td>Preview:</td>
+							<td>
+								<img class="w-100" src="{{item.url}}">
+							</td>
+						</tr>
+						<tr *ngIf="!canPreview">
+							<td>Download:</td>
+							<td>
+								<a href="{{item.url}}">{{item.name}}</a>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
