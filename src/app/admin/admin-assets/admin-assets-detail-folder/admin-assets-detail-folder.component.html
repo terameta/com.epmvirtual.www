@@ -34,8 +34,8 @@
 							</td>
 							<td class="py-0 my-0">
 								<a [routerLink]="'../' + item.id">
-									<i class="fas fa-folder fa-fw" *ngIf="item.type == itemType.folder"></i>
-									<i class="fas fa-file fa-fw" *ngIf="item.type == itemType.asset"></i>
+									<i class="fas fa-folder fa-fw mr-1" *ngIf="item.type == itemType.folder"></i>
+									<i class="fas fa-file fa-fw mr-1" *ngIf="item.type == itemType.asset"></i>
 									{{item.name}}
 								</a>
 							</td>
@@ -45,8 +45,8 @@
 								</span>
 							</td>
 							<td class="py-0 my-0 text-center">
-								<i class="fas fa-i-cursor fa-fw pointer" title="Rename" (click)="rename(item.id, item.name)"></i>
-								<i class="far fa-trash-alt fa-fw text-danger pointer" title="Delete" (click)="ss.delete(item.id)"></i>
+								<i class="fas fa-i-cursor fa-fw pointer" title="Rename" (click)="ss.rename(item.id, item.name)"></i>
+								<i class="far fa-trash-alt fa-fw text-danger pointer" title="Delete" (click)="ss.delete({id:item.id, name: item.name})"></i>
 							</td>
 						</tr>
 					</tbody>
@@ -55,5 +55,3 @@
 		</div>
 	</div>
 </div>
-
-<pre>{{ss.selectedItems | json}}</pre>

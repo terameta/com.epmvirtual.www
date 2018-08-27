@@ -5,6 +5,7 @@ import { filter } from 'rxjs/operators';
 import { Document } from '../../../models/library.models';
 import * as _ from 'lodash';
 import { SharedService } from '../../../shared/shared.service';
+import { ItemType } from '../../../models/generic.models';
 
 @Component( {
 	selector: 'app-admin-library',
@@ -19,9 +20,11 @@ export class AdminLibraryComponent implements OnInit, OnDestroy {
 	private docObject: { [ key: string ]: Document } = {};
 	public crumbs: Document[] = [];
 
+	public itemType = ItemType;
+
 	constructor(
 		private db: AngularFirestore,
-		private ss: SharedService
+		public ss: SharedService
 	) { }
 
 	ngOnInit() {

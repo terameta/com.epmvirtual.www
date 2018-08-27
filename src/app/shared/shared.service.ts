@@ -10,6 +10,10 @@ import { debounce, take, map } from 'rxjs/operators';
 import { UploadComponent } from './upload/upload.component';
 import { AngularFireStorage } from 'angularfire2/storage';
 import { Asset } from '../models/asset.models';
+import { AdminSettingsService } from '../admin/admin-settings/admin-settings.service';
+import { Document } from '../models/library.models';
+import { SortByPosition } from '../../utilities/utilityFunctions';
+import { ChangeParentComponent } from './change-parent/change-parent.component';
 
 @Injectable( {
 	providedIn: 'root'
@@ -32,6 +36,7 @@ export class SharedService {
 		private db: AngularFirestore,
 		private storage: AngularFireStorage,
 		private modalService: BsModalService,
+		private adminSettingsService: AdminSettingsService,
 		private router: Router
 	) {
 		this.router.events.subscribe( this.routeHandler );
@@ -118,6 +123,9 @@ export class SharedService {
 		if ( !payload.details.name ) payload.details.name = await this.prompt( 'Name?' );
 		if ( !payload.details.name ) payload.details.name = '-';
 		if ( !payload.details.id ) payload.details.id = this.db.createId();
+		if ( payload.concept === 'library' ) {
+			payload.details.id = ( await this.adminSettingsService.counterIncrement( 'document', 1 ) ).toString();
+		}
 		await this.db.doc( payload.concept + '/' + payload.details.id ).set( payload.details ).catch( console.error );
 	}
 
@@ -131,22 +139,29 @@ export class SharedService {
 
 	public save = ( item ) => this.db.doc( this.dbURL$.getValue() ).set( item );
 	public update = ( item ) => this.db.doc( this.dbURL$.getValue() ).update( item );
+
+	public rename = async ( id: string, oldName: string ) => {
+		const name: string = await this.prompt( 'What is the new name?', oldName );
+		if ( name && name !== '' ) this.db.doc( this.concept$.getValue() + '/' + id ).update( { name } );
+	}
+
 	public deleteSelected = async () => {
-		const shouldWe = await this.confirm( 'Are you sure?' );
+		const shouldWe = await this.confirm( 'Are you sure you want to delete selected item' + ( this.selectedItems.length > 1 ? 's' : '' ) + '?' );
 		if ( shouldWe === true ) {
 			for ( const id of this.selectedItems ) {
-				await this.delete( id, false );
+				await this.delete( { id, noConfirm: true } );
 			}
 			this.selectedItems = [];
 		}
 	}
-	public delete = async ( id?: string, shouldConfirm = true ): Promise<any> => {
+	public delete = async ( payload: { id?: string, name?: string, noConfirm?: boolean } ): Promise<any> => {
 		let confirmed = false;
-		if ( shouldConfirm ) confirmed = await this.confirm( 'Are you sure?' );
-		if ( !shouldConfirm ) confirmed = true;
+		if ( !payload.id ) payload.id = this.cID$.getValue();
+		const question = 'Are you sure you want to delete ' + ( payload.name ? payload.name : payload.id ) + '?';
+		if ( !payload.noConfirm ) confirmed = await this.confirm( question );
+		if ( payload.noConfirm ) confirmed = true;
 		if ( confirmed ) {
 			return new Promise( ( resolve, reject ) => {
-				if ( !id ) id = this.cID$.getValue();
 				this.db.collection( this.concept$.getValue() ).
 					snapshotChanges().
 					pipe(
@@ -155,7 +170,7 @@ export class SharedService {
 						map( i => i.map( a => ( { ...a.data(), ...{ id: a.id } } ) ) )
 					).
 					subscribe( ( items: any[] ) => {
-						this.deleteAction( id, items ).then( () => resolve() ).catch( reject );
+						this.deleteAction( payload.id, items ).then( () => resolve() ).catch( reject );
 					} );
 			} );
 		}
@@ -186,5 +201,54 @@ export class SharedService {
 
 	public unsub = ( subscriptions: Subscription[] ) => subscriptions.forEach( s => { s.unsubscribe(); s = null; } );
 	public getsubs = () => <Subscription[]>[];
+
+	public getMaxPosition = ( items: Document[] ) => {
+		let mp = 0;
+		items.forEach( i => { mp = i.position > mp ? i.position : mp; } );
+		return mp;
+	}
+
+	public moveUp = ( concept: string, itemIndex: number, items: any[] ) => this.movePosition( concept, itemIndex, items, -1 );
+	public moveDown = ( concept: string, itemIndex: number, items: any[] ) => this.movePosition( concept, itemIndex, items, 1 );
+	private movePosition = ( concept: string, itemIndex: number, items: any[], direction: 1 | -1 ) => {
+		items.forEach( i => {
+			if ( i.position === undefined ) i.position = this.getMaxPosition( items ) + 1;
+		} );
+		items.forEach( i => i.position *= 10 );
+		items[ itemIndex ].position += direction * 11;
+		items.sort( SortByPosition );
+		items.forEach( ( i, index ) => {
+			i.position = index + 1;
+			this.db.doc( concept + '/' + i.id ).update( { position: i.position } );
+		} );
+	}
+
+	public changeParent = async ( payload: { concept?: string, item: Item } ) => {
+		if ( !payload.concept ) payload.concept = this.concept$.getValue();
+		console.log( payload );
+		console.log( 'We will now wait for items' );
+		const items = ( await this.promisedItems( payload.concept ) ).filter( i => i.type === ItemType.folder );
+		console.log( items );
+		const modalRef: BsModalRef = this.modalService.show( ChangeParentComponent, { initialState: { items, selectedParent: payload.item.parent } } );
+		/*
+		const modalRef: BsModalRef = this.modalService.show( PromptComponent, { initialState: { question, defaultValue } } );
+		return new Promise( ( resolve, reject ) => {
+			modalRef.content.onClose.subscribe( resolve, reject );
+		} );
+		*/
+	}
+
+	private promisedItems = ( concept: string ): Promise<any[]> => {
+		return new Promise( ( resolve, reject ) => {
+			this.db.collection( concept ).
+				snapshotChanges().
+				pipe(
+					take( 1 ),
+					map( a => a.map( aa => aa.payload ) ),
+					map( a => a.map( aa => ( { ...aa.doc.data(), ...{ id: aa.doc.id } } ) ) )
+				).
+				subscribe( resolve, reject );
+		} );
+	}
 
 }

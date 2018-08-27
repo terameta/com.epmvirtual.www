@@ -11,5 +11,6 @@ export interface Document extends Item {
 	description: string,
 	creator: string,
 	createdOn: Date,
-	sections: Section[]
+	sections: Section[],
+	position: number
 }

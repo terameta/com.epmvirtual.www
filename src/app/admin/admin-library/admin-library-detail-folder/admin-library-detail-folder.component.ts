@@ -1,10 +1,12 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AngularFirestore, Action, DocumentSnapshot, DocumentChangeAction } from 'angularfire2/firestore';
 import { AdminLibraryService } from '../admin-library.service';
-import { Subscription } from 'rxjs';
-import { filter } from 'rxjs/operators';
+import { Subscription, timer } from 'rxjs';
+import { filter, debounce } from 'rxjs/operators';
 import { Document } from '../../../models/library.models';
 import { SharedService } from '../../../shared/shared.service';
+import { ItemType } from '../../../models/generic.models';
+import { SortByPosition } from '../../../../utilities/utilityFunctions';
 
 @Component( {
 	selector: 'app-admin-library-detail-folder',
@@ -22,10 +24,12 @@ export class AdminLibraryDetailFolderComponent implements OnInit, OnDestroy {
 
 	public docsReceived = false;
 
+	public itemType = ItemType;
+
 	constructor(
 		private db: AngularFirestore,
-		private ms: AdminLibraryService,
-		private ss: SharedService
+		public ms: AdminLibraryService,
+		public ss: SharedService
 	) { }
 
 	ngOnInit() {
@@ -54,6 +58,7 @@ export class AdminLibraryDetailFolderComponent implements OnInit, OnDestroy {
 		this.childrenSubscription = this.db.
 			collection( '/library', ref => ref.where( 'parent', '==', id ) ).
 			snapshotChanges().
+			pipe( debounce( () => timer( 500 ) ) ).
 			subscribe( this.handleChildrenChange );
 	}
 
@@ -65,7 +70,14 @@ export class AdminLibraryDetailFolderComponent implements OnInit, OnDestroy {
 		this.docsReceived = true;
 		this.children = dChildrenActions.
 			map( c => ( { ...c.payload.doc.data(), ...{ id: c.payload.doc.id } } ) ).
-			map( d => { d.createdOn = ( d.createdOn as any ).toDate(); return d; } );
+			map( d => { d.createdOn = d.createdOn ? ( d.createdOn as any ).toDate() : ( new Date() ); return d; } );
+		this.children.forEach( ( c, i ) => {
+			if ( c.position === undefined ) {
+				c.position = this.ss.getMaxPosition( this.children ) + 1;
+				this.db.doc( 'library/' + c.id ).update( { position: c.position } );
+			}
+		} );
+		this.children.sort( SortByPosition );
 	}
 
 	public isSelected = ( id: string ) => {
@@ -88,9 +100,4 @@ export class AdminLibraryDetailFolderComponent implements OnInit, OnDestroy {
 		if ( name && name !== '' ) this.db.doc<Document>( '/library/' + id ).update( { name } );
 	}
 
-	public delete = async ( id: string, name: string ) => {
-		this.ss.confirm( 'Are you sure you want to delete ' + ( name || id ) ).
-			then( console.log ).
-			catch( console.error );
-	}
 }

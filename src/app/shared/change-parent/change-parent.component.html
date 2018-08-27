@@ -1,0 +1,14 @@
+<!-- <app-change-parent-displayer [items]="items" [(selectedParent)]="selectedParent" [currentParent]="'0'"></app-change-parent-displayer>
+
+ -->
+<div class="d-blok py-3">
+	<ng-container *ngFor="let i of items">
+		<div class="d-blok pl-2" *ngIf="!i.parent">
+			<span class="d-blok pointer" (click)="setParent(i.id)">- {{i.name}}</span>
+			<app-change-parent-displayer [items]="items" [(selectedParent)]="selectedParent" [currentParent]="i.id"></app-change-parent-displayer>
+		</div>
+	</ng-container>
+</div>
+<div class="modal-footer">
+	<pre>SelectedParent: {{selectedParent}}</pre>
+</div>

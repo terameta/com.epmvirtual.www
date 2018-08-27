@@ -1,0 +1,4 @@
+<div class="d-blok pl-2" *ngFor="let i of cItems">
+	<span class="d-blok pointer" (click)="setParent(i.id)">- {{i.name}}</span>
+	<app-change-parent-displayer [items]="items" [(selectedParent)]="selectedParent" [currentParent]="i.id"></app-change-parent-displayer>
+</div>

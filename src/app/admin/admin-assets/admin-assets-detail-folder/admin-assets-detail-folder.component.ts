@@ -82,11 +82,6 @@ export class AdminAssetsDetailFolderComponent implements OnInit, OnDestroy {
 	public setAllSelected = () => this.ss.selectedItems = this.children.map( c => c.id );
 	public setNoneSelected = () => this.ss.selectedItems = [];
 
-	public rename = async ( id: string, oldName: string ) => {
-		const name: string = await this.ss.prompt( 'What is the new name?', oldName );
-		if ( name && name !== '' ) this.db.doc<Asset>( '/assets/' + id ).update( { name } );
-	}
-
 	public delete = async ( id: string, name: string ) => {
 		this.ss.confirm( 'Are you sure you want to delete ' + ( name || id ) ).
 			then( console.log ).
