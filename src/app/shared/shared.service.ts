@@ -225,11 +225,14 @@ export class SharedService {
 
 	public changeParent = async ( payload: { concept?: string, item: Item } ) => {
 		if ( !payload.concept ) payload.concept = this.concept$.getValue();
-		console.log( payload );
-		console.log( 'We will now wait for items' );
 		const items = ( await this.promisedItems( payload.concept ) ).filter( i => i.type === ItemType.folder );
-		console.log( items );
-		const modalRef: BsModalRef = this.modalService.show( ChangeParentComponent, { initialState: { items, selectedParent: payload.item.parent } } );
+		const modalRef: BsModalRef = this.modalService.show( ChangeParentComponent, { initialState: { item: payload.item, items, selectedParent: payload.item.parent } } );
+		modalRef.content.onClose.subscribe( ( result ) => {
+			console.log( 'Change Parent Result:', result );
+			if ( result !== false ) {
+				this.db.doc( payload.concept + '/' + payload.item.id ).update( { parent: result } );
+			}
+		}, console.error );
 		/*
 		const modalRef: BsModalRef = this.modalService.show( PromptComponent, { initialState: { question, defaultValue } } );
 		return new Promise( ( resolve, reject ) => {

@@ -45,7 +45,7 @@
 								</span>
 							</td>
 							<td class="py-0 my-0 text-center text-nowrap">
-								<i (click)="ss.moveDown(ms.concept, i, children)" class="fas fa-caret-up fa-fw pointer" title="Move Up" *ngIf="!first"></i>
+								<i (click)="ss.moveUp(ms.concept, i, children)" class="fas fa-caret-up fa-fw pointer" title="Move Up" *ngIf="!first"></i>
 								<i class="fas fa-minus fa-fw" style="color: rgba(0,0,0,0)" *ngIf="last || first"></i>
 								<i (click)="ss.moveDown(ms.concept, i, children)" class="fas fa-caret-down fa-fw pointer" title="Move Down" *ngIf="!last"></i>
 								<i class="fas fa-arrows-alt fa-fw pointer" (click)="ss.changeParent({item: item})" title="Change Parent"></i>

@@ -1,14 +1,16 @@
-<!-- <app-change-parent-displayer [items]="items" [(selectedParent)]="selectedParent" [currentParent]="'0'"></app-change-parent-displayer>
-
- -->
-<div class="d-blok py-3">
-	<ng-container *ngFor="let i of items">
-		<div class="d-blok pl-2" *ngIf="!i.parent">
-			<span class="d-blok pointer" (click)="setParent(i.id)">- {{i.name}}</span>
-			<app-change-parent-displayer [items]="items" [(selectedParent)]="selectedParent" [currentParent]="i.id"></app-change-parent-displayer>
-		</div>
-	</ng-container>
-</div>
-<div class="modal-footer">
-	<pre>SelectedParent: {{selectedParent}}</pre>
-</div>
+<form (ngSubmit)="ok()">
+	<div class="modal-header">
+		<h4 class="modal-title text-bolder" style="font-size: 16px;">Change Parent for {{item.name}}</h4>
+	</div>
+	<div class="modal-body">
+		<select name="ps" class="form-control form-control-sm" [(ngModel)]="selectedParent">
+			<ng-container *ngFor="let i of hItems">
+				<option [value]="i.id">{{i.hName}}</option>
+			</ng-container>
+		</select>
+	</div>
+	<div class="modal-footer text-right">
+		<button type="submit" class="btn btn-default btn-sm mr-1">OK</button>
+		<button type="button" class="btn btn-primary btn-sm" (click)="cancel()">Cancel</button>
+	</div>
+</form>
