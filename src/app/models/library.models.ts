@@ -6,7 +6,7 @@ export interface Section {
 	position: number
 }
 
-export interface Document extends Item {
+export interface Article extends Item {
 	shortDescription: string,
 	description: string,
 	creator: string,

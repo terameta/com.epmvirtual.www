@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AngularFirestore, Action, DocumentSnapshot } from 'angularfire2/firestore';
-import { Document } from '../../../models/library.models';
+import { Article } from '../../../models/library.models';
 import { filter } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 import { ItemType } from '../../../models/generic.models';
@@ -12,11 +12,11 @@ import { SharedService } from '../../../shared/shared.service';
 	styleUrls: [ './admin-library-detail.component.scss' ]
 } )
 export class AdminLibraryDetailComponent implements OnInit, OnDestroy {
-	private documentSubscription: Subscription;
+	private articleSubscription: Subscription;
 	private idSubscription: Subscription;
 
 	public itemType = ItemType;
-	public documentType: ItemType = ItemType.folder;
+	public articleType: ItemType = ItemType.folder;
 
 	constructor(
 		private db: AngularFirestore,
@@ -31,22 +31,22 @@ export class AdminLibraryDetailComponent implements OnInit, OnDestroy {
 	}
 
 	ngOnDestroy() {
-		if ( this.documentSubscription ) { this.documentSubscription.unsubscribe(); }
-		this.documentSubscription = null;
+		if ( this.articleSubscription ) { this.articleSubscription.unsubscribe(); }
+		this.articleSubscription = null;
 		if ( this.idSubscription ) { this.idSubscription.unsubscribe(); }
 		this.idSubscription = null;
 	}
 
 	private handleIDChange = ( id: string ) => {
-		if ( this.documentSubscription ) { this.documentSubscription.unsubscribe(); }
-		this.documentSubscription = this.db.
-			doc<Document>( '/library/' + id ).
+		if ( this.articleSubscription ) { this.articleSubscription.unsubscribe(); }
+		this.articleSubscription = this.db.
+			doc<Article>( '/library/' + id ).
 			snapshotChanges().
-			subscribe( this.handleDocumentChange );
+			subscribe( this.handleArticleChange );
 	}
 
-	private handleDocumentChange = ( dAction: Action<DocumentSnapshot<Document>> ) => {
-		this.documentType = dAction.payload.data().type;
+	private handleArticleChange = ( dAction: Action<DocumentSnapshot<Article>> ) => {
+		this.articleType = dAction.payload.data().type;
 	}
 
 }

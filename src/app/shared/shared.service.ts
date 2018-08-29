@@ -9,9 +9,8 @@ import { BehaviorSubject, timer, Subscription } from 'rxjs';
 import { debounce, take, map } from 'rxjs/operators';
 import { UploadComponent } from './upload/upload.component';
 import { AngularFireStorage } from 'angularfire2/storage';
-import { Asset } from '../models/asset.models';
 import { AdminSettingsService } from '../admin/admin-settings/admin-settings.service';
-import { Document } from '../models/library.models';
+import { Article } from '../models/library.models';
 import { SortByPosition } from '../../utilities/utilityFunctions';
 import { ChangeParentComponent } from './change-parent/change-parent.component';
 
@@ -124,7 +123,7 @@ export class SharedService {
 		if ( !payload.details.name ) payload.details.name = '-';
 		if ( !payload.details.id ) payload.details.id = this.db.createId();
 		if ( payload.concept === 'library' ) {
-			payload.details.id = ( await this.adminSettingsService.counterIncrement( 'document', 1 ) ).toString();
+			payload.details.id = ( await this.adminSettingsService.counterIncrement( 'article', 1 ) ).toString();
 		}
 		await this.db.doc( payload.concept + '/' + payload.details.id ).set( payload.details ).catch( console.error );
 	}
@@ -202,7 +201,7 @@ export class SharedService {
 	public unsub = ( subscriptions: Subscription[] ) => subscriptions.forEach( s => { s.unsubscribe(); s = null; } );
 	public getsubs = () => <Subscription[]>[];
 
-	public getMaxPosition = ( items: Document[] ) => {
+	public getMaxPosition = ( items: Article[] ) => {
 		let mp = 0;
 		items.forEach( i => { mp = i.position > mp ? i.position : mp; } );
 		return mp;

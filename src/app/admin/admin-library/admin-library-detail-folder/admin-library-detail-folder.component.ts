@@ -3,7 +3,7 @@ import { AngularFirestore, Action, DocumentSnapshot, DocumentChangeAction } from
 import { AdminLibraryService } from '../admin-library.service';
 import { Subscription, timer } from 'rxjs';
 import { filter, debounce } from 'rxjs/operators';
-import { Document } from '../../../models/library.models';
+import { Article } from '../../../models/library.models';
 import { SharedService } from '../../../shared/shared.service';
 import { ItemType } from '../../../models/generic.models';
 import { SortByPosition } from '../../../../utilities/utilityFunctions';
@@ -14,12 +14,12 @@ import { SortByPosition } from '../../../../utilities/utilityFunctions';
 	styleUrls: [ './admin-library-detail-folder.component.scss' ]
 } )
 export class AdminLibraryDetailFolderComponent implements OnInit, OnDestroy {
-	private documentSubscription: Subscription;
+	private articleSubscription: Subscription;
 	private idSubscription: Subscription;
 	private childrenSubscription: Subscription;
 
-	public document: Document;
-	public children: Document[] = [];
+	public article: Article;
+	public children: Article[] = [];
 	public selectedItems: string[] = [];
 
 	public docsReceived = false;
@@ -39,8 +39,8 @@ export class AdminLibraryDetailFolderComponent implements OnInit, OnDestroy {
 	}
 
 	ngOnDestroy() {
-		if ( this.documentSubscription ) this.documentSubscription.unsubscribe();
-		this.documentSubscription = null;
+		if ( this.articleSubscription ) this.articleSubscription.unsubscribe();
+		this.articleSubscription = null;
 		if ( this.idSubscription ) this.idSubscription.unsubscribe();
 		this.idSubscription = null;
 		if ( this.childrenSubscription ) this.childrenSubscription.unsubscribe();
@@ -50,10 +50,10 @@ export class AdminLibraryDetailFolderComponent implements OnInit, OnDestroy {
 	private handleIDChange = ( id: string ) => {
 		this.docsReceived = false;
 		this.children = [];
-		if ( this.documentSubscription ) this.documentSubscription.unsubscribe();
-		this.documentSubscription = this.db.
-			doc<Document>( '/library/' + id ).snapshotChanges().
-			subscribe( this.handleDocumentChange );
+		if ( this.articleSubscription ) this.articleSubscription.unsubscribe();
+		this.articleSubscription = this.db.
+			doc<Article>( '/library/' + id ).snapshotChanges().
+			subscribe( this.handleArticleChange );
 		if ( this.childrenSubscription ) this.childrenSubscription.unsubscribe();
 		this.childrenSubscription = this.db.
 			collection( '/library', ref => ref.where( 'parent', '==', id ) ).
@@ -62,11 +62,11 @@ export class AdminLibraryDetailFolderComponent implements OnInit, OnDestroy {
 			subscribe( this.handleChildrenChange );
 	}
 
-	private handleDocumentChange = ( dAction: Action<DocumentSnapshot<Document>> ) => {
-		this.document = dAction.payload.data();
+	private handleArticleChange = ( dAction: Action<DocumentSnapshot<Article>> ) => {
+		this.article = dAction.payload.data();
 	}
 
-	private handleChildrenChange = ( dChildrenActions: DocumentChangeAction<Document>[] ) => {
+	private handleChildrenChange = ( dChildrenActions: DocumentChangeAction<Article>[] ) => {
 		this.docsReceived = true;
 		this.children = dChildrenActions.
 			map( c => ( { ...c.payload.doc.data(), ...{ id: c.payload.doc.id } } ) ).
@@ -97,7 +97,7 @@ export class AdminLibraryDetailFolderComponent implements OnInit, OnDestroy {
 
 	public rename = async ( id: string, oldName: string ) => {
 		const name: string = await this.ss.prompt( 'What is the new name?', oldName );
-		if ( name && name !== '' ) this.db.doc<Document>( '/library/' + id ).update( { name } );
+		if ( name && name !== '' ) this.db.doc<Article>( '/library/' + id ).update( { name } );
 	}
 
 }

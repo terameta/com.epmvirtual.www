@@ -1,3 +1,28 @@
-<p>
-  admin-library-detail-document works!
-</p>
+<div class="container-fluid">
+	<div class="row">
+		<div class="col">
+			<div class="text-center w-100 d-block" *ngIf="!itemReceived">
+				<hr>
+				<i class="fas fa-circle-notch fa-spin"></i>
+				<br> Refreshing, please wait...
+				<br>
+				<hr>
+			</div>
+			<div *ngIf="itemReceived">
+				<ul class="nav nav-tabs w-100">
+					<li class="nav-item">
+						<a routerLink="" class="nav-link" routerLinkActive="active" data-toggle="tab">
+							<i class="fas fa-sliders-h fa-fw"></i> Definitions
+						</a>
+					</li>
+				</ul>
+				<div class="tab-content w-100 border border-top-0 p-3">
+					<div class="tab-pane active">
+						<router-outlet></router-outlet>
+						<pre>{{item | json}}</pre>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

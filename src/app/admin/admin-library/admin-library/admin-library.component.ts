@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AngularFirestore, DocumentChangeAction } from 'angularfire2/firestore';
 import { Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
-import { Document } from '../../../models/library.models';
+import { Article } from '../../../models/library.models';
 import * as _ from 'lodash';
 import { SharedService } from '../../../shared/shared.service';
 import { ItemType } from '../../../models/generic.models';
@@ -17,8 +17,8 @@ export class AdminLibraryComponent implements OnInit, OnDestroy {
 	private docSubscription: Subscription;
 	public currentID = '0';
 
-	private docObject: { [ key: string ]: Document } = {};
-	public crumbs: Document[] = [];
+	private docObject: { [ key: string ]: Article } = {};
+	public crumbs: Article[] = [];
 
 	public itemType = ItemType;
 
@@ -32,7 +32,7 @@ export class AdminLibraryComponent implements OnInit, OnDestroy {
 			pipe( filter( a => !!a ) ).
 			subscribe( this.handleIDChange );
 		this.docSubscription = this.db.
-			collection<Document>( '/library' ).
+			collection<Article>( '/library' ).
 			snapshotChanges().
 			subscribe( this.handleDocChange );
 	}
@@ -54,7 +54,7 @@ export class AdminLibraryComponent implements OnInit, OnDestroy {
 		}
 	}
 
-	private handleDocChange = ( dDocActions: DocumentChangeAction<Document>[] ) => {
+	private handleDocChange = ( dDocActions: DocumentChangeAction<Article>[] ) => {
 		this.docObject = _.keyBy( dDocActions.map( c => ( { ...c.payload.doc.data(), ...{ id: c.payload.doc.id } } ) ), 'id' );
 		this.handleIDChange( this.currentID );
 	}

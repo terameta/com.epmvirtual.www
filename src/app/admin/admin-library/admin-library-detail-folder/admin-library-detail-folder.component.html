@@ -1,10 +1,12 @@
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-12">
-			<span *ngIf="!docsReceived" style="text-align: center">
+			<span *ngIf="!docsReceived" class="text-center w-100 d-block">
+				<hr>
 				<i class="fas fa-circle-notch fa-spin"></i>
 				<br> Refreshing, please wait...
 				<br>
+				<hr>
 			</span>
 			<span *ngIf="children.length == 0 && docsReceived">
 				<br> There are no items under this folder.
