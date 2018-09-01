@@ -15,6 +15,9 @@
 							<button type="submit" class="btn btn-outline-dark">
 								<i class="fas fa-save fa-fw"></i> Save
 							</button>
+							<button type="button" class="btn btn-outline-dark" (click)="newSection()">
+								<i class="fas fa-plus fa-fw"></i> New Section
+							</button>
 						</div>
 					</div>
 					<tabset>
@@ -23,31 +26,15 @@
 								<i class="fas fa-sliders-h fa-fw"></i> Definitions
 							</ng-template>
 							<div class="border border-top-0 p-3">
-								<table class="table table-sm table-borderless">
-									<tbody>
-										<tr>
-											<td width="10" class="text-nowrap align-middle">Name:</td>
-											<td>
-												<input type="text" name="name" class="form-control form-control-sm" [(ngModel)]="item.name">
-											</td>
-										</tr>
-										<tr>
-											<td width="10" class="text-nowrap align-middle">Short Description:</td>
-											<td>
-												<input type="text" name="sDescription" class="form-control form-control-sm" [(ngModel)]="item.shortDescription">
-											</td>
-										</tr>
-									</tbody>
-								</table>
-								<pre>{{item | json}}</pre>
+								<app-admin-library-detail-article-definitions [item]="item"></app-admin-library-detail-article-definitions>
 							</div>
 						</tab>
-						<tab>
+						<tab *ngFor="let section of item.sections">
 							<ng-template tabHeading>
-								<span class="badge badge-secondary">Heading</span>
+								<span>{{ section.title }}</span>
 							</ng-template>
 							<div class="border border-top-0 p-3">
-								<pre>{{item | json}}</pre>
+								<app-admin-library-detail-article-section [section]="section"></app-admin-library-detail-article-section>
 							</div>
 						</tab>
 					</tabset>

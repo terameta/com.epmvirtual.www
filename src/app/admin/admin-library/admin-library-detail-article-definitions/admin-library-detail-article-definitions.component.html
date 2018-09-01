@@ -1,3 +1,58 @@
-<p>
-  admin-library-detail-article-definitions works!
-</p>
+<table class="table table-sm table-borderless">
+	<tbody>
+		<tr>
+			<td width="10" class="text-nowrap align-middle">Name:</td>
+			<td>
+				<input type="text" name="name" class="form-control form-control-sm" [(ngModel)]="item.name">
+			</td>
+		</tr>
+		<tr>
+			<td width="10" class="text-nowrap align-middle">Short Description:</td>
+			<td>
+				<input type="text" name="sDescription" class="form-control form-control-sm" [(ngModel)]="item.shortDescription">
+			</td>
+		</tr>
+		<tr>
+			<td width="10" class="text-nowrap align-middle">Description:</td>
+			<td>
+				<!-- <input type="text" name="description" class="form-control form-control-sm" [(ngModel)]="item.description"> -->
+				<textarea name="description" class="form-control form-control-sm w-100" rows="5" [(ngModel)]="item.description"></textarea>
+			</td>
+		</tr>
+		<tr>
+			<td width="10" class="text-nowrap align-middle">Created On:</td>
+			<td>
+				{{ item.createdOn | date }}
+			</td>
+		</tr>
+		<tr>
+			<td width="10" class="text-nowrap align-middle">Sections:</td>
+			<td>
+				<div class="table-responsive w-100">
+					<table class="table table-sm table-hover">
+						<thead>
+							<tr>
+								<th width="10">
+									<i class="fas fa-caret-up"></i>
+									<i class="fas fa-caret-down"></i>
+								</th>
+								<th width="10">Position</th>
+								<th>Title</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr *ngFor="let section of item.sections; let i = index;">
+								<td class="text-nowrap">
+									<i class="fas fa-caret-up" (click)="sectionUp(i)"></i>
+									<i class="fas fa-caret-down" (click)="sectionDown(i)"></i>
+								</td>
+								<td class="text-nowrap">{{section.position}}</td>
+								<td class="text-nowrap">{{section.title}}</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</td>
+		</tr>
+	</tbody>
+</table>
