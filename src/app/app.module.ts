@@ -16,6 +16,7 @@ import { SharedModule } from './shared/shared.module';
 
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { ProgressbarModule } from 'ngx-bootstrap/progressbar';
+import { TabsModule } from 'ngx-bootstrap/tabs';
 
 const routes: Routes = [
 	{ path: '', loadChildren: './end-user/end-user.module#EndUserModule' },
@@ -38,7 +39,8 @@ const routes: Routes = [
 		RouterModule.forRoot( routes ),
 		SharedModule,
 		ModalModule.forRoot(),
-		ProgressbarModule.forRoot()
+		ProgressbarModule.forRoot(),
+		TabsModule.forRoot()
 	],
 	exports: [
 		FormsModule

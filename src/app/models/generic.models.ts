@@ -1,7 +1,7 @@
 export enum ItemType {
 	folder = 1,
 	asset = 2,
-	document = 3,
+	article = 3,
 	setting = 4
 }
 

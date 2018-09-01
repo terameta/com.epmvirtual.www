@@ -24,7 +24,7 @@ export class AdminLibraryDetailDocumentComponent implements OnInit, OnDestroy {
 			this.ss.cItem$.pipe(
 				filter( i => i.id !== '' ),
 				tap( ( i: any ) => { i.createdOn = i.createdOn ? i.createdOn.toDate() : ( new Date() ); } ),
-				tap( i => this.itemReceived = true )
+				tap( () => this.itemReceived = true )
 			).subscribe( i => this.item = i )
 		);
 	}

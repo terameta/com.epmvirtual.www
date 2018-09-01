@@ -1,28 +1,58 @@
-<div class="container-fluid">
-	<div class="row">
-		<div class="col">
-			<div class="text-center w-100 d-block" *ngIf="!itemReceived">
-				<hr>
-				<i class="fas fa-circle-notch fa-spin"></i>
-				<br> Refreshing, please wait...
-				<br>
-				<hr>
-			</div>
-			<div *ngIf="itemReceived">
-				<ul class="nav nav-tabs w-100">
-					<li class="nav-item">
-						<a routerLink="" class="nav-link" routerLinkActive="active" data-toggle="tab">
-							<i class="fas fa-sliders-h fa-fw"></i> Definitions
-						</a>
-					</li>
-				</ul>
-				<div class="tab-content w-100 border border-top-0 p-3">
-					<div class="tab-pane active">
-						<router-outlet></router-outlet>
-						<pre>{{item | json}}</pre>
+<form #f="ngForm" (ngSubmit)="ss.save(item)">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col">
+				<div class="text-center w-100 d-block" *ngIf="!itemReceived">
+					<hr>
+					<i class="fas fa-circle-notch fa-spin"></i>
+					<br> Refreshing, please wait...
+					<br>
+					<hr>
+				</div>
+				<div *ngIf="itemReceived">
+					<div class="btn-toolbar w-100 mb-3" role="toolbar">
+						<div class="btn-group btn-group-sm ml-auto mr-3" role="group">
+							<button type="submit" class="btn btn-outline-dark">
+								<i class="fas fa-save fa-fw"></i> Save
+							</button>
+						</div>
 					</div>
+					<tabset>
+						<tab>
+							<ng-template tabHeading>
+								<i class="fas fa-sliders-h fa-fw"></i> Definitions
+							</ng-template>
+							<div class="border border-top-0 p-3">
+								<table class="table table-sm table-borderless">
+									<tbody>
+										<tr>
+											<td width="10" class="text-nowrap align-middle">Name:</td>
+											<td>
+												<input type="text" name="name" class="form-control form-control-sm" [(ngModel)]="item.name">
+											</td>
+										</tr>
+										<tr>
+											<td width="10" class="text-nowrap align-middle">Short Description:</td>
+											<td>
+												<input type="text" name="sDescription" class="form-control form-control-sm" [(ngModel)]="item.shortDescription">
+											</td>
+										</tr>
+									</tbody>
+								</table>
+								<pre>{{item | json}}</pre>
+							</div>
+						</tab>
+						<tab>
+							<ng-template tabHeading>
+								<span class="badge badge-secondary">Heading</span>
+							</ng-template>
+							<div class="border border-top-0 p-3">
+								<pre>{{item | json}}</pre>
+							</div>
+						</tab>
+					</tabset>
 				</div>
 			</div>
 		</div>
 	</div>
-</div>
+</form>

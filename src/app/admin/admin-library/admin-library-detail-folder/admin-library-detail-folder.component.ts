@@ -67,6 +67,7 @@ export class AdminLibraryDetailFolderComponent implements OnInit, OnDestroy {
 	}
 
 	private handleChildrenChange = ( dChildrenActions: DocumentChangeAction<Article>[] ) => {
+		let wasThereUndefined = false;
 		this.docsReceived = true;
 		this.children = dChildrenActions.
 			map( c => ( { ...c.payload.doc.data(), ...{ id: c.payload.doc.id } } ) ).
@@ -75,9 +76,16 @@ export class AdminLibraryDetailFolderComponent implements OnInit, OnDestroy {
 			if ( c.position === undefined ) {
 				c.position = this.ss.getMaxPosition( this.children ) + 1;
 				this.db.doc( 'library/' + c.id ).update( { position: c.position } );
+				wasThereUndefined = true;
 			}
 		} );
 		this.children.sort( SortByPosition );
+		if ( !wasThereUndefined ) {
+			this.children.forEach( ( c, i ) => {
+				if ( c.position !== ( i + 1 ) ) c.position = i + 1;
+				this.db.doc( 'library/' + c.id ).update( { position: c.position } );
+			} );
+		}
 	}
 
 	public isSelected = ( id: string ) => {
