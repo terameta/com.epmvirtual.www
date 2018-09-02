@@ -32,6 +32,7 @@
 		"firebase": "^5.4.2",
 		"lodash": "^4.17.10",
 		"ngx-bootstrap": "^3.0.1",
+		"ngx-monaco-editor": "^6.0.0",
 		"rxjs": "^6.3.1",
 		"ts-loader": "^4.5.0",
 		"zone.js": "^0.8.26"

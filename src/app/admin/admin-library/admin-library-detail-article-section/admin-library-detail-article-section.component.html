@@ -1,1 +1,19 @@
-<pre>{{ section | json }}</pre>
+<table class="table table-sm table-borderless my-0">
+	<tbody>
+		<tr>
+			<td width="10" class="text-nowrap align-middle">Title:</td>
+			<td>
+				<input type="text" name="title" class="form-control form-control-sm" [(ngModel)]="section.title">
+			</td>
+		</tr>
+		<tr>
+			<td class="text-nowrap align-middle" colspan="2">Content:</td>
+		</tr>
+		<tr>
+			<td colspan="2" style="height: calc(100vh - 300px);">
+				<!-- <textarea name="content" class="w-100" rows="10" [(ngModel)]="section.content"></textarea> -->
+				<ngx-monaco-editor class="h-100 d-block" [options]="editorOptions" [(ngModel)]="section.content"></ngx-monaco-editor>
+			</td>
+		</tr>
+	</tbody>
+</table>

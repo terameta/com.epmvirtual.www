@@ -14,6 +14,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { AuthGuardService as AuthGuard } from './auth-guard.service';
 import { SharedModule } from './shared/shared.module';
 
+import { MonacoEditorModule } from 'ngx-monaco-editor';
+
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { ProgressbarModule } from 'ngx-bootstrap/progressbar';
 import { TabsModule } from 'ngx-bootstrap/tabs';
@@ -40,7 +42,8 @@ const routes: Routes = [
 		SharedModule,
 		ModalModule.forRoot(),
 		ProgressbarModule.forRoot(),
-		TabsModule.forRoot()
+		TabsModule.forRoot(),
+		MonacoEditorModule.forRoot()
 	],
 	exports: [
 		FormsModule

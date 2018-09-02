@@ -9,9 +9,16 @@ import { Section } from '../../../models/library.models';
 export class AdminLibraryDetailArticleSectionComponent implements OnInit {
 	@Input() section: Section = { title: '', content: '', position: 0 };
 
+	editorOptions = {
+		theme: 'vs-dark',
+		language: 'html',
+		automaticLayout: true, minimap: {
+			enabled: false
+		}
+	};
+
 	constructor() { }
 
-	ngOnInit() {
-	}
+	ngOnInit() { }
 
 }

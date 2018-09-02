@@ -9,6 +9,7 @@ import { AdminLibraryDetailArticleDefinitionsComponent } from './admin-library-d
 import { AdminLibraryDetailArticleSectionComponent } from './admin-library-detail-article-section/admin-library-detail-article-section.component';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { FormsModule } from '@angular/forms';
+import { MonacoEditorModule } from 'ngx-monaco-editor';
 
 const routes: Routes = [
 	{
@@ -24,7 +25,8 @@ const routes: Routes = [
 		CommonModule,
 		RouterModule.forChild( routes ),
 		FormsModule,
-		TabsModule
+		TabsModule,
+		MonacoEditorModule
 	],
 	declarations: [
 		AdminLibraryComponent,
