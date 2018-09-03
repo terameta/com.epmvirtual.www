@@ -20,8 +20,8 @@
 							</button>
 						</div>
 					</div>
-					<tabset>
-						<tab>
+					<tabset #sectionTabs>
+						<tab (select)="onSelect()">
 							<ng-template tabHeading>
 								<i class="fas fa-sliders-h fa-fw"></i> Definitions
 							</ng-template>
@@ -29,7 +29,7 @@
 								<app-admin-library-detail-article-definitions [item]="item"></app-admin-library-detail-article-definitions>
 							</div>
 						</tab>
-						<tab *ngFor="let section of item.sections; let i = index;">
+						<tab *ngFor="let section of item.sections; let i = index;" (select)="onSelect()">
 							<ng-template tabHeading>
 								<span>{{ section.title }}</span>
 							</ng-template>

@@ -1,9 +1,10 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { Article } from '../../../models/library.models';
 import { getDefaultItem } from '../../../models/generic.models';
 import { SharedService } from '../../../shared/shared.service';
 import { filter, tap } from 'rxjs/operators';
 import { SortByPosition } from '../../../../utilities/utilityFunctions';
+import { TabDirective, TabsetComponent } from 'ngx-bootstrap/tabs';
 
 @Component( {
 	selector: 'app-admin-library-detail-document',
@@ -11,8 +12,11 @@ import { SortByPosition } from '../../../../utilities/utilityFunctions';
 	styleUrls: [ './admin-library-detail-document.component.scss' ]
 } )
 export class AdminLibraryDetailDocumentComponent implements OnInit, OnDestroy {
+	@ViewChild( 'sectionTabs' ) sectionTabs: TabsetComponent;
 	public item: Article = <Article>getDefaultItem();
 	public itemReceived = false;
+
+	private selectedTab = 0;
 
 	private subs = this.ss.getsubs();
 
@@ -39,12 +43,31 @@ export class AdminLibraryDetailDocumentComponent implements OnInit, OnDestroy {
 		this.item.sections.forEach( ( s, index ) => {
 			s.position = index + 1;
 		} );
+		this.setSelected();
 	}
 
 	public newSection = async () => {
 		const newTitle = await this.ss.prompt( 'Title of the section', 'New Section' );
 		if ( newTitle ) this.item.sections.push( { title: newTitle, content: '', position: this.item.sections.length + 1 } );
 		this.ss.save( this.item );
+	}
+
+	public onSelect = () => {
+		setTimeout( this.onSelectDelayed, 1 );
+	}
+
+	private onSelectDelayed = () => {
+		this.sectionTabs.tabs.forEach( ( t, i ) => {
+			if ( t.active ) this.selectedTab = i;
+		} );
+	}
+
+	private setSelected = () => {
+		setTimeout( this.setSelectedDelayed, 1 );
+	}
+
+	private setSelectedDelayed = () => {
+		if ( this.sectionTabs ) this.sectionTabs.tabs[ this.selectedTab ].active = true;
 	}
 
 }
