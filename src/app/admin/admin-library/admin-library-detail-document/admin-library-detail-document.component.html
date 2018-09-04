@@ -22,17 +22,37 @@
 					</div>
 					<tabset #sectionTabs>
 						<tab (select)="onSelect()">
-							<ng-template tabHeading>
-								<i class="fas fa-sliders-h fa-fw"></i> Definitions
-							</ng-template>
-							<div class="border border-top-0 p-3">
+							<ng-template tabHeading><i class="fas fa-sliders-h fa-fw"></i> Definitions</ng-template>
+							<div class="border border-top-0 px-3 pb-0 pt-3">
 								<app-admin-library-detail-article-definitions [item]="item"></app-admin-library-detail-article-definitions>
 							</div>
 						</tab>
+						<tab>
+							<ng-template tabHeading><i class="fab fa-facebook-f fa-fw"></i></ng-template>
+							<div class="border border-top-0 px-3 pb-0 pt-3">
+								<app-admin-library-detail-article-facebook [item]="item"></app-admin-library-detail-article-facebook>
+							</div>
+						</tab>
+						<tab>
+							<ng-template tabHeading><i class="fab fa-twitter fa-fw"></i></ng-template>
+							<div class="border border-top-0 px-3 pb-0 pt-3">
+								<app-admin-library-detail-article-twitter [item]="item"></app-admin-library-detail-article-twitter>
+							</div>
+						</tab>
+						<tab>
+							<ng-template tabHeading><i class="fab fa-google fa-fw"></i></ng-template>
+							<div class="border border-top-0 px-3 pb-0 pt-3">
+								<app-admin-library-detail-article-google [item]="item"></app-admin-library-detail-article-google>
+							</div>
+						</tab>
+						<tab>
+							<ng-template tabHeading><i class="fab fa-linkedin-in fa-fw"></i></ng-template>
+							<div class="border border-top-0 px-3 pb-0 pt-3">
+								<app-admin-library-detail-article-linkedin [item]="item"></app-admin-library-detail-article-linkedin>
+							</div>
+						</tab>
 						<tab *ngFor="let section of item.sections; let i = index;" (select)="onSelect()">
-							<ng-template tabHeading>
-								<span>{{ section.title }}</span>
-							</ng-template>
+							<ng-template tabHeading><span>{{ section.title }}</span></ng-template>
 							<div class="border border-top-0 p-3">
 								<app-admin-library-detail-article-section [section]="section"></app-admin-library-detail-article-section>
 							</div>

@@ -10,6 +10,10 @@ import { AdminLibraryDetailArticleSectionComponent } from './admin-library-detai
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { FormsModule } from '@angular/forms';
 import { MonacoEditorModule } from 'ngx-monaco-editor';
+import { AdminLibraryDetailArticleTwitterComponent } from './admin-library-detail-article-twitter/admin-library-detail-article-twitter.component';
+import { AdminLibraryDetailArticleFacebookComponent } from './admin-library-detail-article-facebook/admin-library-detail-article-facebook.component';
+import { AdminLibraryDetailArticleLinkedinComponent } from './admin-library-detail-article-linkedin/admin-library-detail-article-linkedin.component';
+import { AdminLibraryDetailArticleGoogleComponent } from './admin-library-detail-article-google/admin-library-detail-article-google.component';
 
 const routes: Routes = [
 	{
@@ -34,7 +38,11 @@ const routes: Routes = [
 		AdminLibraryDetailDocumentComponent,
 		AdminLibraryDetailFolderComponent,
 		AdminLibraryDetailArticleDefinitionsComponent,
-		AdminLibraryDetailArticleSectionComponent
+		AdminLibraryDetailArticleSectionComponent,
+		AdminLibraryDetailArticleTwitterComponent,
+		AdminLibraryDetailArticleFacebookComponent,
+		AdminLibraryDetailArticleLinkedinComponent,
+		AdminLibraryDetailArticleGoogleComponent
 	]
 } )
 export class AdminLibraryModule { }

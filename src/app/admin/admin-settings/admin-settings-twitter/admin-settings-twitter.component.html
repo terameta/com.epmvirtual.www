@@ -1,0 +1,40 @@
+<form #f="ngForm" (ngSubmit)="ss.save(settings, f)">
+	<div class="btn-toolbar" role="toolbar">
+		<span *ngIf="f.dirty">Changes pending, please remember to save...</span>
+		<div class="btn-group btn-group-sm ml-auto">
+			<button class="btn btn-success" type="submit" [disabled]="f.invalid && f.dirty">Save</button>
+		</div>
+	</div>
+	<div class="table-responsive pt-1">
+		<table class="table table-sm">
+			<thead>
+				<tr>
+					<th>Setting</th>
+					<th>Value</th>
+				</tr>
+			</thead>
+			<tbody class="text-nowrap">
+				<tr>
+					<th width="10">Handle:</th>
+					<td>
+						<input type="text" name="twitterhandle" class="form-control form-control-sm" [(ngModel)]="settings.handle" placeholder="@twitterhandle">
+					</td>
+				</tr>
+				<tr>
+					<th width="10">Company:</th>
+					<td>
+						<input type="text" name="twitterCompany" class="form-control form-control-sm" [(ngModel)]="settings.company">
+					</td>
+				</tr>
+				<tr>
+					<th width="10">Logo:</th>
+					<td>
+						<input type="text" name="twitterLogo" class="form-control form-control-sm" [(ngModel)]="settings.logo">
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</form>
+<pre>{{ settings | json }}</pre>
+<pre>{{ f.dirty }}</pre>

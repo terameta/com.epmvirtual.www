@@ -13,6 +13,7 @@ import { AdminSettingsService } from '../admin/admin-settings/admin-settings.ser
 import { Article } from '../models/library.models';
 import { SortByPosition } from '../../utilities/utilityFunctions';
 import { ChangeParentComponent } from './change-parent/change-parent.component';
+import { NgForm } from '@angular/forms';
 
 @Injectable( {
 	providedIn: 'root'
@@ -136,7 +137,10 @@ export class SharedService {
 		} );
 	}
 
-	public save = ( item ) => this.db.doc( this.dbURL$.getValue() ).set( item );
+	public save = async ( item, form?: NgForm ) => {
+		await this.db.doc( this.dbURL$.getValue() ).set( item );
+		if ( form ) form.form.markAsPristine();
+	}
 	public update = ( item ) => this.db.doc( this.dbURL$.getValue() ).update( item );
 
 	public rename = async ( id: string, oldName: string ) => {
