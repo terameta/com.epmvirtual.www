@@ -14,6 +14,7 @@ import { Article } from '../models/library.models';
 import { SortByPosition } from '../../utilities/utilityFunctions';
 import { ChangeParentComponent } from './change-parent/change-parent.component';
 import { NgForm } from '@angular/forms';
+import { AssetSelectorComponent } from './asset-selector/asset-selector.component';
 
 @Injectable( {
 	providedIn: 'root'
@@ -242,6 +243,14 @@ export class SharedService {
 			modalRef.content.onClose.subscribe( resolve, reject );
 		} );
 		*/
+	}
+
+	public changeAsset = ( currentAssetID: string ) => {
+		return new Promise( async ( resolve, reject ) => {
+			const items = ( await this.promisedItems( 'assets' ) );
+			const modalRef: BsModalRef = this.modalService.show( AssetSelectorComponent, { initialState: { items, selectedAsset: currentAssetID } } );
+			modalRef.content.onClose.subscribe( resolve, reject );
+		} );
 	}
 
 	private promisedItems = ( concept: string ): Promise<any[]> => {

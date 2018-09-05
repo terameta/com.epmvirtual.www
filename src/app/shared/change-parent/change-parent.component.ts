@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { Item } from '../../models/generic.models';
 import { SortByPosition } from '../../../utilities/utilityFunctions';
 import { BsModalRef } from 'ngx-bootstrap/modal';
@@ -9,7 +9,7 @@ import { Subject } from 'rxjs';
 	templateUrl: './change-parent.component.html',
 	styleUrls: [ './change-parent.component.scss' ]
 } )
-export class ChangeParentComponent implements OnInit {
+export class ChangeParentComponent implements OnInit, OnDestroy {
 	@Input() items: Item[] = [];
 	@Input() selectedParent: string;
 	@Input() item: Item = {} as Item;
@@ -29,6 +29,10 @@ export class ChangeParentComponent implements OnInit {
 			sort( SortByPosition );
 		this.hItems.push( this._items.find( i => i.id === '0' ) );
 		this.listChildren();
+	}
+
+	ngOnDestroy() {
+		this.cancel();
 	}
 
 	public setParent = ( id: string ) => {

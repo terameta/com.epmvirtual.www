@@ -16,4 +16,8 @@ export class AdminSettingsTwitterComponent implements OnInit {
 		this.ss.cItem$.subscribe( i => ( this.settings = { ...settingsTwitterDefault(), ...i } ) );
 	}
 
+	public changeLogo = async () => {
+		console.log( await this.ss.changeAsset( '0' ) );
+	}
+
 }

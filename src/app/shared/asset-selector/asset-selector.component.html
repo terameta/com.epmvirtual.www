@@ -1,0 +1,24 @@
+<form (ngSubmit)="ok()">
+	<div class="modal-header">
+		<h4 class="modal-title text-bolder" style="font-size: 16px;">
+			Change selected asset
+		</h4>
+	</div>
+	<div class="modal-body">
+		<select name="ps" class="form-control form-control-sm" [(ngModel)]="currentParent">
+			<ng-container *ngFor="let i of hItems">
+				<option [value]="i.id">{{i.hName}}</option>
+			</ng-container>
+		</select>
+		<hr>
+		<div *ngFor="let i of items">
+			<ng-container *ngIf="i.parent === currentParent">
+				{{i.name}} - {{i.url}}
+			</ng-container>
+		</div>
+	</div>
+	<div class="modal-footer text-right">
+		<button type="submit" class="btn btn-default btn-sm mr-1">OK</button>
+		<button type="button" class="btn btn-primary btn-sm" (click)="cancel()">Cancel</button>
+	</div>
+</form>

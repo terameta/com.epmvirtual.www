@@ -29,7 +29,7 @@
 				<tr>
 					<th width="10">Logo:</th>
 					<td>
-						<input type="text" name="twitterLogo" class="form-control form-control-sm" [(ngModel)]="settings.logo">
+						<input type="text" name="twitterLogo" class="form-control form-control-sm" [(ngModel)]="settings.logo" (click)="changeLogo()">
 					</td>
 				</tr>
 			</tbody>

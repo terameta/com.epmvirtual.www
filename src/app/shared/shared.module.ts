@@ -8,6 +8,7 @@ import { UploadComponent } from './upload/upload.component';
 import { ProgressbarModule } from 'ngx-bootstrap/progressbar';
 import { ChangeParentComponent } from './change-parent/change-parent.component';
 import { ChangeParentDisplayerComponent } from './change-parent-displayer/change-parent-displayer.component';
+import { AssetSelectorComponent } from './asset-selector/asset-selector.component';
 
 @NgModule( {
 	imports: [
@@ -23,9 +24,11 @@ import { ChangeParentDisplayerComponent } from './change-parent-displayer/change
 		PromptComponent,
 		UploadComponent,
 		ChangeParentComponent,
-		ChangeParentDisplayerComponent
+		ChangeParentDisplayerComponent,
+		AssetSelectorComponent
 	],
 	entryComponents: [
+		AssetSelectorComponent,
 		ChangeParentComponent,
 		ConfirmComponent,
 		PromptComponent,
