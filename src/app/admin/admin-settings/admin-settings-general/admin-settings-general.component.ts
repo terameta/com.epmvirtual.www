@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 
-import { AngularFirestore, Action, DocumentSnapshot } from 'angularfire2/firestore';
-
 import { SettingsGeneral, settingsGeneralDefault, SettingsPhoneNumber } from '../../../../models/settings.general';
 import { SortByPosition } from '../../../../utilities/utilityFunctions';
 import { AdminSettingsService } from '../admin-settings.service';
@@ -29,14 +27,7 @@ export class AdminSettingsGeneralComponent implements OnInit {
 		this.settings = Object.assign( this.settings, s );
 	}
 
-	public save = ( form: NgForm ) => {
-		// this.db.doc( 'settings/general' ).set( this.settings ).then( () => {
-		// 	form.form.markAsPristine();
-		// } );
-		this.ss.save( this.settings ).then( () => {
-			form.form.markAsPristine();
-		} );
-	}
+	public save = ( form: NgForm ) => { this.ss.save( this.settings, form ); }
 
 	public phoneNumberAdd = ( form: NgForm ) => {
 		this.settings.phoneNumbers.push( <SettingsPhoneNumber>{ position: this.settings.phoneNumbers.length } );

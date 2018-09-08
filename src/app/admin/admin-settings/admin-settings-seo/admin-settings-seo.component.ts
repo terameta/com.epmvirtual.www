@@ -1,18 +1,18 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { settingsSEODefault } from '../../../../models/settings.seo';
 import { SharedService } from '../../../shared/shared.service';
-import { settingsTwitterDefault, SettingsTwitter } from '../../../../models/settings.twitter';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { Item } from '../../../models/generic.models';
-import { take } from 'rxjs/operators';
 import { Asset } from '../../../models/asset.models';
+import { take } from 'rxjs/operators';
 
 @Component( {
-	selector: 'app-admin-settings-twitter',
-	templateUrl: './admin-settings-twitter.component.html',
-	styleUrls: [ './admin-settings-twitter.component.scss' ]
+	selector: 'app-admin-settings-seo',
+	templateUrl: './admin-settings-seo.component.html',
+	styleUrls: [ './admin-settings-seo.component.scss' ]
 } )
-export class AdminSettingsTwitterComponent implements OnInit, OnDestroy {
-	public settings = settingsTwitterDefault();
+export class AdminSettingsSeoComponent implements OnInit, OnDestroy {
+	public settings = settingsSEODefault();
 	public logoUrl: string = null;
 
 	private subs = this.ss.getsubs();
@@ -28,13 +28,8 @@ export class AdminSettingsTwitterComponent implements OnInit, OnDestroy {
 
 	ngOnDestroy() { this.ss.unsub( this.subs ); }
 
-	public changeLogo = async () => {
-		const newLogo = await this.ss.changeAsset( this.settings.logo || '0' );
-		if ( newLogo ) this.ss.update( { id: this.settings.id, logo: newLogo } );
-	}
-
 	private handleItem = ( s: Item ) => {
-		this.settings = { ...settingsTwitterDefault(), ...s };
+		this.settings = { ...settingsSEODefault(), ...s };
 		if ( this.settings.logo ) this.findLogo();
 	}
 
@@ -42,6 +37,11 @@ export class AdminSettingsTwitterComponent implements OnInit, OnDestroy {
 		this.db.doc<Asset>( 'assets/' + this.settings.logo ).snapshotChanges().pipe( take( 1 ) ).subscribe( logo => {
 			this.logoUrl = logo.payload.data().url;
 		} );
+	}
+
+	public changeLogo = async () => {
+		const newLogo = await this.ss.changeAsset( this.settings.logo || '0' );
+		if ( newLogo ) this.ss.update( { id: this.settings.id, logo: newLogo } );
 	}
 
 }

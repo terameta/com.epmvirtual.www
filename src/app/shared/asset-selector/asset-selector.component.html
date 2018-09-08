@@ -12,8 +12,10 @@
 		</select>
 		<hr>
 		<div *ngFor="let i of items">
-			<ng-container *ngIf="i.parent === currentParent">
-				{{i.name}} - {{i.url}}
+			<ng-container *ngIf="i.parent === currentParent && i.type !== itemTypes.folder">
+				<span (click)="setThis(i.id)" class="pointer">
+					<img src="{{i.url}}" alt="{{i.name}}" *ngIf="isImage(i.contentType)" width="32"> {{i.name}}
+				</span>
 			</ng-container>
 		</div>
 	</div>
@@ -22,3 +24,6 @@
 		<button type="button" class="btn btn-primary btn-sm" (click)="cancel()">Cancel</button>
 	</div>
 </form>
+
+Selected Asset: {{ selectedAsset }}
+<br> Current Parent: {{ currentParent }}

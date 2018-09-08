@@ -19,6 +19,8 @@ export class AssetSelectorComponent implements OnInit, OnDestroy {
 	public hItems: any[] = [];
 	public currentParent = '0';
 
+	public itemTypes = ItemType;
+
 	public onClose: Subject<any>;
 
 	constructor( public modalRef: BsModalRef ) { }
@@ -26,6 +28,7 @@ export class AssetSelectorComponent implements OnInit, OnDestroy {
 	ngOnInit() {
 		this.onClose = new Subject();
 		this._items = this.items.map( i => ( { ...i, ...{ hName: i.name } } ) ).sort( SortByPosition );
+		this._items.forEach( i => { if ( i.id === this.selectedAsset ) this.currentParent = i.parent; } );
 		this.hItems.push( this._items.find( i => i.id === '0' ) );
 		this.listChildren();
 	}
@@ -45,6 +48,13 @@ export class AssetSelectorComponent implements OnInit, OnDestroy {
 				this.listChildren( i.id, newLevel );
 			}
 		} );
+	}
+
+	public isImage = ( t: string ) => ( t.substr( 0, 5 ) === 'image' );
+
+	public setThis = ( t: string ) => {
+		this.selectedAsset = t;
+		this.ok();
 	}
 
 	public ok = () => {

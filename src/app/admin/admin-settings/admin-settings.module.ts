@@ -13,6 +13,7 @@ import { AdminSettingsFacebookComponent } from './admin-settings-facebook/admin-
 import { AdminSettingsTwitterComponent } from './admin-settings-twitter/admin-settings-twitter.component';
 import { AdminSettingsGoogleComponent } from './admin-settings-google/admin-settings-google.component';
 import { AdminSettingsLinkedinComponent } from './admin-settings-linkedin/admin-settings-linkedin.component';
+import { AdminSettingsSeoComponent } from './admin-settings-seo/admin-settings-seo.component';
 
 const routes: Routes = [
 	{ path: '', pathMatch: 'full', redirectTo: 'general' },
@@ -21,6 +22,7 @@ const routes: Routes = [
 	{ path: '2co', component: AdminSettingsTwocoComponent },
 	{ path: 'smtp', component: AdminSettingsSmtpComponent },
 	{ path: 'sparkpost', component: AdminSettingsSparkpostComponent },
+	{ path: 'seo', component: AdminSettingsSeoComponent },
 	{ path: 'twitter', component: AdminSettingsTwitterComponent },
 	{ path: 'facebook', component: AdminSettingsFacebookComponent },
 	{ path: 'google', component: AdminSettingsGoogleComponent },
@@ -43,7 +45,8 @@ const routes: Routes = [
 		AdminSettingsFacebookComponent,
 		AdminSettingsTwitterComponent,
 		AdminSettingsGoogleComponent,
-		AdminSettingsLinkedinComponent
+		AdminSettingsLinkedinComponent,
+		AdminSettingsSeoComponent
 	]
 } )
 export class AdminSettingsModule { }
