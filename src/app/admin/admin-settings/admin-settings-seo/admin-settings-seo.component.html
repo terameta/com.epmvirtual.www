@@ -23,19 +23,64 @@
 				<tr>
 					<th width="10">Description:</th>
 					<td>
-						<input type="text" name="siteDescription" class="form-control form-control-sm" [(ngModel)]="settings.description" placeholder="Site Description">
+						<textarea name="siteDescription" rows="3" class="form-control form-control-sm" [(ngModel)]="settings.description" placeholder="Site Description"></textarea>
 					</td>
 				</tr>
 				<tr>
 					<th width="10">Logo:</th>
 					<td>
-						<div class="container-fluid">
+						<div class="container-fluid py-1">
 							<div class="row">
 								<div class="col-3 pl-0">
-									<img src="{{logoUrl}}" *ngIf="logoUrl" class="mw-100">
+									<img src="{{pImages.logo}}" *ngIf="pImages.logo" class="mw-100">
+									<span *ngIf="!pImages.logo">N/A</span>
 								</div>
 								<div class="col-9 text-right pr-0">
-									<button (click)="changeLogo()" class="btn btn-sm btn-dark">Change Logo</button>
+									<button (click)="changeLogo('logo')" class="btn btn-sm btn-dark">Change Logo</button>
+								</div>
+							</div>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<th width="10">Twitter Handle:</th>
+					<td>
+						<input type="text" name="tHandle" class="form-control form-control-sm" [(ngModel)]="settings.twitterhandle" placeholder="Twitter Handle">
+					</td>
+				</tr>
+				<tr>
+					<th width="10">Twitter Card Image:</th>
+					<td>
+						<div class="container-fluid py-1">
+							<div class="row">
+								<div class="col-3 pl-0">
+									<img src="{{pImages.twitter}}" *ngIf="pImages.twitter" class="mw-100">
+									<span *ngIf="!pImages.twitter">N/A</span>
+								</div>
+								<div class="col-9 text-right pr-0">
+									<button (click)="changeLogo('twittercardimage')" class="btn btn-sm btn-dark">Change Logo</button>
+								</div>
+							</div>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<th width="10">Facebook Application ID:</th>
+					<td>
+						<input type="text" name="fbappid" class="form-control form-control-sm" [(ngModel)]="settings.facebookappid" placeholder="Facebook Application ID">
+					</td>
+				</tr>
+				<tr>
+					<th width="10">Open Graph Image:</th>
+					<td>
+						<div class="container-fluid py-1">
+							<div class="row">
+								<div class="col-3 pl-0">
+									<img src="{{pImages.opengraph}}" *ngIf="pImages.opengraph" class="mw-100">
+									<span *ngIf="!pImages.opengraph">N/A</span>
+								</div>
+								<div class="col-9 text-right pr-0">
+									<button (click)="changeLogo('opengraphimage')" class="btn btn-sm btn-dark">Change Logo</button>
 								</div>
 							</div>
 						</div>

@@ -13,7 +13,8 @@ import { take } from 'rxjs/operators';
 } )
 export class AdminSettingsSeoComponent implements OnInit, OnDestroy {
 	public settings = settingsSEODefault();
-	public logoUrl: string = null;
+
+	public pImages: { logo: string, twitter: string, opengraph: string } = { logo: null, twitter: null, opengraph: null };
 
 	private subs = this.ss.getsubs();
 
@@ -30,18 +31,22 @@ export class AdminSettingsSeoComponent implements OnInit, OnDestroy {
 
 	private handleItem = ( s: Item ) => {
 		this.settings = { ...settingsSEODefault(), ...s };
-		if ( this.settings.logo ) this.findLogo();
+		if ( this.settings.logo ) this.findLogo( 'logo', this.settings.logo );
+		if ( this.settings.twittercardimage ) this.findLogo( 'twitter', this.settings.twittercardimage );
+		if ( this.settings.opengraphimage ) this.findLogo( 'opengraph', this.settings.opengraphimage );
 	}
 
-	private findLogo = () => {
-		this.db.doc<Asset>( 'assets/' + this.settings.logo ).snapshotChanges().pipe( take( 1 ) ).subscribe( logo => {
-			this.logoUrl = logo.payload.data().url;
+	private findLogo = ( setting: string, id: string ) => {
+		this.db.doc<Asset>( 'assets/' + id ).snapshotChanges().pipe( take( 1 ) ).subscribe( logo => {
+			this.pImages[ setting ] = logo.payload.data().url;
 		} );
 	}
 
-	public changeLogo = async () => {
-		const newLogo = await this.ss.changeAsset( this.settings.logo || '0' );
-		if ( newLogo ) this.ss.update( { id: this.settings.id, logo: newLogo } );
+	public changeLogo = async ( setting: string ) => {
+		const newLogo = await this.ss.changeAsset( this.settings[ setting ] || '0' );
+		const toSet: any = {};
+		toSet[ setting ] = newLogo;
+		if ( newLogo ) this.ss.update( toSet );
 	}
 
 }
