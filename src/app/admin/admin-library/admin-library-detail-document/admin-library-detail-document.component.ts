@@ -4,7 +4,6 @@ import { getDefaultItem } from '../../../models/generic.models';
 import { SharedService } from '../../../shared/shared.service';
 import { filter, tap } from 'rxjs/operators';
 import { SortByPosition } from '../../../../utilities/utilityFunctions';
-import { TabDirective, TabsetComponent } from 'ngx-bootstrap/tabs';
 
 @Component( {
 	selector: 'app-admin-library-detail-document',
@@ -12,29 +11,22 @@ import { TabDirective, TabsetComponent } from 'ngx-bootstrap/tabs';
 	styleUrls: [ './admin-library-detail-document.component.scss' ]
 } )
 export class AdminLibraryDetailDocumentComponent implements OnInit, OnDestroy {
-	@ViewChild( 'sectionTabs' ) sectionTabs: TabsetComponent;
 	public item: Article = <Article>getDefaultItem();
-	public itemReceived = false;
 
-	private selectedTab = 0;
+	private subs = this.ss.subsCreate();
 
-	private subs = this.ss.getsubs();
-
-	constructor(
-		public ss: SharedService
-	) { }
+	constructor( public ss: SharedService ) { }
 
 	ngOnInit() {
 		this.subs.push(
 			this.ss.cItem$.pipe(
 				filter( i => i.id !== '' ),
-				tap( ( i: any ) => { i.createdOn = i.createdOn ? i.createdOn.toDate() : ( new Date() ); } ),
-				tap( () => this.itemReceived = true )
+				tap( ( i: any ) => { i.createdOn = i.createdOn ? i.createdOn.toDate() : ( new Date() ); } )
 			).subscribe( this.handleItemChange )
 		);
 	}
 
-	ngOnDestroy() { this.ss.unsub( this.subs ); }
+	ngOnDestroy() { this.ss.subsDispose( this.subs ); }
 
 	private handleItemChange = ( i: Article ) => {
 		this.item = i;
@@ -43,7 +35,7 @@ export class AdminLibraryDetailDocumentComponent implements OnInit, OnDestroy {
 		this.item.sections.forEach( ( s, index ) => {
 			s.position = index + 1;
 		} );
-		this.setSelected();
+		// this.setSelected();
 	}
 
 	public newSection = async () => {
@@ -52,22 +44,22 @@ export class AdminLibraryDetailDocumentComponent implements OnInit, OnDestroy {
 		this.ss.save( this.item );
 	}
 
-	public onSelect = () => {
-		setTimeout( this.onSelectDelayed, 1 );
-	}
+	// public onSelect = () => {
+	// 	setTimeout( this.onSelectDelayed, 1 );
+	// }
 
-	private onSelectDelayed = () => {
-		this.sectionTabs.tabs.forEach( ( t, i ) => {
-			if ( t.active ) this.selectedTab = i;
-		} );
-	}
+	// private onSelectDelayed = () => {
+	// 	this.sectionTabs.tabs.forEach( ( t, i ) => {
+	// 		if ( t.active ) this.selectedTab = i;
+	// 	} );
+	// }
 
-	private setSelected = () => {
-		setTimeout( this.setSelectedDelayed, 1 );
-	}
+	// private setSelected = () => {
+	// 	setTimeout( this.setSelectedDelayed, 1 );
+	// }
 
-	private setSelectedDelayed = () => {
-		if ( this.sectionTabs ) this.sectionTabs.tabs[ this.selectedTab ].active = true;
-	}
+	// private setSelectedDelayed = () => {
+	// 	if ( this.sectionTabs ) this.sectionTabs.tabs[ this.selectedTab ].active = true;
+	// }
 
 }

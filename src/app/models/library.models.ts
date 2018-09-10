@@ -9,6 +9,8 @@ export interface Section {
 export interface Article extends Item {
 	shortDescription: string,
 	description: string,
+	twitterImage: string,
+	openGraphImage: string,
 	creator: string,
 	createdOn: Date,
 	sections: Section[],

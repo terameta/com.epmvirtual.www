@@ -16,7 +16,7 @@ export class AdminSettingsSeoComponent implements OnInit, OnDestroy {
 
 	public pImages: { logo: string, twitter: string, opengraph: string } = { logo: null, twitter: null, opengraph: null };
 
-	private subs = this.ss.getsubs();
+	private subs = this.ss.subsCreate();
 
 	constructor(
 		public ss: SharedService,
@@ -27,7 +27,7 @@ export class AdminSettingsSeoComponent implements OnInit, OnDestroy {
 		this.subs.push( this.ss.cItem$.subscribe( this.handleItem ) );
 	}
 
-	ngOnDestroy() { this.ss.unsub( this.subs ); }
+	ngOnDestroy() { this.ss.subsDispose( this.subs ); }
 
 	private handleItem = ( s: Item ) => {
 		this.settings = { ...settingsSEODefault(), ...s };

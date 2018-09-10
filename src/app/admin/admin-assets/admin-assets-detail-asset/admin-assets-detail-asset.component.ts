@@ -13,7 +13,7 @@ export class AdminAssetsDetailAssetComponent implements OnInit, OnDestroy {
 	public item: Asset = <Asset>getDefaultItem();
 	public canPreview = false;
 
-	private subs = this.ss.getsubs();
+	private subs = this.ss.subsCreate();
 
 	constructor(
 		public ss: SharedService
@@ -33,8 +33,6 @@ export class AdminAssetsDetailAssetComponent implements OnInit, OnDestroy {
 	ngOnInit() {
 	}
 
-	ngOnDestroy() {
-		this.ss.unsub( this.subs );
-	}
+	ngOnDestroy() { this.ss.subsDispose( this.subs ); }
 
 }

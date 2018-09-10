@@ -1,21 +1,31 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Article } from '../../../models/library.models';
 import { getDefaultItem } from '../../../models/generic.models';
 import { SortByPosition } from '../../../../utilities/utilityFunctions';
 import { SharedService } from '../../../shared/shared.service';
+import { filter } from 'rxjs/operators';
 
 @Component( {
 	selector: 'app-admin-library-detail-article-definitions',
 	templateUrl: './admin-library-detail-article-definitions.component.html',
 	styleUrls: [ './admin-library-detail-article-definitions.component.scss' ]
 } )
-export class AdminLibraryDetailArticleDefinitionsComponent implements OnInit {
-	@Input() item: Article = <Article>getDefaultItem();
+export class AdminLibraryDetailArticleDefinitionsComponent implements OnInit, OnDestroy {
+	public item: Article = <Article>getDefaultItem();
+
+	private subs = this.ss.subsCreate();
 
 	constructor( public ss: SharedService ) { }
 
 	ngOnInit() {
+		this.subs.push(
+			this.ss.cItem$.
+				pipe( filter( i => i.id !== '' ) ).
+				subscribe( i => this.item = { ...<Article>getDefaultItem(), ...i } )
+		);
 	}
+
+	ngOnDestroy() { this.ss.subsDispose( this.subs ); }
 
 	public sectionUp = ( i: number ) => this.sectionChangeorder( i, -1 );
 	public sectionDown = ( i: number ) => this.sectionChangeorder( i, 1 );

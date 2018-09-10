@@ -47,6 +47,7 @@ export class SharedService {
 	private dburlHandler = ( cstr: string ) => {
 		if ( this.itemSubscription ) this.itemSubscription.unsubscribe();
 		if ( cstr !== '' ) {
+			cstr = cstr.split( '/' ).splice( 0, 3 ).join( '/' );
 			this.itemSubscription = this.db.doc( cstr ).snapshotChanges().subscribe( this.itemHandler );
 		} else {
 			this.itemSubscription = null;
@@ -83,7 +84,8 @@ export class SharedService {
 		this.concept$.next( urlSegments[ 1 ] || '' );
 		this.cID$.next( urlSegments[ 2 ] || '0' );
 		this.selectedItems = [];
-		this.dbURL$.next( this.cURL$.getValue().replace( '/admin', '' ) );
+		this.dbURL$.next( this.cURL$.getValue().replace( '/admin', '' ).split( '/' ).splice( 0, 3 ).join( '/' ) );
+		// this.dbURL$.next( this.cURL$.getValue().replace( '/admin', '' ) );
 	}
 
 	private urlActOnCloud = ( urlSegments: string[] ) => {
@@ -203,8 +205,8 @@ export class SharedService {
 		await this.db.doc( this.concept$.getValue() + '/' + id ).delete().catch( console.error );
 	}
 
-	public unsub = ( subscriptions: Subscription[] ) => subscriptions.forEach( s => { s.unsubscribe(); s = null; } );
-	public getsubs = () => <Subscription[]>[];
+	public subsDispose = ( subscriptions: Subscription[] ) => subscriptions.forEach( s => { s.unsubscribe(); s = null; } );
+	public subsCreate = () => <Subscription[]>[];
 
 	public getMaxPosition = ( items: Article[] ) => {
 		let mp = 0;

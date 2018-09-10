@@ -10,16 +10,19 @@ import { AdminLibraryDetailArticleSectionComponent } from './admin-library-detai
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { FormsModule } from '@angular/forms';
 import { MonacoEditorModule } from 'ngx-monaco-editor';
-import { AdminLibraryDetailArticleTwitterComponent } from './admin-library-detail-article-twitter/admin-library-detail-article-twitter.component';
-import { AdminLibraryDetailArticleFacebookComponent } from './admin-library-detail-article-facebook/admin-library-detail-article-facebook.component';
-import { AdminLibraryDetailArticleLinkedinComponent } from './admin-library-detail-article-linkedin/admin-library-detail-article-linkedin.component';
-import { AdminLibraryDetailArticleGoogleComponent } from './admin-library-detail-article-google/admin-library-detail-article-google.component';
+import { AdminLibraryDetailArticleSeoComponent } from './admin-library-detail-article-seo/admin-library-detail-article-seo.component';
 
 const routes: Routes = [
 	{
 		path: '', component: AdminLibraryComponent, children: [
 			{ path: '', redirectTo: '/admin/library/0', pathMatch: 'full' },
-			{ path: ':id', component: AdminLibraryDetailComponent },
+			{
+				path: ':id', component: AdminLibraryDetailComponent, children: [
+					{ path: '', component: AdminLibraryDetailArticleDefinitionsComponent },
+					{ path: 'seo', component: AdminLibraryDetailArticleSeoComponent },
+					{ path: ':sectionindex', component: AdminLibraryDetailArticleSectionComponent }
+				]
+			},
 		]
 	}
 ];
@@ -39,10 +42,7 @@ const routes: Routes = [
 		AdminLibraryDetailFolderComponent,
 		AdminLibraryDetailArticleDefinitionsComponent,
 		AdminLibraryDetailArticleSectionComponent,
-		AdminLibraryDetailArticleTwitterComponent,
-		AdminLibraryDetailArticleFacebookComponent,
-		AdminLibraryDetailArticleLinkedinComponent,
-		AdminLibraryDetailArticleGoogleComponent
+		AdminLibraryDetailArticleSeoComponent,
 	]
 } )
 export class AdminLibraryModule { }
