@@ -4,6 +4,7 @@ import { getDefaultItem } from '../../../models/generic.models';
 import { SortByPosition } from '../../../../utilities/utilityFunctions';
 import { SharedService } from '../../../shared/shared.service';
 import { filter } from 'rxjs/operators';
+import { NgForm } from '@angular/forms';
 
 @Component( {
 	selector: 'app-admin-library-detail-article-definitions',
@@ -39,6 +40,19 @@ export class AdminLibraryDetailArticleDefinitionsComponent implements OnInit, On
 			section.position = index + 1;
 		} );
 		this.ss.save( this.item );
+	}
+
+	public sectionDelete = ( i: number, f?: NgForm ) => {
+		this.item.sections.splice( i, 1 );
+		this.item.sections.forEach( ( s, si ) => {
+			s.position = si + 1;
+		} );
+		this.ss.save( this.item, f );
+	}
+
+	public sectionCreate = ( f?: NgForm ) => {
+		this.item.sections.push( { title: 'New Section', content: '', position: ( this.item.sections.length + 1 ) } );
+		this.ss.save( this.item, f );
 	}
 
 }

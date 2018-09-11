@@ -3,6 +3,9 @@
 		<ng-container *ngFor="let crumb of crumbs; let islast = last;">
 			<li class="breadcrumb-item" [ngClass]="{active: islast}">
 				<a routerLink="{{crumb.id}}">{{crumb.name}}</a>
+				<a routerLink="{{crumb.id}}" target="_blank" class="ml-3" *ngIf="(ss.cItem$ | async).type === itemType.article && islast" title="Preview">
+					<i class="far fa-eye"></i>
+				</a>
 			</li>
 		</ng-container>
 	</ol>
