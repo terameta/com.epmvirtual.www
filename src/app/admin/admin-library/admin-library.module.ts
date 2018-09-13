@@ -11,6 +11,10 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
 import { FormsModule } from '@angular/forms';
 import { MonacoEditorModule } from 'ngx-monaco-editor';
 import { AdminLibraryDetailArticleSeoComponent } from './admin-library-detail-article-seo/admin-library-detail-article-seo.component';
+import { AdminLibraryDetailFolderDefinitionsComponent } from './admin-library-detail-folder-definitions/admin-library-detail-folder-definitions.component';
+import { AdminLibraryDetailFolderSeoComponent } from './admin-library-detail-folder-seo/admin-library-detail-folder-seo.component';
+import { AdminLibraryDetailDefinitionsComponent } from './admin-library-detail-definitions/admin-library-detail-definitions.component';
+import { AdminLibraryDetailSeoComponent } from './admin-library-detail-seo/admin-library-detail-seo.component';
 
 const routes: Routes = [
 	{
@@ -18,8 +22,8 @@ const routes: Routes = [
 			{ path: '', redirectTo: '/admin/library/0', pathMatch: 'full' },
 			{
 				path: ':id', component: AdminLibraryDetailComponent, children: [
-					{ path: '', component: AdminLibraryDetailArticleDefinitionsComponent },
-					{ path: 'seo', component: AdminLibraryDetailArticleSeoComponent },
+					{ path: '', component: AdminLibraryDetailDefinitionsComponent },
+					{ path: 'seo', component: AdminLibraryDetailSeoComponent },
 					{ path: ':sectionindex', component: AdminLibraryDetailArticleSectionComponent }
 				]
 			},
@@ -43,6 +47,10 @@ const routes: Routes = [
 		AdminLibraryDetailArticleDefinitionsComponent,
 		AdminLibraryDetailArticleSectionComponent,
 		AdminLibraryDetailArticleSeoComponent,
+		AdminLibraryDetailFolderDefinitionsComponent,
+		AdminLibraryDetailFolderSeoComponent,
+		AdminLibraryDetailDefinitionsComponent,
+		AdminLibraryDetailSeoComponent,
 	]
 } )
 export class AdminLibraryModule { }

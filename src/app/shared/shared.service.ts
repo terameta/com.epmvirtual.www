@@ -6,7 +6,7 @@ import { Item, ItemType, getDefaultItem } from '../models/generic.models';
 import { AngularFirestore, DocumentSnapshot, Action } from 'angularfire2/firestore';
 import { Router, Event, NavigationEnd, NavigationExtras } from '@angular/router';
 import { BehaviorSubject, timer, Subscription } from 'rxjs';
-import { debounce, take, map } from 'rxjs/operators';
+import { debounce, take, map, tap } from 'rxjs/operators';
 import { UploadComponent } from './upload/upload.component';
 import { AngularFireStorage } from 'angularfire2/storage';
 import { AdminSettingsService } from '../admin/admin-settings/admin-settings.service';
@@ -93,7 +93,13 @@ export class SharedService {
 	}
 
 	private urlActOnEndUser = ( urlSegments: string[] ) => {
-
+		this.concept$.next( urlSegments[ 0 ] || '' );
+		this.cID$.next( urlSegments[ 1 ] || '0' );
+		if ( urlSegments.length === 2 ) {
+			this.dbURL$.next( urlSegments.join( '/' ) );
+		} else {
+			this.dbURL$.next( '' );
+		}
 	}
 
 	private urlActOnGeneral = ( urlSegments: string[] ) => {
@@ -263,6 +269,19 @@ export class SharedService {
 					take( 1 ),
 					map( a => a.map( aa => aa.payload ) ),
 					map( a => a.map( aa => ( { ...aa.doc.data(), ...{ id: aa.doc.id } } ) ) )
+				).
+				subscribe( resolve, reject );
+		} );
+	}
+
+	public promisedItem = ( concept: string, id: string ) => {
+		return new Promise( ( resolve, reject ) => {
+			this.db.doc( concept + '/' + id ).
+				snapshotChanges().
+				pipe(
+					take( 1 ),
+					map( a => a.payload ),
+					map( a => ( { ...a.data(), ...{ id: a.id } } ) )
 				).
 				subscribe( resolve, reject );
 		} );

@@ -1,2 +1,28 @@
-<app-admin-library-detail-folder *ngIf="articleType == itemType.folder"></app-admin-library-detail-folder>
-<app-admin-library-detail-document *ngIf="articleType != itemType.folder"></app-admin-library-detail-document>
+<div class="container-fluid">
+	<div class="row">
+		<ul class="nav nav-tabs w-100">
+			<li class="nav-item ml-3">
+				<a [routerLink]="'.'" routerLinkActive="active" data-toggle="tab" class="nav-link px-1" [routerLinkActiveOptions]="{exact: true}">
+					<i class="fas fa-sliders-h fa-fw"></i> Definitions
+				</a>
+			</li>
+			<li class="nav-item">
+				<a [routerLink]="'seo'" routerLinkActive="active" data-toggle="tab" class="nav-link px-1">
+					<i class="fas fa-chart-line fa-fw"></i> SEO
+				</a>
+			</li>
+			<li class="nav-item" style="max-width: 60px;" *ngFor="let section of item.sections; let i = index;">
+				<a [routerLink]="i" routerLinkActive="active" data-toggle="tab" class="nav-link px-1 text-truncate">
+					{{ section.title }}
+				</a>
+			</li>
+		</ul>
+	</div>
+	<div class="row">
+		<div class="tab-content p-3 w-100">
+			<div class="tab-pane active">
+				<router-outlet></router-outlet>
+			</div>
+		</div>
+	</div>
+</div>

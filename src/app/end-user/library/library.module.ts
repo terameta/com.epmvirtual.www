@@ -2,9 +2,11 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LibraryComponent } from './library/library.component';
 import { Routes, RouterModule } from '@angular/router';
+import { ArticleComponent } from './article/article.component';
 
 const routes: Routes = [
-	{ path: 'library', component: LibraryComponent }
+	{ path: '', component: LibraryComponent },
+	{ path: ':id', component: ArticleComponent }
 ];
 
 @NgModule( {
@@ -12,6 +14,6 @@ const routes: Routes = [
 		CommonModule,
 		RouterModule.forChild( routes )
 	],
-	declarations: [ LibraryComponent ]
+	declarations: [ LibraryComponent, ArticleComponent ]
 } )
 export class LibraryModule { }

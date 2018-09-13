@@ -11,37 +11,39 @@ import { SortByPosition } from '../../../../utilities/utilityFunctions';
 	styleUrls: [ './admin-library-detail-document.component.scss' ]
 } )
 export class AdminLibraryDetailDocumentComponent implements OnInit, OnDestroy {
-	public item: Article = <Article>getDefaultItem();
+	// public item: Article = <Article>getDefaultItem();
 
-	private subs = this.ss.subsCreate();
+	// private subs = this.ss.subsCreate();
 
-	constructor( public ss: SharedService ) { }
+	// constructor( public ss: SharedService ) { }
 
 	ngOnInit() {
-		this.subs.push(
-			this.ss.cItem$.pipe(
-				filter( i => i.id !== '' ),
-				tap( ( i: any ) => { i.createdOn = i.createdOn ? i.createdOn.toDate() : ( new Date() ); } )
-			).subscribe( this.handleItemChange )
-		);
+		// this.subs.push(
+		// this.ss.cItem$.pipe(
+		// filter( i => i.id !== '' ),
+		// tap( ( i: any ) => { i.createdOn = i.createdOn ? i.createdOn.toDate() : ( new Date() ); } )
+		// ).subscribe( this.handleItemChange )
+		// );
 	}
 
-	ngOnDestroy() { this.ss.subsDispose( this.subs ); }
+	ngOnDestroy() {
+		// this.ss.subsDispose( this.subs );
+	}
 
 	private handleItemChange = ( i: Article ) => {
-		this.item = i;
-		if ( !this.item.sections ) this.item.sections = [];
-		this.item.sections.sort( SortByPosition );
-		this.item.sections.forEach( ( s, index ) => {
-			s.position = index + 1;
-		} );
-		// this.setSelected();
+		// this.item = i;
+		// if ( !this.item.sections ) this.item.sections = [];
+		// this.item.sections.sort( SortByPosition );
+		// this.item.sections.forEach( ( s, index ) => {
+		// s.position = index + 1;
+		// } );
+		// // this.setSelected();
 	}
 
 	public newSection = async () => {
-		const newTitle = await this.ss.prompt( 'Title of the section', 'New Section' );
-		if ( newTitle ) this.item.sections.push( { title: newTitle, content: '', position: this.item.sections.length + 1 } );
-		this.ss.save( this.item );
+		// const newTitle = await this.ss.prompt( 'Title of the section', 'New Section' );
+		// if ( newTitle ) this.item.sections.push( { title: newTitle, content: '', position: this.item.sections.length + 1 } );
+		// this.ss.save( this.item );
 	}
 
 	// public onSelect = () => {

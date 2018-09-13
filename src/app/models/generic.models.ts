@@ -36,3 +36,8 @@ export class Upload {
 		this.progress = 0;
 	}
 }
+
+export interface Folder extends Item {
+	shortDescription: string,
+	description: string
+}

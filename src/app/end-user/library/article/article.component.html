@@ -1,0 +1,18 @@
+<nav aria-label="breadcrumb" class="p-0" style="background-color: #e9ecef;">
+	<ol class="breadcrumb container py-1 rounded-0">
+		<ng-container *ngFor="let crumb of crumbs; let islast = last;">
+			<li class="breadcrumb-item" [ngClass]="{active: islast}">
+				<a routerLink="{{crumb.id}}">{{crumb.name}}</a>
+			</li>
+		</ng-container>
+	</ol>
+</nav>
+<div class="container mt-4">
+	<div class="row">
+		<div class="col">
+			<h1 class="text-center">{{ article.name }}</h1>
+		</div>
+	</div>
+</div>
+
+<pre>{{ article | json }}</pre>

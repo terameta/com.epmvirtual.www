@@ -1,9 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { AngularFirestore, Action, DocumentSnapshot } from 'angularfire2/firestore';
 import { Article } from '../../../models/library.models';
 import { filter } from 'rxjs/operators';
-import { Subscription } from 'rxjs';
-import { ItemType } from '../../../models/generic.models';
+import { getDefaultItem } from '../../../models/generic.models';
 import { SharedService } from '../../../shared/shared.service';
 
 @Component( {
@@ -12,41 +10,20 @@ import { SharedService } from '../../../shared/shared.service';
 	styleUrls: [ './admin-library-detail.component.scss' ]
 } )
 export class AdminLibraryDetailComponent implements OnInit, OnDestroy {
-	private articleSubscription: Subscription;
-	private idSubscription: Subscription;
+	public item = <Article>getDefaultItem();
 
-	public itemType = ItemType;
-	public articleType: ItemType = ItemType.folder;
+	private subs = this.ss.subsCreate();
 
-	constructor(
-		private db: AngularFirestore,
-		private ss: SharedService
-	) {
-		this.idSubscription = this.ss.cID$.
-			pipe( filter( a => !!a ) ).
-			subscribe( this.handleIDChange );
-	}
+	constructor( private ss: SharedService ) { }
 
 	ngOnInit() {
+		this.subs.push(
+			this.ss.cItem$.
+				pipe( filter( a => a.id !== '' ) ).
+				subscribe( i => this.item = ( i as Article ) )
+		);
 	}
 
-	ngOnDestroy() {
-		if ( this.articleSubscription ) { this.articleSubscription.unsubscribe(); }
-		this.articleSubscription = null;
-		if ( this.idSubscription ) { this.idSubscription.unsubscribe(); }
-		this.idSubscription = null;
-	}
-
-	private handleIDChange = ( id: string ) => {
-		if ( this.articleSubscription ) { this.articleSubscription.unsubscribe(); }
-		this.articleSubscription = this.db.
-			doc<Article>( '/library/' + id ).
-			snapshotChanges().
-			subscribe( this.handleArticleChange );
-	}
-
-	private handleArticleChange = ( dAction: Action<DocumentSnapshot<Article>> ) => {
-		this.articleType = dAction.payload.data().type;
-	}
+	ngOnDestroy() { this.ss.subsDispose( this.subs ); }
 
 }
