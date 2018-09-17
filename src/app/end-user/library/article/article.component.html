@@ -16,7 +16,7 @@
 			{{article.description}}
 			<ng-container *ngFor="let section of article.sections">
 				<h2>{{section.title}}</h2>
-				{{section.content}}
+				<span [innerHTML]="section.content"></span>
 			</ng-container>
 		</div>
 	</div>
