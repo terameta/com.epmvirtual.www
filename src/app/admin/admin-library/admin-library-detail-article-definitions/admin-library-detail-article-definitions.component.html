@@ -7,6 +7,12 @@
 			<button class="btn btn-outline-dark" type="button" (click)="sectionCreate(f)">
 				<i class="fas fa-plus fa-fw"></i> Add Section
 			</button>
+			<button class="btn btn-outline-dark" type="button" (click)="publish(f)" *ngIf="!item.published">
+				<i class="fas fa-dove fa-fw"></i> Publish
+			</button>
+			<button class="btn btn-outline-dark" type="button" (click)="unpublish(f)" *ngIf="item.published">
+				<i class="fas fa-ban fa-fw"></i> Unpublish
+			</button>
 		</div>
 	</div>
 	<table class="table table-sm table-borderless mb-0">
@@ -21,6 +27,12 @@
 				<td width="10" class="text-nowrap align-middle">Created On:</td>
 				<td>
 					{{ item.createdOn | date }}
+				</td>
+			</tr>
+			<tr>
+				<td width="10" class="text-nowrap align-middle">Puslished:</td>
+				<td>
+					{{ item.published }}
 				</td>
 			</tr>
 			<tr>

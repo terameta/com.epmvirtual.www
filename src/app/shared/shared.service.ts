@@ -64,6 +64,7 @@ export class SharedService {
 			this.cURL$.next( event.urlAfterRedirects );
 			this.dbURL$.next( '' );
 			this.urlAct();
+			this.selectedItems = [];
 		}
 	}
 
@@ -83,7 +84,6 @@ export class SharedService {
 	private urlActOnAdmin = ( urlSegments: string[] ) => {
 		this.concept$.next( urlSegments[ 1 ] || '' );
 		this.cID$.next( urlSegments[ 2 ] || '0' );
-		this.selectedItems = [];
 		this.dbURL$.next( this.cURL$.getValue().replace( '/admin', '' ).split( '/' ).splice( 0, 3 ).join( '/' ) );
 		// this.dbURL$.next( this.cURL$.getValue().replace( '/admin', '' ) );
 	}
@@ -147,6 +147,9 @@ export class SharedService {
 	}
 
 	public save = async ( item, form?: NgForm ) => {
+		if ( this.concept$.getValue() === 'library' ) {
+			( item as Article ).lastUpdatedOn = new Date();
+		}
 		await this.db.doc( this.dbURL$.getValue() ).set( item );
 		if ( form ) form.form.markAsPristine();
 	}
@@ -261,7 +264,7 @@ export class SharedService {
 		} );
 	}
 
-	private promisedItems = ( concept: string ): Promise<any[]> => {
+	public promisedItems = ( concept: string ): Promise<any[]> => {
 		return new Promise( ( resolve, reject ) => {
 			this.db.collection( concept ).
 				snapshotChanges().
@@ -286,5 +289,10 @@ export class SharedService {
 				subscribe( resolve, reject );
 		} );
 	}
+
+	public setNoneSelected = () => { this.selectedItems = []; };
+	public setSelected = ( id: string ) => { this.selectedItems.push( id ); };
+	public setUnselected = ( id: string ) => { this.selectedItems = this.selectedItems.filter( i => i !== id ); };
+	public isSelected = ( id: string ) => ( this.selectedItems.findIndex( e => e === id ) >= 0 );
 
 }

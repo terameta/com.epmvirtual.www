@@ -39,5 +39,7 @@ export class Upload {
 
 export interface Folder extends Item {
 	shortDescription: string,
-	description: string
+	description: string,
+	twitterImage: string,
+	openGraphImage: string
 }

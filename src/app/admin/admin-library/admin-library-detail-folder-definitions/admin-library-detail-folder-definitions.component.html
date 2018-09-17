@@ -19,9 +19,9 @@
 					<thead>
 						<tr>
 							<th class="py-0 my-0" width="10">
-								<i class="far fa-square fa-fw pointer" title="Set All Selected" (click)="setAllSelected()" *ngIf="selectedItems.length === 0"></i>
-								<i class="far fa-check-square fa-fw pointer" title="Set None Selected" (click)="setNoneSelected()" *ngIf="selectedItems.length === children.length"></i>
-								<i class="far fa-minus-square fa-fw pointer" title="Set None Selected" (click)="setNoneSelected()" *ngIf="selectedItems.length < children.length && selectedItems.length > 0"></i>
+								<i class="far fa-square fa-fw pointer" title="Set All Selected" (click)="setAllSelected()" *ngIf="ss.selectedItems.length === 0"></i>
+								<i class="far fa-check-square fa-fw pointer" title="Set None Selected" (click)="ss.setNoneSelected()" *ngIf="ss.selectedItems.length === children.length"></i>
+								<i class="far fa-minus-square fa-fw pointer" title="Set None Selected" (click)="ss.setNoneSelected()" *ngIf="ss.selectedItems.length < children.length && ss.selectedItems.length > 0"></i>
 							</th>
 							<th class="py-0 my-0">Name</th>
 							<th class="py-0 my-0 text-center text-nowrap" width="10">Created On</th>
@@ -31,11 +31,11 @@
 					<tbody>
 						<tr *ngFor="let item of children; let last = last; let first=first; let i = index;">
 							<td class="py-0 my-0">
-								<i class="far fa-square fa-fw pointer" title="Select" (click)="setSelected(item.id)" *ngIf="!isSelected(item.id)"></i>
-								<i class="far fa-check-square fa-fw pointer" title="Unselect" (click)="setUnselected(item.id)" *ngIf="isSelected(item.id)"></i>
+								<i class="far fa-square fa-fw pointer" title="Select" (click)="ss.setSelected(item.id)" *ngIf="!ss.isSelected(item.id)"></i>
+								<i class="far fa-check-square fa-fw pointer" title="Unselect" (click)="ss.setUnselected(item.id)" *ngIf="ss.isSelected(item.id)"></i>
 							</td>
 							<td class="py-0 my-0">
-								<a [routerLink]="'../' + item.id">
+								<a routerLink="/admin/library/{{item.id}}">
 									<i class="fas fa-folder fa-fw mr-1" *ngIf="item.type == itemType.folder"></i>
 									<i class="fas fa-file fa-fw mr-1" *ngIf="item.type == itemType.article"></i>
 									{{item.name}}
@@ -47,11 +47,11 @@
 								</span>
 							</td>
 							<td class="py-0 my-0 text-center text-nowrap">
-								<i (click)="ss.moveUp(ms.concept, i, children)" class="fas fa-caret-up fa-fw pointer" title="Move Up" *ngIf="!first"></i>
+								<i (click)="ss.moveUp(concept, i, children)" class="fas fa-caret-up fa-fw pointer" title="Move Up" *ngIf="!first"></i>
 								<i class="fas fa-minus fa-fw" style="color: rgba(0,0,0,0)" *ngIf="last || first"></i>
-								<i (click)="ss.moveDown(ms.concept, i, children)" class="fas fa-caret-down fa-fw pointer" title="Move Down" *ngIf="!last"></i>
+								<i (click)="ss.moveDown(concept, i, children)" class="fas fa-caret-down fa-fw pointer" title="Move Down" *ngIf="!last"></i>
 								<i class="fas fa-arrows-alt fa-fw pointer" (click)="ss.changeParent({item: item})" title="Change Parent"></i>
-								<i class="fas fa-i-cursor fa-fw pointer" title="Rename" (click)="rename(item.id, item.name)"></i>
+								<i class="fas fa-i-cursor fa-fw pointer" title="Rename" (click)="ss.rename(item.id, item.name)"></i>
 								<i class="far fa-trash-alt fa-fw text-danger pointer" title="Delete" (click)="ss.delete({id:item.id, name:item.name})"></i>
 							</td>
 						</tr>

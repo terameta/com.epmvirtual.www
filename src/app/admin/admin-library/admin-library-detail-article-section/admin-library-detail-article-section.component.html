@@ -4,6 +4,9 @@
 			<button type="submit" class="btn btn-outline-success" [disabled]="f.invalid && f.dirty">
 				<i class="fas fa-save fa-fw"></i> Save
 			</button>
+			<button type="button" class="btn btn-outline-dark" (click)="insertImage()">
+				Insert Image
+			</button>
 		</div>
 	</div>
 	<table class="table table-sm table-borderless my-0">
@@ -19,7 +22,7 @@
 			</tr>
 			<tr>
 				<td colspan="2" style="height: calc(100vh - 300px);">
-					<ngx-monaco-editor name="content" class="h-100 d-block" [options]="editorOptions" [(ngModel)]="section.content"></ngx-monaco-editor>
+					<ngx-monaco-editor name="content" class="h-100 d-block" [options]="editorOptions" [(ngModel)]="section.content" (onInit)="setEditor($event, f)"></ngx-monaco-editor>
 				</td>
 			</tr>
 		</tbody>

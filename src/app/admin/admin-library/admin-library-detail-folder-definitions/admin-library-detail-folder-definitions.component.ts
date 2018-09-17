@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Folder, getDefaultItem } from '../../../models/generic.models';
+import { Folder, getDefaultItem, ItemType } from '../../../models/generic.models';
 import { SharedService } from '../../../shared/shared.service';
 import { AngularFirestore, DocumentChangeAction } from 'angularfire2/firestore';
 import { filter, debounce } from 'rxjs/operators';
@@ -17,12 +17,16 @@ export class AdminLibraryDetailFolderDefinitionsComponent implements OnInit, OnD
 	public children: Article[] = [];
 	public docsReceived = false;
 
+	public concept = 'library';
+
 	private subs = this.ss.subsCreate();
 	private subc: Subscription;
 
+	public itemType = ItemType;
+
 	constructor(
 		private db: AngularFirestore,
-		private ss: SharedService
+		public ss: SharedService
 	) { }
 
 	ngOnInit() {
@@ -66,20 +70,7 @@ export class AdminLibraryDetailFolderDefinitionsComponent implements OnInit, OnD
 		}
 	}
 
-	// public isSelected = ( id: string ) => {
-	// 	// return this.selectedItems.findIndex( e => e === id ) >= 0;
-	// }
-
-	// public setSelected = ( id: string ) => {
-	// 	// this.selectedItems.push( id );
-	// }
-
-	// public setUnselected = ( id: string ) => {
-	// 	// this.selectedItems = this.selectedItems.filter( i => i !== id );
-	// }
-
-	// // public setAllSelected = () => this.selectedItems = this.children.map( item => item.id );
-	// // public setNoneSelected = () => this.selectedItems = [];
+	public setAllSelected = () => this.ss.selectedItems = this.children.map( item => item.id );
 
 	// // public rename = async ( id: string, oldName: string ) => {
 	// // 	const name: string = await this.ss.prompt( 'What is the new name?', oldName );

@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Article } from '../../../models/library.models';
 import { getDefaultItem, Item } from '../../../models/generic.models';
 import { SharedService } from '../../../shared/shared.service';
-import { filter, take } from 'rxjs/operators';
+import { filter, take, map } from 'rxjs/operators';
 import { Asset } from '../../../models/asset.models';
 import { AngularFirestore } from 'angularfire2/firestore';
 
@@ -20,7 +20,11 @@ export class AdminLibraryDetailArticleSeoComponent implements OnInit, OnDestroy 
 	constructor( public ss: SharedService, private db: AngularFirestore ) { }
 
 	ngOnInit() {
-		this.subs.push( this.ss.cItem$.pipe( filter( i => i.id !== '' ) ).subscribe( this.handleItem ) );
+		this.subs.push( this.ss.cItem$.
+			pipe(
+				filter( i => i.id !== '' ),
+				map( i => ( <Article>i ) ) ).
+			subscribe( this.handleItem ) );
 	}
 
 	private handleItem = ( i: Item ) => {

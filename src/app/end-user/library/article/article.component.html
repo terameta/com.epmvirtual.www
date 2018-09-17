@@ -11,6 +11,13 @@
 	<div class="row">
 		<div class="col">
 			<h1 class="text-center">{{ article.name }}</h1>
+			{{article.shortDescription}}
+			<h2 *ngIf="article.description">Summary</h2>
+			{{article.description}}
+			<ng-container *ngFor="let section of article.sections">
+				<h2>{{section.title}}</h2>
+				{{section.content}}
+			</ng-container>
 		</div>
 	</div>
 </div>

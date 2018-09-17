@@ -13,6 +13,8 @@ export interface Article extends Item {
 	openGraphImage: string,
 	creator: string,
 	createdOn: Date,
+	lastUpdatedOn: Date,
 	sections: Section[],
-	position: number
+	position: number,
+	published: boolean
 }

@@ -1,3 +1,2 @@
-<p>
-  admin-library-detail-seo works!
-</p>
+<app-admin-library-detail-folder-seo *ngIf="currentType == itemType.folder"></app-admin-library-detail-folder-seo>
+<app-admin-library-detail-article-seo *ngIf="currentType == itemType.article"></app-admin-library-detail-article-seo>

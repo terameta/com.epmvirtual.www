@@ -3,7 +3,8 @@ import { Article } from '../../../models/library.models';
 import { ItemType, getDefaultItem } from '../../../models/generic.models';
 import { AngularFirestore, DocumentChangeAction } from 'angularfire2/firestore';
 import { SharedService } from '../../../shared/shared.service';
-import { filter } from 'rxjs/operators';
+import { filter, map, tap } from 'rxjs/operators';
+import { SortByPosition } from '../../../../utilities/utilityFunctions';
 
 @Component( {
 	selector: 'app-article',
@@ -17,14 +18,17 @@ export class ArticleComponent implements OnInit, OnDestroy {
 
 	private subs = this.ss.subsCreate();
 
-	constructor(
-		private db: AngularFirestore,
-		private ss: SharedService
-	) { }
+	constructor( private ss: SharedService ) { }
 
 	ngOnInit() {
 		this.subs.push( this.ss.cID$.pipe( filter( a => !!a ) ).subscribe( this.handleIDChange ) );
-		// this.subs.push( this.db.collection<Article>( '/library' ).snapshotChanges().subscribe( this.handleDocChange ) );
+		this.subs.push( this.ss.cItem$.pipe(
+			filter( i => !!i.id ),
+			map( i => ( <Article>i ) ),
+			tap( i => { if ( i.sections ) i.sections.sort( SortByPosition ); } ),
+			tap( ( i: any ) => { i.createdOn = i.createdOn ? i.createdOn.toDate() : ( new Date() ); } ),
+			tap( ( i: any ) => { i.lastUpdatedOn = i.lastUpdatedOn ? i.lastUpdatedOn.toDate() : i.createdOn; } )
+		).subscribe( i => this.article = i ) );
 	}
 
 	ngOnDestroy() { this.ss.subsDispose( this.subs ); }
@@ -34,14 +38,8 @@ export class ArticleComponent implements OnInit, OnDestroy {
 		this.crumbs = [];
 		while ( cID ) {
 			const tempArticle: Article = ( await this.ss.promisedItem( 'library', cID ) ) as Article;
-			if ( id === cID ) this.article = tempArticle;
 			this.crumbs.unshift( { id: tempArticle.id, name: tempArticle.name } );
 			cID = tempArticle.parent;
 		}
 	}
-
-	// private handleDocChange = ( dDocActions: DocumentChangeAction<Article>[] ) => {
-	// 	this.docObject = keyBy( dDocActions.map( c => ( { ...c.payload.doc.data(), ...{ id: c.payload.doc.id } } ) ), 'id' );
-	// }
-
 }
