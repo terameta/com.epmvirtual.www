@@ -21,7 +21,7 @@ export class AdminLibraryDetailArticleSectionComponent implements OnInit, OnDest
 	private subs = this.ss.subsCreate();
 
 	editorOptions = {
-		theme: 'vs-dark',
+		theme: 'vs-light',
 		language: 'html',
 		automaticLayout: true, minimap: {
 			enabled: false

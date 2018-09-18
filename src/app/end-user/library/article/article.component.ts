@@ -3,7 +3,7 @@ import { Article } from '../../../models/library.models';
 import { ItemType, getDefaultItem } from '../../../models/generic.models';
 import { AngularFirestore, DocumentChangeAction } from 'angularfire2/firestore';
 import { SharedService } from '../../../shared/shared.service';
-import { filter, map, tap } from 'rxjs/operators';
+import { filter, map, tap, take } from 'rxjs/operators';
 import { SortByPosition } from '../../../../utilities/utilityFunctions';
 
 @Component( {
@@ -15,10 +15,14 @@ export class ArticleComponent implements OnInit, OnDestroy {
 	public crumbs: { id: string, name: string }[] = [];
 	public article: Article = <Article>getDefaultItem();
 	public itemType = ItemType;
+	public children: Article[] = [];
 
 	private subs = this.ss.subsCreate();
 
-	constructor( private ss: SharedService ) { }
+	constructor(
+		private db: AngularFirestore,
+		private ss: SharedService
+	) { }
 
 	ngOnInit() {
 		this.subs.push( this.ss.cID$.pipe( filter( a => !!a ) ).subscribe( this.handleIDChange ) );
@@ -28,7 +32,7 @@ export class ArticleComponent implements OnInit, OnDestroy {
 			tap( i => { if ( i.sections ) i.sections.sort( SortByPosition ); } ),
 			tap( ( i: any ) => { i.createdOn = i.createdOn ? i.createdOn.toDate() : ( new Date() ); } ),
 			tap( ( i: any ) => { i.lastUpdatedOn = i.lastUpdatedOn ? i.lastUpdatedOn.toDate() : i.createdOn; } )
-		).subscribe( i => this.article = i ) );
+		).subscribe( this.handleItemChange ) );
 	}
 
 	ngOnDestroy() { this.ss.subsDispose( this.subs ); }
@@ -41,5 +45,17 @@ export class ArticleComponent implements OnInit, OnDestroy {
 			this.crumbs.unshift( { id: tempArticle.id, name: tempArticle.name } );
 			cID = tempArticle.parent;
 		}
+	}
+
+	private handleItemChange = ( item: Article ) => {
+		this.article = item;
+		if ( this.article.type === ItemType.folder ) this.findChildren( this.article.id );
+	}
+
+	private findChildren = ( parentID: string ) => {
+		this.db.collection<Article>( '/library', ref => ref.where( 'parent', '==', parentID ).orderBy( 'position' ) ).
+			valueChanges().
+			pipe( take( 1 ) ).
+			subscribe( c => this.children = c );
 	}
 }

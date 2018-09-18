@@ -1,8 +1,8 @@
-<nav aria-label="breadcrumb" class="p-0" style="background-color: #e9ecef;">
+<nav aria-label="breadcrumb" class="p-0" style="background-color: #e9ecef; min-height: 29px;">
 	<ol class="breadcrumb container py-1 rounded-0">
 		<ng-container *ngFor="let crumb of crumbs; let islast = last;">
 			<li class="breadcrumb-item" [ngClass]="{active: islast}">
-				<a routerLink="{{crumb.id}}">{{crumb.name}}</a>
+				<a routerLink="/library/{{crumb.id}}">{{crumb.name}}</a>
 			</li>
 		</ng-container>
 	</ol>
@@ -12,11 +12,28 @@
 		<div class="col">
 			<h1 class="text-center">{{ article.name }}</h1>
 			{{article.shortDescription}}
-			<h2 *ngIf="article.description">Summary</h2>
-			{{article.description}}
-			<ng-container *ngFor="let section of article.sections">
-				<h2>{{section.title}}</h2>
-				<span [innerHTML]="section.content"></span>
+			<ng-container *ngIf="article.description">
+				<h2>Summary</h2>
+				{{article.description}}
+			</ng-container>
+			<ng-container *ngIf="article.type == itemType.article">
+				<ng-container *ngFor="let section of article.sections">
+					<h2 class="mt-3">{{section.title}}</h2>
+					<span [innerHTML]="section.content"></span>
+				</ng-container>
+			</ng-container>
+			<ng-container *ngIf="article.type == itemType.folder">
+				<h2 class="mt-3">Articles & Subfolders:</h2>
+				<ul class="folderul">
+					<ng-container *ngFor="let child of children">
+						<li class="folderli" *ngIf="child.type == itemType.folder">
+							<a routerLink="/library/{{child.id}}">{{child.name}}</a>
+						</li>
+						<li class="articleli" *ngIf="child.type == itemType.article">
+							<a routerLink="/library/{{child.id}}">{{child.name}}</a>
+						</li>
+					</ng-container>
+				</ul>
 			</ng-container>
 		</div>
 	</div>

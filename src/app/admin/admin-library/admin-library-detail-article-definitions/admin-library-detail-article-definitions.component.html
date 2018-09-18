@@ -32,7 +32,8 @@
 			<tr>
 				<td width="10" class="text-nowrap align-middle">Puslished:</td>
 				<td>
-					{{ item.published }}
+					<i class="far fa-square fa-fw pointer" *ngIf="!item.published" (click)="publish(f)"></i>
+					<i class="far fa-check-square fa-fw pointer" *ngIf="item.published" (click)="unpublish(f)"></i>
 				</td>
 			</tr>
 			<tr>

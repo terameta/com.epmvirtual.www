@@ -6,6 +6,7 @@ import { ArticleComponent } from './article/article.component';
 
 const routes: Routes = [
 	{ path: '', component: LibraryComponent },
+	{ path: '0', redirectTo: '', pathMatch: 'full' },
 	{ path: ':id', component: ArticleComponent }
 ];
 
