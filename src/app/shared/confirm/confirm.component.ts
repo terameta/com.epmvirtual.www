@@ -9,6 +9,7 @@ import { BsModalRef } from 'ngx-bootstrap/modal';
 } )
 export class ConfirmComponent implements OnInit, OnDestroy {
 	@Input() question = 'Are you sure?';
+	@Input() okonly = false;
 
 	public onClose: Subject<boolean> = new Subject();
 

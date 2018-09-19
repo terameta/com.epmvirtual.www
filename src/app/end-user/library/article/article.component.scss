@@ -1,5 +1,5 @@
 ul.folderul { list-style: none; padding: 0; }
-li.folderli { padding-left: 1.3em; }
+li.folderli { padding-left: 1.3em; font-size: 16px; }
 li.folderli:before {
 	content: "\f07b"; /* FontAwesome Unicode */
 	font-family: 'Font Awesome 5 Free';
@@ -9,7 +9,7 @@ li.folderli:before {
 	width: 1.3em; /* same as padding-left set on li */
 }
 
-li.articleli { padding-left: 1.3em; }
+li.articleli { padding-left: 1.3em; font-size: 16px;}
 li.articleli:before {
 	content: "\f1ea"; /* FontAwesome Unicode */
 	font-family: 'Font Awesome 5 Free';

@@ -5,6 +5,7 @@ import { AngularFirestore, DocumentChangeAction } from 'angularfire2/firestore';
 import { SharedService } from '../../../shared/shared.service';
 import { filter, map, tap, take } from 'rxjs/operators';
 import { SortByPosition } from '../../../../utilities/utilityFunctions';
+import { UtilitiesService } from '../../../shared/utilities.service';
 
 @Component( {
 	selector: 'app-article',
@@ -21,7 +22,8 @@ export class ArticleComponent implements OnInit, OnDestroy {
 
 	constructor(
 		private db: AngularFirestore,
-		private ss: SharedService
+		private ss: SharedService,
+		private us: UtilitiesService
 	) { }
 
 	ngOnInit() {
@@ -47,8 +49,12 @@ export class ArticleComponent implements OnInit, OnDestroy {
 		}
 	}
 
-	private handleItemChange = ( item: Article ) => {
+	private handleItemChange = async ( item: Article ) => {
 		this.article = item;
+		if ( !this.article.published && this.article.type !== ItemType.folder ) {
+			await this.ss.confirm( 'This tutorial is still under development, please come back later.', true );
+			this.us.navigateTo( 'library', '0' );
+		}
 		if ( this.article.type === ItemType.folder ) this.findChildren( this.article.id );
 	}
 

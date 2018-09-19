@@ -7,23 +7,23 @@
 		</ng-container>
 	</ol>
 </nav>
-<div class="container mt-4">
+<div class="container mt-4 mb-5">
 	<div class="row">
 		<div class="col">
-			<h1 class="text-center">{{ article.name }}</h1>
+			<h1 class="text-center my-3">{{ article.name }}</h1>
 			{{article.shortDescription}}
 			<ng-container *ngIf="article.description">
-				<h2>Summary</h2>
+				<h2 class="mt-3">Summary</h2>
 				{{article.description}}
 			</ng-container>
 			<ng-container *ngIf="article.type == itemType.article">
 				<ng-container *ngFor="let section of article.sections">
-					<h2 class="mt-3">{{section.title}}</h2>
+					<h2 class="mt-3" [innerHTML]="section.title"></h2>
 					<span [innerHTML]="section.content"></span>
 				</ng-container>
 			</ng-container>
 			<ng-container *ngIf="article.type == itemType.folder">
-				<h2 class="mt-3">Articles & Subfolders:</h2>
+				<h2 class="mt-5 mb-3">Articles & Subfolders:</h2>
 				<ul class="folderul">
 					<ng-container *ngFor="let child of children">
 						<li class="folderli" *ngIf="child.type == itemType.folder">
@@ -39,4 +39,4 @@
 	</div>
 </div>
 
-<pre>{{ article | json }}</pre>
+<!-- <pre>{{ article | json }}</pre> -->

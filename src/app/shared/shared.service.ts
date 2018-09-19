@@ -112,8 +112,8 @@ export class SharedService {
 		}
 	}
 
-	public confirm = ( question: string ): Promise<boolean> => {
-		const modalRef: BsModalRef = this.modalService.show( ConfirmComponent, { initialState: { question } } );
+	public confirm = ( question: string, okonly = false ): Promise<boolean> => {
+		const modalRef: BsModalRef = this.modalService.show( ConfirmComponent, { initialState: { question, okonly } } );
 		return new Promise( ( resolve, reject ) => {
 			modalRef.content.onClose.subscribe( resolve, reject );
 		} );

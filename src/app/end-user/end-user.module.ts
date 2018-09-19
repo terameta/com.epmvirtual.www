@@ -10,6 +10,7 @@ import { SignInComponent } from './sign-in/sign-in.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { FooterComponent } from './footer/footer.component';
+import { OurOffersComponent } from './our-offers/our-offers.component';
 
 const routes: Routes = [
 	{
@@ -18,7 +19,8 @@ const routes: Routes = [
 			{ path: 'terms-of-service', component: TermsOfServiceComponent },
 			{ path: 'signin', component: SignInComponent },
 			{ path: 'signup', component: SignUpComponent },
-			{ path: 'library', loadChildren: './library/library.module#LibraryModule' }
+			{ path: 'library', loadChildren: './library/library.module#LibraryModule' },
+			{ path: 'our-offers', component: OurOffersComponent }
 		]
 	}
 ];
@@ -36,7 +38,8 @@ const routes: Routes = [
 		SignInComponent,
 		SignUpComponent,
 		NavbarComponent,
-		FooterComponent
+		FooterComponent,
+		OurOffersComponent
 	]
 } )
 export class EndUserModule { }
