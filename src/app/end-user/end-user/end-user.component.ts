@@ -10,8 +10,6 @@ export class EndUserComponent implements OnInit {
 
 	constructor( public ss: SharedService ) { }
 
-	ngOnInit() {
-		console.log( 'Activate the links on the footer' );
-	}
+	ngOnInit() { }
 
 }
