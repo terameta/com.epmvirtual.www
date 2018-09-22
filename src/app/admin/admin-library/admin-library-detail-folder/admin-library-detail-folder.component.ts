@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { AngularFirestore, Action, DocumentSnapshot, DocumentChangeAction } from 'angularfire2/firestore';
+import { AngularFirestore, Action, DocumentSnapshot, DocumentChangeAction } from '@angular/fire/firestore';
 import { AdminLibraryService } from '../admin-library.service';
 import { Subscription, timer } from 'rxjs';
 import { filter, debounce } from 'rxjs/operators';

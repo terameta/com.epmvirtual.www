@@ -1,0 +1,30 @@
+<div class="container-fluid py-2">
+	<div class="btn-toolbar w-100" role="toolbar">
+		<div class="btn-group btn-group-sm ml-auto">
+			<button class="btn btn-outline-dark">
+				<i class="far fa-clone fa-fw"></i> New Plan
+			</button>
+		</div>
+	</div>
+	<div class="row">
+		<ul class="nav nav-tabs w-100">
+			<li class="nav-item ml-3">
+				<a routerLink="." class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+					<i class="far fa-list-alt fa-fw"></i> List
+				</a>
+			</li>
+			<li class="nav-item">
+				<a routerLink="cb" class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+					List
+				</a>
+			</li>
+		</ul>
+	</div>
+	<div class="row">
+		<div class="tab-content p-3 w-100">
+			<div class="tab-pane active">
+				<router-outlet></router-outlet>
+			</div>
+		</div>
+	</div>
+</div>

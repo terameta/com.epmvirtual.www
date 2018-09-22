@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { SharedService } from '../../shared/shared.service';
 import { Asset } from '../../models/asset.models';
-import { AngularFirestore, DocumentChangeAction } from 'angularfire2/firestore';
+import { AngularFirestore, DocumentChangeAction } from '@angular/fire/firestore';
 
 @Injectable( {
 	providedIn: 'root'

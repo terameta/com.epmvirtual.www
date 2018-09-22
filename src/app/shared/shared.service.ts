@@ -3,12 +3,12 @@ import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { ConfirmComponent } from './confirm/confirm.component';
 import { PromptComponent } from './prompt/prompt.component';
 import { Item, ItemType, getDefaultItem } from '../models/generic.models';
-import { AngularFirestore, DocumentSnapshot, Action } from 'angularfire2/firestore';
+import { AngularFirestore, DocumentSnapshot, Action } from '@angular/fire/firestore';
 import { Router, Event, NavigationEnd, NavigationExtras } from '@angular/router';
 import { BehaviorSubject, timer, Subscription } from 'rxjs';
 import { debounce, take, map, tap } from 'rxjs/operators';
 import { UploadComponent } from './upload/upload.component';
-import { AngularFireStorage } from 'angularfire2/storage';
+import { AngularFireStorage } from '@angular/fire/storage';
 import { AdminSettingsService } from '../admin/admin-settings/admin-settings.service';
 import { Article } from '../models/library.models';
 import { SortByPosition } from '../../utilities/utilityFunctions';
@@ -46,7 +46,7 @@ export class SharedService {
 
 	private dburlHandler = ( cstr: string ) => {
 		if ( this.itemSubscription ) this.itemSubscription.unsubscribe();
-		if ( cstr !== '' ) {
+		if ( cstr !== '' && cstr.split( '/' ).length > 2 ) {
 			cstr = cstr.split( '/' ).splice( 0, 3 ).join( '/' );
 			this.itemSubscription = this.db.doc( cstr ).snapshotChanges().subscribe( this.itemHandler );
 		} else {

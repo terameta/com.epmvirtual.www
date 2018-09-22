@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Folder, getDefaultItem } from '../../../models/generic.models';
 import { SharedService } from '../../../shared/shared.service';
-import { AngularFirestore } from 'angularfire2/firestore';
+import { AngularFirestore } from '@angular/fire/firestore';
 import { filter, map, take } from 'rxjs/operators';
 import { Asset } from '../../../models/asset.models';
 

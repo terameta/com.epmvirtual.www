@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Article } from '../../../models/library.models';
 import { ItemType, getDefaultItem } from '../../../models/generic.models';
-import { AngularFirestore, DocumentChangeAction } from 'angularfire2/firestore';
+import { AngularFirestore, DocumentChangeAction } from '@angular/fire/firestore';
 import { SharedService } from '../../../shared/shared.service';
 import { filter, map, tap, take } from 'rxjs/operators';
 import { SortByPosition } from '../../../../utilities/utilityFunctions';

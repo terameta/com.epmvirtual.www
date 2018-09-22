@@ -4,7 +4,7 @@ import { getDefaultItem, Item } from '../../../models/generic.models';
 import { SharedService } from '../../../shared/shared.service';
 import { filter, take, map } from 'rxjs/operators';
 import { Asset } from '../../../models/asset.models';
-import { AngularFirestore } from 'angularfire2/firestore';
+import { AngularFirestore } from '@angular/fire/firestore';
 
 @Component( {
 	selector: 'app-admin-library-detail-article-seo',

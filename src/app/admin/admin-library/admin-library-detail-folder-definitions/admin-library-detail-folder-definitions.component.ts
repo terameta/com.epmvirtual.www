@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Folder, getDefaultItem, ItemType } from '../../../models/generic.models';
 import { SharedService } from '../../../shared/shared.service';
-import { AngularFirestore, DocumentChangeAction } from 'angularfire2/firestore';
+import { AngularFirestore, DocumentChangeAction } from '@angular/fire/firestore';
 import { filter, debounce } from 'rxjs/operators';
 import { Article } from '../../../models/library.models';
 import { timer, Subscription } from 'rxjs';

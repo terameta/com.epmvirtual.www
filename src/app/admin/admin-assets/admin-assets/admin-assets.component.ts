@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import * as _ from 'lodash';
 import { Subscription } from 'rxjs';
 import { Asset } from '../../../models/asset.models';
-import { AngularFirestore, DocumentChangeAction } from 'angularfire2/firestore';
+import { AngularFirestore, DocumentChangeAction } from '@angular/fire/firestore';
 import { filter } from 'rxjs/operators';
 import { SharedService } from '../../../shared/shared.service';
 import { ItemType } from '../../../models/generic.models';

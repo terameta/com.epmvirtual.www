@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SettingsSMTP } from '../../../../models/settings.smtp';
-import { AngularFirestore, Action, DocumentSnapshot } from 'angularfire2/firestore';
+import { AngularFirestore, Action, DocumentSnapshot } from '@angular/fire/firestore';
 import { NgForm } from '@angular/forms';
 
 @Component( {

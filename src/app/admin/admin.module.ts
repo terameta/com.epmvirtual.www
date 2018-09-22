@@ -15,7 +15,8 @@ const routes: Routes = [
 			{ path: '', component: AdminFrontPageComponent },
 			{ path: 'settings', component: AdminSettingsParentComponent, loadChildren: './admin-settings/admin-settings.module#AdminSettingsModule' },
 			{ path: 'library', loadChildren: './admin-library/admin-library.module#AdminLibraryModule' },
-			{ path: 'assets', loadChildren: './admin-assets/admin-assets.module#AdminAssetsModule' }
+			{ path: 'assets', loadChildren: './admin-assets/admin-assets.module#AdminAssetsModule' },
+			{ path: 'plans', loadChildren: './admin-plans/admin-plans.module#AdminPlansModule' }
 		]
 	}
 ];

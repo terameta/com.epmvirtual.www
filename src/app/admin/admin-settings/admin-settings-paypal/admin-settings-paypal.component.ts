@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SettingsPayPal } from '../../../../models/settings.paypal';
 import { NgForm } from '@angular/forms';
-import { AngularFirestore, Action, DocumentSnapshot } from 'angularfire2/firestore';
+import { AngularFirestore, Action, DocumentSnapshot } from '@angular/fire/firestore';
 
 @Component( {
 	selector: 'app-admin-settings-paypal',
