@@ -1,3 +1,41 @@
-<p>
-  admin-plans-list works!
-</p>
+<div class="container-fluid">
+	<div class="row">
+		<div class="col">
+			<span *ngIf="!itemsReceived" class="text-center w-100 d-block">
+				<hr>
+				<i class="fas fa-circle-notch fa-spin"></i><br>
+				Refreshing, please wait...
+				<br><br>
+				<hr>
+			</span>
+			<span *ngIf="items.length == 0 && itemsReceived">
+				<br> There are no items under this folder.
+				<br> Please use above buttons to create.
+				<br>
+				<br>
+			</span>
+			<div class="table-responsive m-0 p-0" *ngIf="items.length > 0">
+				<table class="table table-sm table-bordered m-0">
+					<thead>
+						<tr>
+							<th class="py-0 my-0">Name</th>
+							<th class="py-0 my-0 text-center text-nowrap" width="10">Actions</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr *ngFor="let item of items; let i = index; let last = last; let first = first;">
+							<td>{{item.name}}</td>
+							<td class="py-0 my-0 text-center text-nowrap">
+								<i (click)="ss.moveUp(concept, i, items)" class="fas fa-caret-up fa-fw pointer" title="Move Up" *ngIf="!first"></i>
+								<i class="fas fa-minus fa-fw" style="color: rgba(0,0,0,0)" *ngIf="last || first"></i>
+								<i (click)="ss.moveDown(concept, i, items)" class="fas fa-caret-down fa-fw pointer" title="Move Down" *ngIf="!last"></i>
+								<i class="fas fa-i-cursor fa-fw pointer" title="Rename" (click)="ss.rename(item.id, item.name)"></i>
+								<i class="far fa-trash-alt fa-fw text-danger pointer" title="Delete" (click)="ss.delete({id:item.id, name:item.name})"></i>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>

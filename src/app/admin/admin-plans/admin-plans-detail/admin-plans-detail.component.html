@@ -1,3 +1,81 @@
-<p>
-  admin-plans-detail works!
-</p>
+<form #f="ngForm" (ngSubmit)="ss.save(item, f)">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col">
+				<div class="btn-toolbar my-2" role="toolbar">
+					<span *ngIf="f.dirty">Changes pending, please remember to click save...</span>
+					<div class="btn-group btn-group-sm ml-auto">
+						<button class="btn btn-success" type="submit" [disabled]="f.invalid && f.dirty">Save</button>
+					</div>
+				</div>
+				<div class="table-responsive">
+					<table class="table table-sm table-borderless">
+						<tbody>
+							<tr>
+								<td width="10" class="text-nowrap pt-2">Name: </td>
+								<td>
+									<input type="text" class="form-control form-control-sm" name="planName" [(ngModel)]="item.name" placeholder="Plan Name">
+								</td>
+							</tr>
+							<tr>
+								<td width="10" class="text-nowrap pt-2">CPU: </td>
+								<td>
+									<div class="input-group input-group-sm">
+										<input type="number" class="form-control" placeholder="Number of Core(s)" name="planCPU" [(ngModel)]="item.cpu">
+										<div class="input-group-append">
+											<span class="input-group-text">Core<span *ngIf="item.cpu > 1">s</span></span>
+										</div>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td width="10" class="text-nowrap pt-2">RAM: </td>
+								<td>
+									<div class="input-group input-group-sm">
+										<input type="number" class="form-control" placeholder="Memory Size in MiB" name="planRAM" [(ngModel)]="item.ram">
+										<div class="input-group-append">
+											<span class="input-group-text">MiB<span *ngIf="item.ram > 1">s</span></span>
+										</div>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td width="10" class="text-nowrap pt-2">HDD: </td>
+								<td>
+									<div class="input-group input-group-sm">
+										<input type="number" class="form-control" placeholder="Disk Size in GiB" name="planHDD" [(ngModel)]="item.hdd">
+										<div class="input-group-append">
+											<span class="input-group-text">GiB<span *ngIf="item.hdd > 1">s</span></span>
+										</div>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td width="10" class="text-nowrap pt-2">Bandwidth: </td>
+								<td>
+									<div class="input-group input-group-sm">
+										<input type="number" class="form-control" placeholder="Bandwidth limit in GiB" name="planBW" [(ngModel)]="item.bandwidth">
+										<div class="input-group-append">
+											<span class="input-group-text">GiB<span *ngIf="item.bandwidth > 1">s</span></span>
+										</div>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td width="10" class="text-nowrap pt-2">Price: </td>
+								<td>
+									<div class="input-group input-group-sm">
+										<input type="number" class="form-control" placeholder="Price in USD" name="planPrice" [(ngModel)]="item.price">
+										<div class="input-group-append">
+											<span class="input-group-text">USD</span>
+										</div>
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</form>

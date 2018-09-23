@@ -29,6 +29,7 @@ export class UtilitiesService {
 	public navigateTo = ( section: string, id: string ) => {
 		this.router.navigateByUrl( '/' + section + '/' + id );
 	}
+	public navigateByUrl = ( url: string ) => this.router.navigateByUrl( url );
 
 	public deepCopy = ( payload: any ) => JSON.parse( JSON.stringify( payload ) );
 }
