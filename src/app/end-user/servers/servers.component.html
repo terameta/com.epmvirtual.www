@@ -2,7 +2,55 @@
 	<div class="row py-3 mb-5">
 		<div class="col">
 			<h1 class="text-center mb-5">Servers</h1>
-
+			<div class="table-responsive">
+				<table class="table table-bordered">
+					<thead>
+						<tr class="bg-dark text-light">
+							<th class="text-nowrap text-center">Server Type</th>
+							<th class="text-nowrap text-center">Processor</th>
+							<th class="text-nowrap text-center">Memory</th>
+							<th class="text-nowrap text-center">Disk</th>
+							<th class="text-nowrap text-center">Network Traffic</th>
+							<th class="text-nowrap text-center">Price</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr *ngFor="let plan of plans;">
+							<td class="text-nowrap text-center align-middle bg-accent">{{ plan.name }}</td>
+							<td class="text-nowrap text-center bg-evgreen text-light">{{ plan.cpu }} CPU Core<ng-container *ngIf="plan.cpu > 1">s</ng-container><br>(Dedicated)</td>
+							<td class="text-nowrap text-center bg-evgreen text-light">{{ (plan.ram / 1024) | number:'1.0-2' }} GB<br>(Dedicated)</td>
+							<td class="text-nowrap text-center bg-evgreen text-light">{{ plan.hdd }} GB<br>(SSD)</td>
+							<td class="text-nowrap text-center bg-evgreen text-light">{{ (plan.bandwidth / 1024) | number:'1.0-2' }} TB</td>
+							<td class="text-nowrap text-center bg-evgreen text-light">{{ plan.price | currency}} USD<br>Monthly</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<h1 class="text-center my-3">What is an unmanaged server?</h1>
+			<p>
+				As EPMVirtual team, we provide two separate types of server plans:
+			</p>
+			<ul>
+				<li>Managed Servers</li>
+				<li>Unmanaged Servers</li>
+			</ul>
+			<p>
+				An unmanaged server means that, you have the full responsibility of your server.
+				This includes applying patches for your server, updating your MS Windows and MS Office
+				applications, managing security and credentials, etc.
+			</p>
+			<p>
+				Having an unmanaged server doesn't mean that you are all alone in the server
+				maintenance. It simply means that, if you need an additional application to
+				be installed, or need to apply the patch; you are the primary owner of the issue.
+				If you require help from our team, please open a support ticket and we will be
+				happy to help you in all cases and inform you about the changes before hand.
+			</p>
+			<p>
+				Additionally, we are still responsible for the system uptime, network &amp; system
+				health, and service continuity.
+			</p>
+			<a routerLink="/managed-servers" class="font-weight-bold">Click here to check-out our server management offer</a>
 		</div>
 	</div>
 </div>
