@@ -13,7 +13,7 @@ import { SortByPosition } from '../../../../utilities/utilityFunctions';
 export class AdminLibraryDetailDocumentComponent implements OnInit, OnDestroy {
 	// public item: Article = <Article>getDefaultItem();
 
-	// private subs = this.ss.subsCreate();
+	// private subs = subsCreate();
 
 	// constructor( public ss: SharedService ) { }
 
@@ -27,7 +27,7 @@ export class AdminLibraryDetailDocumentComponent implements OnInit, OnDestroy {
 	}
 
 	ngOnDestroy() {
-		// this.ss.subsDispose( this.subs );
+		// subsDispose( this.subs );
 	}
 
 	private handleItemChange = ( i: Article ) => {

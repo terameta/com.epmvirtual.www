@@ -5,6 +5,7 @@ import { AngularFirestore, DocumentChangeAction } from '@angular/fire/firestore'
 import { debounce } from 'rxjs/operators';
 import { timer } from 'rxjs';
 import { SortByPosition } from '../../../../utilities/utilityFunctions';
+import { subsCreate, subsDispose } from '../../../../utilities/ngUtilities';
 
 @Component( {
 	selector: 'app-admin-plans-list',
@@ -16,10 +17,9 @@ export class AdminPlansListComponent implements OnInit, OnDestroy {
 	public itemsReceived = false;
 	public concept = 'plans';
 
-	private subs = this.ss.subsCreate();
+	private subs = subsCreate();
 
 	constructor(
-		public ss: SharedService,
 		private db: AngularFirestore
 	) { }
 
@@ -37,6 +37,6 @@ export class AdminPlansListComponent implements OnInit, OnDestroy {
 			sort( SortByPosition );
 	}
 
-	ngOnDestroy() { this.ss.subsDispose( this.subs ); }
+	ngOnDestroy() { subsDispose( this.subs ); }
 
 }

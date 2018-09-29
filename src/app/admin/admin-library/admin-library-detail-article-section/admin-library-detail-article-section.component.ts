@@ -5,6 +5,7 @@ import { Item, getDefaultItem } from '../../../models/generic.models';
 import { filter } from 'rxjs/operators';
 import { NgForm } from '@angular/forms';
 import { Asset } from '../../../models/asset.models';
+import { subsCreate, subsDispose } from '../../../../utilities/ngUtilities';
 
 @Component( {
 	selector: 'app-admin-library-detail-article-section',
@@ -18,7 +19,7 @@ export class AdminLibraryDetailArticleSectionComponent implements OnInit, OnDest
 	private editor;
 	private itemForm: NgForm;
 
-	private subs = this.ss.subsCreate();
+	private subs = subsCreate();
 
 	editorOptions = {
 		theme: 'vs-light',
@@ -32,7 +33,7 @@ export class AdminLibraryDetailArticleSectionComponent implements OnInit, OnDest
 
 	ngOnInit() { this.subs.push( this.ss.cItem$.pipe( filter( i => i.id !== '' ) ).subscribe( this.handleItem ) ); }
 
-	ngOnDestroy() { this.ss.subsDispose( this.subs ); }
+	ngOnDestroy() { subsDispose( this.subs ); }
 
 	private handleItem = ( i: Item ) => {
 		const sectionIndex = parseInt( this.ss.cURL$.getValue().split( '/' ).pop(), 10 );

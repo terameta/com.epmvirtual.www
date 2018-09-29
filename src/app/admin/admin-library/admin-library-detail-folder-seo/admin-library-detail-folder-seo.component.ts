@@ -4,6 +4,7 @@ import { SharedService } from '../../../shared/shared.service';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { filter, map, take } from 'rxjs/operators';
 import { Asset } from '../../../models/asset.models';
+import { subsCreate, subsDispose } from '../../../../utilities/ngUtilities';
 
 @Component( {
 	selector: 'app-admin-library-detail-folder-seo',
@@ -14,7 +15,7 @@ export class AdminLibraryDetailFolderSeoComponent implements OnInit, OnDestroy {
 	public item: Folder = <Folder>getDefaultItem();
 	public pImages: { twitter: string, opengraph: string } = { twitter: null, opengraph: null };
 
-	private subs = this.ss.subsCreate();
+	private subs = subsCreate();
 
 	constructor( public ss: SharedService, private db: AngularFirestore ) { }
 
@@ -26,7 +27,7 @@ export class AdminLibraryDetailFolderSeoComponent implements OnInit, OnDestroy {
 			subscribe( this.handleItem ) );
 	}
 
-	ngOnDestroy() { this.ss.subsDispose( this.subs ); }
+	ngOnDestroy() { subsDispose( this.subs ); }
 
 	private handleItem = ( i: Folder ) => {
 		this.item = { ...getDefaultItem(), ...i };

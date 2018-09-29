@@ -6,6 +6,7 @@ import { SharedService } from '../../../shared/shared.service';
 import { filter, map, tap, take } from 'rxjs/operators';
 import { SortByPosition } from '../../../../utilities/utilityFunctions';
 import { UtilitiesService } from '../../../shared/utilities.service';
+import { subsCreate, subsDispose } from '../../../../utilities/ngUtilities';
 
 @Component( {
 	selector: 'app-article',
@@ -18,7 +19,7 @@ export class ArticleComponent implements OnInit, OnDestroy {
 	public itemType = ItemType;
 	public children: Article[] = [];
 
-	private subs = this.ss.subsCreate();
+	private subs = subsCreate();
 
 	constructor(
 		private db: AngularFirestore,
@@ -37,7 +38,7 @@ export class ArticleComponent implements OnInit, OnDestroy {
 		).subscribe( this.handleItemChange ) );
 	}
 
-	ngOnDestroy() { this.ss.subsDispose( this.subs ); }
+	ngOnDestroy() { subsDispose( this.subs ); }
 
 	private handleIDChange = async ( id: string ) => {
 		let cID = id;

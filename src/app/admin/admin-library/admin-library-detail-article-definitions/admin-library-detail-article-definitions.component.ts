@@ -5,6 +5,7 @@ import { SortByPosition } from '../../../../utilities/utilityFunctions';
 import { SharedService } from '../../../shared/shared.service';
 import { filter, map, tap } from 'rxjs/operators';
 import { NgForm } from '@angular/forms';
+import { subsCreate, subsDispose } from '../../../../utilities/ngUtilities';
 
 @Component( {
 	selector: 'app-admin-library-detail-article-definitions',
@@ -14,7 +15,7 @@ import { NgForm } from '@angular/forms';
 export class AdminLibraryDetailArticleDefinitionsComponent implements OnInit, OnDestroy {
 	public item: Article = <Article>getDefaultItem();
 
-	private subs = this.ss.subsCreate();
+	private subs = subsCreate();
 
 	constructor( public ss: SharedService ) { }
 
@@ -30,7 +31,7 @@ export class AdminLibraryDetailArticleDefinitionsComponent implements OnInit, On
 		);
 	}
 
-	ngOnDestroy() { this.ss.subsDispose( this.subs ); }
+	ngOnDestroy() { subsDispose( this.subs ); }
 
 	public sectionUp = ( i: number ) => this.sectionChangeorder( i, -1 );
 	public sectionDown = ( i: number ) => this.sectionChangeorder( i, 1 );

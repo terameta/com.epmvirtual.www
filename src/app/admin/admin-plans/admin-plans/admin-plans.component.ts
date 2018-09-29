@@ -6,6 +6,7 @@ import { UtilitiesService } from '../../../shared/utilities.service';
 import { debounce } from 'rxjs/operators';
 import { timer } from 'rxjs';
 import { SortByPosition } from '../../../../utilities/utilityFunctions';
+import { subsCreate, subsDispose } from '../../../../utilities/ngUtilities';
 
 @Component( {
 	selector: 'app-admin-plans',
@@ -15,7 +16,7 @@ import { SortByPosition } from '../../../../utilities/utilityFunctions';
 export class AdminPlansComponent implements OnInit, OnDestroy {
 	public items: Plan[] = [];
 
-	private subs = this.ss.subsCreate();
+	private subs = subsCreate();
 
 	constructor(
 		private ss: SharedService,
@@ -30,7 +31,7 @@ export class AdminPlansComponent implements OnInit, OnDestroy {
 			subscribe( this.handleListChange ) );
 	}
 
-	ngOnDestroy() { this.ss.subsDispose( this.subs ); }
+	ngOnDestroy() { subsDispose( this.subs ); }
 
 	private handleListChange = ( actions: DocumentChangeAction<Plan>[] ) => {
 		this.items = actions.

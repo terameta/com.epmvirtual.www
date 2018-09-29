@@ -5,6 +5,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { Item } from '../../../models/generic.models';
 import { Asset } from '../../../models/asset.models';
 import { take } from 'rxjs/operators';
+import { subsCreate, subsDispose } from '../../../../utilities/ngUtilities';
 
 @Component( {
 	selector: 'app-admin-settings-seo',
@@ -16,7 +17,7 @@ export class AdminSettingsSeoComponent implements OnInit, OnDestroy {
 
 	public pImages: { logo: string, twitter: string, opengraph: string } = { logo: null, twitter: null, opengraph: null };
 
-	private subs = this.ss.subsCreate();
+	private subs = subsCreate();
 
 	constructor(
 		public ss: SharedService,
@@ -27,7 +28,7 @@ export class AdminSettingsSeoComponent implements OnInit, OnDestroy {
 		this.subs.push( this.ss.cItem$.subscribe( this.handleItem ) );
 	}
 
-	ngOnDestroy() { this.ss.subsDispose( this.subs ); }
+	ngOnDestroy() { subsDispose( this.subs ); }
 
 	private handleItem = ( s: Item ) => {
 		this.settings = { ...settingsSEODefault(), ...s };

@@ -6,6 +6,7 @@ import { filter, debounce } from 'rxjs/operators';
 import { Article } from '../../../models/library.models';
 import { timer, Subscription } from 'rxjs';
 import { SortByPosition } from '../../../../utilities/utilityFunctions';
+import { subsCreate, subsDispose } from '../../../../utilities/ngUtilities';
 
 @Component( {
 	selector: 'app-admin-library-detail-folder-definitions',
@@ -19,7 +20,7 @@ export class AdminLibraryDetailFolderDefinitionsComponent implements OnInit, OnD
 
 	public concept = 'library';
 
-	private subs = this.ss.subsCreate();
+	private subs = subsCreate();
 	private subc: Subscription;
 
 	public itemType = ItemType;
@@ -46,7 +47,7 @@ export class AdminLibraryDetailFolderDefinitionsComponent implements OnInit, OnD
 		);
 	}
 
-	ngOnDestroy() { this.ss.subsDispose( this.subs ); }
+	ngOnDestroy() { subsDispose( this.subs ); }
 
 	private handleChildrenChange = ( dChildrenActions: DocumentChangeAction<Article>[] ) => {
 		let wasThereUndefined = false;

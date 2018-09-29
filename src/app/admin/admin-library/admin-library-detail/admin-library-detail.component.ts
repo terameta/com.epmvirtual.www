@@ -3,6 +3,7 @@ import { Article } from '../../../models/library.models';
 import { filter } from 'rxjs/operators';
 import { getDefaultItem } from '../../../models/generic.models';
 import { SharedService } from '../../../shared/shared.service';
+import { subsCreate, subsDispose } from '../../../../utilities/ngUtilities';
 
 @Component( {
 	selector: 'app-admin-library-detail',
@@ -12,7 +13,7 @@ import { SharedService } from '../../../shared/shared.service';
 export class AdminLibraryDetailComponent implements OnInit, OnDestroy {
 	public item = <Article>getDefaultItem();
 
-	private subs = this.ss.subsCreate();
+	private subs = subsCreate();
 
 	constructor( private ss: SharedService ) { }
 
@@ -24,6 +25,6 @@ export class AdminLibraryDetailComponent implements OnInit, OnDestroy {
 		);
 	}
 
-	ngOnDestroy() { this.ss.subsDispose( this.subs ); }
+	ngOnDestroy() { subsDispose( this.subs ); }
 
 }

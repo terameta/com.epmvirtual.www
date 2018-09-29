@@ -3,6 +3,7 @@ import { Plan } from '../../models/plan.models';
 import { SharedService } from '../../shared/shared.service';
 import { AngularFirestore, DocumentChangeAction } from '@angular/fire/firestore';
 import { SortByPosition } from '../../../utilities/utilityFunctions';
+import { subsCreate, subsDispose } from '../../../utilities/ngUtilities';
 
 @Component( {
 	selector: 'app-servers',
@@ -12,7 +13,7 @@ import { SortByPosition } from '../../../utilities/utilityFunctions';
 export class ServersComponent implements OnInit, OnDestroy {
 	public plans: Plan[] = [];
 
-	private subs = this.ss.subsCreate();
+	private subs = subsCreate();
 
 	constructor(
 		private ss: SharedService,
@@ -25,7 +26,7 @@ export class ServersComponent implements OnInit, OnDestroy {
 		);
 	}
 
-	ngOnDestroy() { this.ss.subsDispose( this.subs ); }
+	ngOnDestroy() { subsDispose( this.subs ); }
 
 	private handleListChange = ( actions: DocumentChangeAction<Plan>[] ) => {
 		this.plans = actions.

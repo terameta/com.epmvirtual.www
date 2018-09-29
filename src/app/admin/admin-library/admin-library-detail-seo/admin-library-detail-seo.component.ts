@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ItemType } from '../../../models/generic.models';
 import { SharedService } from '../../../shared/shared.service';
 import { filter } from 'rxjs/operators';
+import { subsCreate, subsDispose } from '../../../../utilities/ngUtilities';
 
 @Component( {
 	selector: 'app-admin-library-detail-seo',
@@ -12,7 +13,7 @@ export class AdminLibraryDetailSeoComponent implements OnInit, OnDestroy {
 	public currentType: ItemType = 0;
 	public itemType = ItemType;
 
-	private subs = this.ss.subsCreate();
+	private subs = subsCreate();
 
 	constructor( private ss: SharedService ) { }
 
@@ -20,6 +21,6 @@ export class AdminLibraryDetailSeoComponent implements OnInit, OnDestroy {
 		this.subs.push( this.ss.cItem$.pipe( filter( i => i.id !== '' ) ).subscribe( i => this.currentType = i.type ) );
 	}
 
-	ngOnDestroy() { this.ss.subsDispose( this.subs ); }
+	ngOnDestroy() { subsDispose( this.subs ); }
 
 }

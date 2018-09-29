@@ -5,6 +5,7 @@ import { SharedService } from '../../../shared/shared.service';
 import { filter, take, map } from 'rxjs/operators';
 import { Asset } from '../../../models/asset.models';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { subsCreate, subsDispose } from '../../../../utilities/ngUtilities';
 
 @Component( {
 	selector: 'app-admin-library-detail-article-seo',
@@ -15,7 +16,7 @@ export class AdminLibraryDetailArticleSeoComponent implements OnInit, OnDestroy 
 	public item: Article = <Article>getDefaultItem();
 	public pImages: { twitter: string, opengraph: string } = { twitter: null, opengraph: null };
 
-	private subs = this.ss.subsCreate();
+	private subs = subsCreate();
 
 	constructor( public ss: SharedService, private db: AngularFirestore ) { }
 
@@ -46,6 +47,6 @@ export class AdminLibraryDetailArticleSeoComponent implements OnInit, OnDestroy 
 		if ( newLogo ) this.ss.update( toSet );
 	}
 
-	ngOnDestroy() { this.ss.subsDispose( this.subs ); }
+	ngOnDestroy() { subsDispose( this.subs ); }
 
 }
