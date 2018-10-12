@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AngularFirestore, DocumentChangeAction, DocumentSnapshot, Action } from '@angular/fire/firestore';
-import { Node, NodeCandidate } from 'src/app/models/node.models';
+import { Node, NodeCandidate, NodeCandidateObject } from 'src/app/models/node.models';
 import { subsCreate, subsDispose } from 'src/utilities/ngUtilities';
 import { SharedService } from 'src/app/shared/shared.service';
 import { UtilitiesService } from 'src/app/shared/utilities.service';
@@ -13,7 +13,9 @@ import { SortByName } from 'src/utilities/utilityFunctions';
 } )
 export class AdminNodeListComponent implements OnInit, OnDestroy {
 	public items: Node[] = [];
-	public candidates: string[] = [];
+	public itemsReceived = false;
+	public candidates: NodeCandidate[] = [];
+	public candidatesReceived = false;
 
 	private subs = subsCreate();
 
@@ -28,7 +30,7 @@ export class AdminNodeListComponent implements OnInit, OnDestroy {
 			snapshotChanges().
 			subscribe( this.handleNodeList )
 		);
-		this.subs.push( this.db.doc<NodeCandidate>( '/nodecandidates/list' ).
+		this.subs.push( this.db.doc<NodeCandidateObject>( '/nodecandidates/list' ).
 			snapshotChanges().
 			subscribe( this.handleNodeCandidates )
 		);
@@ -37,10 +39,18 @@ export class AdminNodeListComponent implements OnInit, OnDestroy {
 	ngOnDestroy() { subsDispose( this.subs ); }
 
 	private handleNodeList = ( actions: DocumentChangeAction<Node>[] ) => {
+		this.itemsReceived = true;
 		this.items = this.us.actions2Data<Node>( actions ).sort( SortByName );
 	}
-	private handleNodeCandidates = ( action: Action<DocumentSnapshot<NodeCandidate>> ) => {
+	private handleNodeCandidates = ( action: Action<DocumentSnapshot<NodeCandidateObject>> ) => {
+		this.candidatesReceived = true;
 		this.candidates = action.payload.data().items;
+	}
+	public candidateAccept = ( id: string ) => {
+		console.log( 'Accepting', id );
+	}
+	public candidateReject = ( id: string ) => {
+		console.log( 'Rejecting', id );
 	}
 
 }

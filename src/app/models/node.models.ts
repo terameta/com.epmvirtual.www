@@ -3,7 +3,16 @@ export interface Node {
 	name: string
 }
 
+export interface NodeCandidateObject {
+	id: string,
+	items: NodeCandidate[]
+}
+
 export interface NodeCandidate {
 	id: string,
-	items: string[]
+	hostname: string,
+	type: string,
+	platform: string,
+	arch: string,
+	release: string
 }
