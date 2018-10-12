@@ -7,13 +7,7 @@
 		"build": "ng build",
 		"test": "ng test",
 		"lint": "ng lint",
-		"e2e": "ng e2e",
-		"build:ssr": "npm run build:client-and-server-bundles && npm run webpack:server",
-		"serve:ssr": "node dist/server",
-		"build:client-and-server-bundles": "ng build --prod && ng run www-epmvirtual-com:server",
-		"webpack:server": "webpack --config webpack.server.config.js --progress --colors",
-		"buildandserve:ssr": "npm run build:ssr && npm run serve:ssr",
-		"start:ssr": "nodemon -w ./src -e ts,json,css,html --exec npm run buildandserve:ssr"
+		"e2e": "ng e2e"
 	},
 	"private": true,
 	"dependencies": {
@@ -44,8 +38,8 @@
 		"@angular/language-service": "^6.1.8",
 		"@types/jasmine": "~2.8.6",
 		"@types/jasminewd2": "~2.0.3",
-		"@types/lodash": "^4.14.116",
-		"@types/node": "^10.10.3",
+		"@types/lodash": "^4.14.117",
+		"@types/node": "^10.11.7",
 		"codelyzer": "~4.2.1",
 		"jasmine-core": "~2.99.1",
 		"jasmine-spec-reporter": "~4.2.1",
