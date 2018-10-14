@@ -2,6 +2,8 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NodeCandidate, NodeCandidateObject } from 'src/app/models/node.models';
 import { subsCreate, subsDispose } from 'src/utilities/ngUtilities';
 import { AngularFirestore, Action, DocumentSnapshot } from '@angular/fire/firestore';
+import { SharedService } from 'src/app/shared/shared.service';
+import { firestore } from 'firebase/app';
 
 @Component( {
 	selector: 'app-admin-node-candidates',
@@ -15,6 +17,7 @@ export class AdminNodeCandidatesComponent implements OnInit, OnDestroy {
 	private subs = subsCreate();
 
 	constructor(
+		private ss: SharedService,
 		private db: AngularFirestore
 	) { }
 
@@ -31,11 +34,16 @@ export class AdminNodeCandidatesComponent implements OnInit, OnDestroy {
 		this.candidatesReceived = true;
 		this.candidates = action.payload.data().items;
 	}
-	public candidateAccept = ( id: string ) => {
-		console.log( 'Accepting', id );
+	public candidateAccept = async ( candidate: NodeCandidate ) => {
+		await this.db.doc( '/nodes/' + candidate.id ).set( { ...candidate, name: candidate.hostname } ).catch( console.error );
+		this.db.doc( '/nodecandidates/list' ).update( {
+			items: firestore.FieldValue.arrayRemove( candidate )
+		} );
 	}
-	public candidateReject = ( id: string ) => {
-		console.log( 'Rejecting', id );
+	public candidateReject = ( candidate: NodeCandidate ) => {
+		this.db.doc( '/nodecandidates/list' ).update( {
+			items: firestore.FieldValue.arrayRemove( candidate )
+		} );
 	}
 
 }
