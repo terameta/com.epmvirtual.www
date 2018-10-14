@@ -14,8 +14,6 @@ import { SortByName } from 'src/utilities/utilityFunctions';
 export class AdminNodeListComponent implements OnInit, OnDestroy {
 	public items: Node[] = [];
 	public itemsReceived = false;
-	public candidates: NodeCandidate[] = [];
-	public candidatesReceived = false;
 
 	private subs = subsCreate();
 
@@ -30,10 +28,6 @@ export class AdminNodeListComponent implements OnInit, OnDestroy {
 			snapshotChanges().
 			subscribe( this.handleNodeList )
 		);
-		this.subs.push( this.db.doc<NodeCandidateObject>( '/nodecandidates/list' ).
-			snapshotChanges().
-			subscribe( this.handleNodeCandidates )
-		);
 	}
 
 	ngOnDestroy() { subsDispose( this.subs ); }
@@ -42,15 +36,4 @@ export class AdminNodeListComponent implements OnInit, OnDestroy {
 		this.itemsReceived = true;
 		this.items = this.us.actions2Data<Node>( actions ).sort( SortByName );
 	}
-	private handleNodeCandidates = ( action: Action<DocumentSnapshot<NodeCandidateObject>> ) => {
-		this.candidatesReceived = true;
-		this.candidates = action.payload.data().items;
-	}
-	public candidateAccept = ( id: string ) => {
-		console.log( 'Accepting', id );
-	}
-	public candidateReject = ( id: string ) => {
-		console.log( 'Rejecting', id );
-	}
-
 }

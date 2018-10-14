@@ -13,6 +13,16 @@
 					<i class="far fa-list-alt fa-fw"></i> List
 				</a>
 			</li>
+			<li class="nav-item" *ngIf="candidates.length > 0">
+				<a routerLink="candidates" class="nav-link" routerLinkActive="active">
+					<i class="fas fa-handshake fa-fw"></i> Candidates
+				</a>
+			</li>
+			<li class="nav-item" *ngFor="let item of items;">
+				<a routerLink="{{item.id}}" class="nav-link" routerLinkActive="active">
+					<i class="fas fa-industry fa-fw"></i> {{ item.name }}
+				</a>
+			</li>
 		</ul>
 	</div>
 	<div class="row">

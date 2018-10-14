@@ -1,41 +1,32 @@
 <div class="container-fluid">
+	<div class="row" *ngIf="candidates.length > 0">
+		<div class="col">
+			<div class="alert alert-danger" role="alert">
+				There are candidates to be registered. <br>Please check candidates tab to take action.
+			</div>
+		</div>
+	</div>
 	<div class="row">
 		<div class="col">
-			<h4>Node Candidates</h4>
-			<div class="table-responsive m-0 p-0" *ngIf="candidates.length > 0">
+			<div class="table-responsive m-0 p-0">
 				<table class="table table-sm table-bordered m-0">
 					<thead>
 						<tr>
 							<th class="text-nowrap" width="10">Actions</th>
-							<th>Candidate ID</th>
-							<th>Hostname</th>
-							<th>Platform</th>
-							<th>Type</th>
-							<th>Arch</th>
-							<th>Release</th>
+							<th>Name</th>
 						</tr>
 					</thead>
 					<tbody>
-						<tr *ngFor="let candidate of candidates;">
-							<td class="text-nowrap">
-								<i class="fas fa-check-double fa-fw pointer" title="Accept Candidate" (click)="candidateAccept(candidate)"></i>
-								<i class="far fa-trash-alt fa-fw pointer text-danger ml-3" title="Reject Candidate" (click)="candidateReject(candidate)"></i>
-							</td>
-							<td>{{candidate.id}}</td>
-							<td>{{candidate.hostname}}</td>
-							<td>{{candidate.platform}}</td>
-							<td>{{candidate.type}}</td>
-							<td>{{candidate.arch}}</td>
-							<td>{{candidate.release}}</td>
+						<tr *ngIf="items.length == 0">
+							<td colspan="100">Currently there are no nodes assigned to the system.</td>
+						</tr>
+						<tr *ngFor="let item of items;">
+							<td class="text-nowrap">Actions</td>
+							<td>{{item.name}}</td>
 						</tr>
 					</tbody>
 				</table>
 			</div>
-			<p *ngIf="candidates.length == 0 && candidatesReceived">There are no node candidates available.</p>
-			<p *ngIf="candidates.length == 0 && !candidatesReceived"><i class="fas fa-circle-notch fa-spin"></i> Refreshing please wait.</p>
 		</div>
 	</div>
 </div>
-
-<pre>{{items | json}}</pre>
-<pre>{{candidates | json}}</pre>
