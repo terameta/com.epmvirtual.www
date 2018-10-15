@@ -1,5 +1,6 @@
-export interface Node {
-	id: string,
+import { Item } from './generic.models';
+
+export interface Node extends NodeCandidate {
 	name: string
 }
 
@@ -8,11 +9,11 @@ export interface NodeCandidateObject {
 	items: NodeCandidate[]
 }
 
-export interface NodeCandidate {
+export interface NodeCandidate extends Item {
 	id: string,
 	hostname: string,
-	type: string,
-	platform: string,
-	arch: string,
-	release: string
+	ostype: string,
+	osplatform: string,
+	osarch: string,
+	osrelease: string
 }

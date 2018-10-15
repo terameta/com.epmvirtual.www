@@ -21,7 +21,10 @@
 							<td colspan="100">Currently there are no nodes assigned to the system.</td>
 						</tr>
 						<tr *ngFor="let item of items;">
-							<td class="text-nowrap">Actions</td>
+							<td class="text-nowrap">
+								<a routerLink="{{item.id}}"><i class="fas fa-sliders-h fa-fw" title="Node Details"></i></a>
+								<i class="far fa-trash-alt fa-fw pointer text-danger ml-3" title="Delete Node" (click)="nodeDelete(item.id, item.name)"></i>
+							</td>
 							<td>{{item.name}}</td>
 						</tr>
 					</tbody>

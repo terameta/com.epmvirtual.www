@@ -46,4 +46,10 @@ export class AdminNodeListComponent implements OnInit, OnDestroy {
 		this.candidatesReceived = true;
 		this.candidates = action.payload.data().items;
 	}
+	public nodeDelete = async ( id: string, name: string ) => {
+		const response = await this.ss.confirm( 'Are you sure you want to delete ' + ( name ? name : 'node with id' + id ) + '?' );
+		if ( response ) {
+			this.db.doc( '/nodes/' + id ).delete().catch( console.error );
+		}
+	}
 }
