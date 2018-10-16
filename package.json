@@ -29,6 +29,7 @@
 		"ngx-monaco-editor": "^6.0.0",
 		"rxjs": "^6.3.3",
 		"ts-loader": "^4.5.0",
+		"xterm": "^3.8.0",
 		"zone.js": "^0.8.26"
 	},
 	"devDependencies": {
