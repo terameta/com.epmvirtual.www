@@ -17,5 +17,18 @@ export interface NodeCandidate extends Partial<Item> {
 	ostype: string,
 	osplatform: string,
 	osarch: string,
-	osrelease: string
+	osrelease: string,
+	keypresses: KeyPress[],
+	responses: PtyResponse[]
+}
+
+
+export interface KeyPress {
+	date: Date | any,
+	key: string
+}
+
+export interface PtyResponse {
+	date: Date | any,
+	datum: string
 }

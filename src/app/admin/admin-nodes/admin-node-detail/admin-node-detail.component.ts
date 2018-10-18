@@ -14,7 +14,7 @@ import { firestore } from 'firebase/app';
 	styleUrls: [ './admin-node-detail.component.scss' ]
 } )
 export class AdminNodeDetailComponent implements OnInit, OnDestroy, AfterViewInit {
-	public item: Node = defaultNode();
+	public node: Node = defaultNode();
 	public term: Terminal;
 	@ViewChild( 'terminal' ) terminal: ElementRef;
 
@@ -31,12 +31,12 @@ export class AdminNodeDetailComponent implements OnInit, OnDestroy, AfterViewIni
 			console.log( key.charCodeAt( 0 ) );
 			if ( key.charCodeAt( 0 ) === 13 ) this.term.write( '\n' );
 			this.term.write( key );
-			this.db.doc( '/nodes/' + this.item.id ).update( {
-				keypressed: firestore.FieldValue.arrayUnion( { key, date: new Date() } )
+			this.db.doc( '/nodes/' + this.node.id ).update( {
+				keypresses: firestore.FieldValue.arrayUnion( { key, date: new Date() } )
 			} );
 		} );
 		this.term.open( this.terminal.nativeElement );
-
+		this.term.clear();
 	}
 
 	ngOnInit() {
@@ -44,7 +44,7 @@ export class AdminNodeDetailComponent implements OnInit, OnDestroy, AfterViewIni
 			filter( i => !!i.id ),
 			map( i => ( { ...i, type: ItemType.node } as Node ) )
 		).subscribe( i => {
-			this.item = i;
+			this.node = i;
 			this.term.focus();
 		} ) );
 	}
