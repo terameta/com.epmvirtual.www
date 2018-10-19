@@ -22,13 +22,14 @@ export interface NodeCandidate extends Partial<Item> {
 	responses: PtyResponse[]
 }
 
-
 export interface KeyPress {
-	date: Date | any,
-	key: string
+	date: any,
+	key: string,
+	dateValue?: Date
 }
 
 export interface PtyResponse {
-	date: Date | any,
-	datum: string
+	date: any,
+	datum: string,
+	dateValue?: Date
 }

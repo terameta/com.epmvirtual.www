@@ -7,6 +7,7 @@ import { ItemType } from 'src/app/models/generic.models';
 import { Terminal } from 'xterm';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { firestore } from 'firebase/app';
+import { SortByDateValue } from 'src/utilities/utilityFunctions';
 
 @Component( {
 	selector: 'app-admin-node-detail',
@@ -46,6 +47,18 @@ export class AdminNodeDetailComponent implements OnInit, OnDestroy, AfterViewIni
 		).subscribe( i => {
 			this.node = i;
 			this.term.focus();
+			if ( this.node.responses ) {
+				this.node.responses.forEach( re => re.dateValue = re.date.toDate() );
+				this.node.responses.sort( SortByDateValue );
+				if ( this.node.responses.length > 0 ) {
+					const response = this.node.responses.shift();
+					this.term.write( response.datum );
+					delete response.dateValue;
+					this.db.doc( '/nodes/' + this.node.id ).update( {
+						responses: firestore.FieldValue.arrayRemove( response )
+					} );
+				}
+			}
 		} ) );
 	}
 
