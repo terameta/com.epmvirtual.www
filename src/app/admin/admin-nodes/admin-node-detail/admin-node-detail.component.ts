@@ -29,9 +29,9 @@ export class AdminNodeDetailComponent implements OnInit, OnDestroy, AfterViewIni
 	ngAfterViewInit() {
 		this.term = new Terminal( { cursorBlink: true, scrollback: 60 } );
 		this.term.on( 'key', ( key, ev ) => {
-			console.log( key.charCodeAt( 0 ) );
-			if ( key.charCodeAt( 0 ) === 13 ) this.term.write( '\n' );
-			this.term.write( key );
+			// console.log( key.charCodeAt( 0 ) );
+			// if ( key.charCodeAt( 0 ) === 13 ) this.term.write( '\n' );
+			// this.term.write( key );
 			this.db.doc( '/nodes/' + this.node.id ).update( {
 				keypresses: firestore.FieldValue.arrayUnion( { key, date: new Date() } )
 			} );
@@ -52,6 +52,7 @@ export class AdminNodeDetailComponent implements OnInit, OnDestroy, AfterViewIni
 				this.node.responses.sort( SortByDateValue );
 				if ( this.node.responses.length > 0 ) {
 					const response = this.node.responses.shift();
+					console.log( response.datum );
 					this.term.write( response.datum );
 					delete response.dateValue;
 					this.db.doc( '/nodes/' + this.node.id ).update( {

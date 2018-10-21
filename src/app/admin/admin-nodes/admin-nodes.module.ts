@@ -6,13 +6,20 @@ import { AdminNodeDetailComponent } from './admin-node-detail/admin-node-detail.
 import { Routes, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { AdminNodeCandidatesComponent } from './admin-node-candidates/admin-node-candidates.component';
+import { AdminNodeComponent } from './admin-node/admin-node.component';
+import { AdminNodeConsoleComponent } from './admin-node-console/admin-node-console.component';
 
 const routes: Routes = [
 	{
 		path: '', component: AdminNodesComponent, children: [
 			{ path: '', component: AdminNodeListComponent },
 			{ path: 'candidates', component: AdminNodeCandidatesComponent },
-			{ path: ':id', component: AdminNodeDetailComponent }
+			{
+				path: ':id', component: AdminNodeComponent, children: [
+					{ path: '', component: AdminNodeDetailComponent },
+					{ path: 'console', component: AdminNodeConsoleComponent }
+				]
+			}
 		]
 	}
 ];
@@ -23,6 +30,13 @@ const routes: Routes = [
 		RouterModule.forChild( routes ),
 		FormsModule
 	],
-	declarations: [ AdminNodesComponent, AdminNodeListComponent, AdminNodeDetailComponent, AdminNodeCandidatesComponent ]
+	declarations: [
+		AdminNodesComponent,
+		AdminNodeListComponent,
+		AdminNodeDetailComponent,
+		AdminNodeCandidatesComponent,
+		AdminNodeComponent,
+		AdminNodeConsoleComponent
+	]
 } )
 export class AdminNodesModule { }
