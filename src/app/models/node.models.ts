@@ -1,7 +1,13 @@
 import { Item, ItemType } from './generic.models';
 
 export interface Node extends NodeCandidate {
-	name: string
+	name: string,
+	terminal: {
+		requested: boolean,
+		dimensions: {
+			cols: number, rows: number
+		}
+	}
 }
 
 export const defaultNode = (): Node => ( { id: '', name: '', type: ItemType.node } as Node );
