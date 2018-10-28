@@ -65,7 +65,7 @@ export class AdminNodeConsoleComponent implements OnInit, AfterContentInit, OnDe
 				await this.db.doc( '/nodes/' + this.node.id ).update( {
 					'terminal.dimensions.cols': terminalDims.cols,
 					'terminal.dimensions.rows': terminalDims.rows
-				} );
+				} ).catch( console.error );
 			} )
 		);
 	}

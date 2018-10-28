@@ -10,7 +10,7 @@ export interface Node extends NodeCandidate {
 	}
 }
 
-export const defaultNode = (): Node => ( { id: '', name: '', type: ItemType.node } as Node );
+export const defaultNode = (): Node => ( { id: '', name: '', type: ItemType.node, terminal: { dimensions: { cols: 0, rows: 0 } } } as Node );
 
 export interface NodeCandidateObject {
 	id: string,

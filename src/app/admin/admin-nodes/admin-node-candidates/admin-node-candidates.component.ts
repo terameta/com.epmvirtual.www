@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { NodeCandidate, NodeCandidateObject } from 'src/app/models/node.models';
+import { NodeCandidate, NodeCandidateObject, defaultNode } from 'src/app/models/node.models';
 import { subsCreate, subsDispose } from 'src/utilities/ngUtilities';
 import { AngularFirestore, Action, DocumentSnapshot } from '@angular/fire/firestore';
 import { SharedService } from 'src/app/shared/shared.service';
@@ -39,7 +39,7 @@ export class AdminNodeCandidatesComponent implements OnInit, OnDestroy {
 	public candidateAccept = async ( candidate: NodeCandidate ) => {
 		const response = await this.ss.confirm( 'Are you sure you want to accept node candidate?' );
 		if ( response ) {
-			await this.db.doc( '/nodes/' + candidate.id ).set( { ...candidate, name: candidate.hostname } ).catch( console.error );
+			await this.db.doc( '/nodes/' + candidate.id ).set( { ...defaultNode(), ...candidate, name: candidate.hostname } ).catch( console.error );
 			this.us.navigateByUrl( '/admin/nodes/' + candidate.id );
 			this.db.doc( '/nodecandidates/list' ).update( {
 				items: firestore.FieldValue.arrayRemove( candidate )
