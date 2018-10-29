@@ -19,7 +19,8 @@ const routes: Routes = [
 			{ path: 'plans', loadChildren: './admin-plans/admin-plans.module#AdminPlansModule' },
 			{ path: 'image-groups', loadChildren: './admin-image-groups/admin-image-groups.module#AdminImageGroupsModule' },
 			{ path: 'images', loadChildren: './admin-images/admin-images.module#AdminImagesModule' },
-			{ path: 'nodes', loadChildren: './admin-nodes/admin-nodes.module#AdminNodesModule' }
+			{ path: 'nodes', loadChildren: './admin-nodes/admin-nodes.module#AdminNodesModule' },
+			{ path: 'datacenters', loadChildren: './admin-datacenters/admin-datacenters.module#AdminDataCentersModule' }
 		]
 	}
 ];
