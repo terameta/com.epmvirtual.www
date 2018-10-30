@@ -1,3 +1,47 @@
-<p>
-  admin-datacenter works!
-</p>
+<ng-container *ngIf="ss.cItem$ | async as dc">
+	<form #f="ngForm" (submit)="ss.save(dc, f)">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col">
+					<div class="btn-toolbar my-2" role="toolbar">
+						<div class="btn-group btn-group-sm ml-auto">
+							<button type="submit" class="btn btn-success" [disabled]="f.invalid && f.dirty">Save</button>
+						</div>
+					</div>
+					<div class="table-responsive">
+						<table class="table table-sm table-borderless">
+							<tbody>
+								<tr>
+									<td width="10" class="text-nowrap pt-2">Name:</td>
+									<td>
+										<input type="text" name="dcN" class="form-control form-control-sm" [(ngModel)]="dc.name">
+									</td>
+								</tr>
+								<tr>
+									<td width="10" class="text-nowrap pt-2">Location:</td>
+									<td>
+										<input type="text" name="dcL" class="form-control form-control-sm" [(ngModel)]="dc.location">
+									</td>
+								</tr>
+								<tr>
+									<td width="10" class="text-nowrap pt-2">Country:</td>
+									<td>
+										<select name="dcC" class="form-control form-control-sm" [(ngModel)]="dc.country">
+											<option *ngFor="let c of countries" value="{{c.code}}">{{c.name}}</option>
+										</select>
+									</td>
+								</tr>
+								<tr>
+									<td width="10" class="text-nowrap pt-2">Position:</td>
+									<td>
+										<input type="number" name="dcP" class="form-control form-control-sm" [(ngModel)]="dc.position">
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+</ng-container>

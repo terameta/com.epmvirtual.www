@@ -2,9 +2,9 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AdminDataCenterComponent } from './admin-datacenter/admin-datacenter.component';
 import { AdminDataCenterListComponent } from './admin-datacenter-list/admin-datacenter-list.component';
+import { AdminDataCentersComponent } from './admin-datacenters/admin-datacenters.component';
 import { Routes, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { AdminDataCentersComponent } from './admin-datacenters/admin-datacenters.component';
 
 const routes: Routes = [
 	{

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { SharedService } from 'src/app/shared/shared.service';
+import { getCountries } from 'src/app/shared/countries';
 
 @Component( {
 	selector: 'app-admin-datacenter',
@@ -6,8 +8,11 @@ import { Component, OnInit } from '@angular/core';
 	styleUrls: [ './admin-datacenter.component.scss' ]
 } )
 export class AdminDataCenterComponent implements OnInit {
+	public countries = getCountries();
 
-	constructor() { }
+	constructor(
+		public ss: SharedService
+	) { }
 
 	ngOnInit() {
 	}

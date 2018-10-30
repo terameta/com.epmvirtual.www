@@ -4,6 +4,7 @@ import { map } from 'rxjs/operators';
 import { UtilitiesService } from 'src/app/shared/utilities.service';
 import { Observable } from 'rxjs';
 import { SortByName } from 'src/utilities/utilityFunctions';
+import { SharedService } from 'src/app/shared/shared.service';
 
 @Component( {
 	selector: 'app-admin-datacenters',
@@ -15,7 +16,8 @@ export class AdminDataCentersComponent implements OnInit {
 
 	constructor(
 		private db: AngularFirestore,
-		private us: UtilitiesService
+		private us: UtilitiesService,
+		public ss: SharedService
 	) { }
 
 	ngOnInit() {

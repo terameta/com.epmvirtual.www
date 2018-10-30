@@ -1,3 +1,37 @@
-<p>
-  admin-datacenter-list works!
-</p>
+<div class="container-fluid">
+	<div class="row">
+		<div class="col">
+			<div class="table-responsive m-0 p-0">
+				<table class="table table-sm table-bordered m-0">
+					<thead>
+						<tr>
+							<th class="text-nowrap" width="10">Actions</th>
+							<th>Name</th>
+						</tr>
+					</thead>
+					<tbody>
+						<ng-container *ngIf="dcs$ | async as dcs; else loading">
+							<tr *ngFor="let dc of dcs">
+								<td class="text-nowrap">
+									<a routerLink="{{dc.id}}"><i class="fas fa-sliders-h fa-fw" title="Data Center Details"></i></a>
+									<i class="far fa-trash-alt fa-fw pointer text-danger ml-3" title="Delete Data Center" (click)="ss.delete(dc)"></i>
+								</td>
+								<td>
+									<a routerLink="{{dc.id}}">{{dc.name}}</a>
+								</td>
+							</tr>
+							<tr *ngIf="dcs.length == 0">
+								<td colspan="100">Currently there are no data centers in the system.</td>
+							</tr>
+						</ng-container>
+						<ng-template #loading>
+							<tr>
+								<td colspan="100">Please wait, loading...</td>
+							</tr>
+						</ng-template>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>

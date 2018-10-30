@@ -3,7 +3,8 @@ export enum ItemType {
 	asset = 2,
 	article = 3,
 	setting = 4,
-	node = 5
+	node = 5,
+	datacenter = 6
 }
 
 export interface Item {

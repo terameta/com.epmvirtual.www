@@ -1,7 +1,7 @@
 <div class="container-fluid py-2">
 	<div class="btn-toolbar w-100" role="toolbar">
 		<div class="btn-group btn-group-sm ml-auto">
-			<button type="button" class="btn btn-outline-dark" title="New Data Center">
+			<button type="button" class="btn btn-outline-dark" title="New Data Center" (click)="ss.itemCreate()">
 				<i class="far fa-hdd fa-fw"></i> New DC
 			</button>
 		</div>
@@ -16,7 +16,7 @@
 			<ng-container *ngIf="dcs$ | async as dcs">
 				<li class="nav-item" *ngFor="let dc of dcs;">
 					<a routerLink="{{dc.id}}" class="nav-link" routerLinkActive="active">
-						<i class="far fa-hdd fa-fw"></i> {{dc.name}}
+						<i class="fas fa-building fa-fw"></i> {{dc.name}}
 					</a>
 				</li>
 			</ng-container>

@@ -126,16 +126,20 @@ export class SharedService {
 		} );
 	}
 
-	public itemCreate = async ( payload: { concept?: string, details: Partial<Item> } ) => {
-		if ( !payload.details.parent ) payload.details.parent = this.cID$.getValue();
+	public itemCreate = async ( payload?: { concept?: string, details: Partial<Item> } ) => {
+		if ( !payload ) payload = { details: {} };
 		if ( !payload.concept ) payload.concept = this.concept$.getValue();
-		if ( !payload.details.name ) payload.details.name = await this.prompt( 'Name?' );
-		if ( !payload.details.name ) payload.details.name = '-';
-		if ( !payload.details.id ) payload.details.id = this.db.createId();
-		if ( payload.concept === 'library' ) {
-			payload.details.id = ( await this.adminSettingsService.counterIncrement( 'article', 1 ) ).toString();
+		if ( payload.concept === 'library' || payload.concept === 'assets' ) {
+			if ( !payload.details.parent ) payload.details.parent = this.cID$.getValue();
 		}
-		await this.db.doc( payload.concept + '/' + payload.details.id ).set( payload.details ).catch( console.error );
+		if ( !payload.details.name ) payload.details.name = await this.prompt( 'Name?' );
+		if ( payload.details.name ) {
+			if ( !payload.details.id ) payload.details.id = this.db.createId();
+			if ( payload.concept === 'library' ) {
+				payload.details.id = ( await this.adminSettingsService.counterIncrement( 'article', 1 ) ).toString();
+			}
+			await this.db.doc( payload.concept + '/' + payload.details.id ).set( payload.details ).catch( console.error );
+		}
 	}
 
 	public itemUpload = ( payload: { concept?: string, details: Partial<Item> } ) => {
