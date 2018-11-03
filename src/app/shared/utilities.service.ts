@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { DocumentChangeAction } from '@angular/fire/firestore';
+import { DocumentChangeAction, DocumentSnapshot, Action } from '@angular/fire/firestore';
 import { Item, ItemType } from '../models/generic.models';
 import * as _ from 'lodash';
 import { Router } from '@angular/router';
@@ -36,5 +36,8 @@ export class UtilitiesService {
 
 	public actions2Data = <T>( actions: DocumentChangeAction<any>[] ): T[] => {
 		return actions.map( a => ( { ...a.payload.doc.data(), ...{ id: a.payload.doc.id } } ) );
+	}
+	public action2Data = <T>( action: Action<DocumentSnapshot<any>> ): T => {
+		return ( { ...action.payload.data(), ...{ id: action.payload.id } } );
 	}
 }

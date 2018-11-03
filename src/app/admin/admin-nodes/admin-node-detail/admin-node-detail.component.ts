@@ -1,66 +1,44 @@
-import { Component, OnInit, OnDestroy, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
 import { SharedService } from 'src/app/shared/shared.service';
 import { filter, map } from 'rxjs/operators';
 import { Node, defaultNode } from 'src/app/models/node.models';
 import { subsCreate, subsDispose } from 'src/utilities/ngUtilities';
 import { ItemType } from 'src/app/models/generic.models';
-import { Terminal } from 'xterm';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { firestore } from 'firebase/app';
-import { SortByDateValue } from 'src/utilities/utilityFunctions';
+import { Observable } from 'rxjs';
+import { UtilitiesService } from 'src/app/shared/utilities.service';
+import { NgForm } from '@angular/forms';
 
 @Component( {
 	selector: 'app-admin-node-detail',
 	templateUrl: './admin-node-detail.component.html',
 	styleUrls: [ './admin-node-detail.component.scss' ]
 } )
-export class AdminNodeDetailComponent implements OnInit, OnDestroy, AfterViewInit {
-	public node: Node = defaultNode();
-	public term: Terminal;
-	@ViewChild( 'terminal' ) terminal: ElementRef;
+export class AdminNodeDetailComponent implements OnInit, OnDestroy {
+	// public node: Node = defaultNode();
+	public node$: Observable<Node>;
 
 	private subs = subsCreate();
 
 	constructor(
 		private ss: SharedService,
-		private db: AngularFirestore
+		private db: AngularFirestore,
+		private us: UtilitiesService
 	) { }
 
-	ngAfterViewInit() {
-		this.term = new Terminal( { cursorBlink: true, scrollback: 60 } );
-		this.term.on( 'key', ( key, ev ) => {
-			// console.log( key.charCodeAt( 0 ) );
-			// if ( key.charCodeAt( 0 ) === 13 ) this.term.write( '\n' );
-			// this.term.write( key );
-			this.db.doc( '/nodes/' + this.node.id ).update( {
-				keypresses: firestore.FieldValue.arrayUnion( { key, date: new Date() } )
-			} );
-		} );
-		this.term.open( this.terminal.nativeElement );
-		this.term.clear();
+	ngOnInit() {
+		this.node$ = this.db.doc<Node>( 'nodes/' + this.ss.cID$.getValue() ).
+			snapshotChanges().pipe( map( a => this.us.action2Data<Node>( a ) ) );
+		// this.subs.push( this.ss.cItem$.pipe(
+		// 	filter( i => !!i.id ),
+		// 	map( i => ( { ...i, type: ItemType.node } as Node ) )
+		// ).subscribe( i => {
+		// 	this.node = i;
+		// } ) );
 	}
 
-	ngOnInit() {
-		this.subs.push( this.ss.cItem$.pipe(
-			filter( i => !!i.id ),
-			map( i => ( { ...i, type: ItemType.node } as Node ) )
-		).subscribe( i => {
-			this.node = i;
-			this.term.focus();
-			if ( this.node.responses ) {
-				this.node.responses.forEach( re => re.dateValue = re.date.toDate() );
-				this.node.responses.sort( SortByDateValue );
-				if ( this.node.responses.length > 0 ) {
-					const response = this.node.responses.shift();
-					console.log( response.datum );
-					this.term.write( response.datum );
-					delete response.dateValue;
-					this.db.doc( '/nodes/' + this.node.id ).update( {
-						responses: firestore.FieldValue.arrayRemove( response )
-					} );
-				}
-			}
-		} ) );
+	public save = ( f: NgForm ) => {
+		console.log( f.form.controls );
 	}
 
 	ngOnDestroy() { subsDispose( this.subs ); }
