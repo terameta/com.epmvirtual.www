@@ -21,16 +21,42 @@
 								<tr>
 									<td>Hostname</td>
 									<td class="p-0">
-										<input type="text" name="nHame" class="form-control form-control-sm rounded-0" [(ngModel)]="node.hostname">
+										<input type="text" name="nHame" class="form-control form-control-sm rounded-0" [(ngModel)]="node.hostname" disabled>
 									</td>
 								</tr>
 								<tr>
-									<td colspan="2">
-										<button type="submit" class="btn btn-outline-dark">Save</button>
+									<td>OS Type</td>
+									<td class="p-0">
+										<input type="text" name="nOSType" class="form-control form-control-sm rounded-0" [(ngModel)]="node.ostype" disabled>
+									</td>
+								</tr>
+								<tr>
+									<td>OS Arch</td>
+									<td class="p-0">
+										<input type="text" name="nOSArch" class="form-control form-control-sm rounded-0" [(ngModel)]="node.osarch" disabled>
+									</td>
+								</tr>
+								<tr>
+									<td class="text-nowrap">OS Platform</td>
+									<td class="p-0">
+										<input type="text" name="nOSPlat" class="form-control form-control-sm rounded-0" [(ngModel)]="node.osplatform" disabled>
+									</td>
+								</tr>
+								<tr>
+									<td>OS Relase</td>
+									<td class="p-0">
+										<input type="text" name="nOSRel" class="form-control form-control-sm rounded-0" [(ngModel)]="node.osrelease" disabled>
 									</td>
 								</tr>
 							</tbody>
 						</table>
+					</div>
+					<div class="btn-toolbar my-2" role="toolbar">
+						<div class="btn-group btn-group-sm ml-auto">
+							<button type="submit" class="btn btn-sm btn-outline-dark px-1 py-0" [disabled]="f.invalid && f.dirty">
+								<i class="far fa-save fa-fw"></i> Save
+							</button>
+						</div>
 					</div>
 				</div>
 			</div>
