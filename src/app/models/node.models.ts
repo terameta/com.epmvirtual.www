@@ -43,6 +43,13 @@ export interface PtyResponse {
 
 export interface NodeCommand {
 	date: any,
-	command: string,
+	commandType: CommandType
+	command?: string,
 	dateValue?: Date
+}
+
+export enum CommandType {
+	console = 1,
+	reboot = 2,
+	shutdown = 3
 }

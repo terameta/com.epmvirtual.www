@@ -1,4 +1,20 @@
 <div class="container-fluid">
+	<div class="btn-toolbar w-100" role="toolbar">
+		<div class="btn-group btn-group-sm ml-auto">
+			<!-- <button type="button" class="btn btn-outline-dark" title="Boot">
+				<i class="fas fa-play fa-fw"></i> <br>Boot
+			</button> -->
+			<button type="button" class="btn btn-outline-dark" title="Reboot" (click)="reboot()">
+				<i class="fas fa-redo-alt fa-fw"></i> <br>Reboot
+			</button>
+			<button type="button" class="btn btn-outline-dark" title="Shutdown" (click)="shutdown()">
+				<i class="fas fa-stop fa-fw"></i> <br>Shutdown
+			</button>
+			<!-- <button type="button" class="btn btn-outline-dark" title="Power Off">
+				<i class="fas fa-plug fa-fw"></i> <br>Power Off
+			</button> -->
+		</div>
+	</div>
 	<div class="row">
 		<ul class="nav nav-tabs w-100">
 			<li class="nav-item">
