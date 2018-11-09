@@ -1,0 +1,118 @@
+<ng-container *ngIf="pool$ | async as pool">
+	<form #f="ngForm" (submit)="ss.save(pool, f)">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col">
+					<div class="btn-toolbar my-2">
+						<div class="btn-group btn-group-sm ml-auto">
+							<button type="submit" class="btn btn-outline-success" [disabled]="f.invalid && f.dirty">
+								<i class="far fa-save fa-fw"></i> Save
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col">
+					<div class="card">
+						<div class="card-header">
+							Details
+						</div>
+						<div class="card-body p-0">
+							<div class="table-responsive">
+								<table class="table table-sm table-borderless m-0 mb-1">
+									<tbody>
+										<tr>
+											<td class="text-nowrap align-middle" width="10">Name: </td>
+											<td class="align-middle">
+												<input type="text" name="pN" class="form-control form-control-sm" [(ngModel)]="pool.name">
+											</td>
+										</tr>
+										<tr>
+											<td class="text-nowrap align-middle" width="10">RBD Name: </td>
+											<td class="align-middle">
+												<input type="text" name="pRBDN" class="form-control form-control-sm" [(ngModel)]="pool.rbdname">
+											</td>
+										</tr>
+										<tr>
+											<td class="text-nowrap align-middle">Data Center:</td>
+											<td class="align-middle">
+												<select name="pDC" class="form-control form-control-sm" [(ngModel)]="pool.datacenter" *ngIf="dcs$ | async as dcs">
+													<option *ngFor="let dc of dcs" [value]="dc.id">{{dc.name}}</option>
+												</select>
+											</td>
+										</tr>
+										<tr>
+											<td class="text-nowrap align-middle">Monitors:</td>
+											<td class="align-middle">
+												<input type="text" name="pMon" class="form-control form-control-sm" [(ngModel)]="pool.monitors">
+											</td>
+										</tr>
+										<tr>
+											<td class="text-nowrap align-middle">User:</td>
+											<td class="align-middle">
+												<input type="text" name="pUser" class="form-control form-control-sm" [(ngModel)]="pool.user">
+											</td>
+										</tr>
+										<tr>
+											<td class="text-nowrap align-middle">Secret UUID:</td>
+											<td class="align-middle">
+												<input type="text" name="pSec" class="form-control form-control-sm" [(ngModel)]="pool.secretuuid">
+											</td>
+										</tr>
+										<tr>
+											<td class="text-nowrap align-middle">Key:</td>
+											<td class="align-middle">
+												<div class="d-flex">
+													This field is always hidden.
+													<button type="button" class="btn btn-sm btn-outline-dark py-0 ml-auto" (click)="keyChange()">Assign</button>
+												</div>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col">
+					<div class="card">
+						<div class="card-header d-flex">
+							Files
+							<button type="button" class="btn btn-sm btn-outline-dark py-0 ml-auto">Refresh</button>
+						</div>
+						<div class="card-body p-0">
+							<div class="table-responsive m-0">
+								<table class="table table-sm table-bordered m-0">
+									<thead>
+										<tr>
+											<th>File Name</th>
+											<th>Assigned Size</th>
+											<th>Actual Size</th>
+										</tr>
+									</thead>
+									<tbody *ngIf="pool.files as files else nofiles">
+										<tr *ngFor="let file of files">
+											<td>{{file.name}}</td>
+											<td>{{file.size}}</td>
+											<td>{{file.actualsize}}</td>
+										</tr>
+									</tbody>
+									<ng-template #nofiles>
+										<tbody>
+											<tr>
+												<td colspan="100">
+													There are currently no files in this storage pool.
+												</td>
+											</tr>
+										</tbody>
+									</ng-template>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+</ng-container>

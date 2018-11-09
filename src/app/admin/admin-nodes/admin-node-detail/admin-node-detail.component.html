@@ -1,5 +1,5 @@
 <ng-container *ngIf="node$ | async as node; else loading">
-	<form #f="ngForm" (submit)="save(f)">
+	<form #f="ngForm" (submit)="ss.save(node, f)">
 		<div class="container-fluid py-3">
 			<div class="row">
 				<div class="col">
@@ -46,6 +46,17 @@
 									<td>OS Relase</td>
 									<td class="p-0">
 										<input type="text" name="nOSRel" class="form-control form-control-sm rounded-0" [(ngModel)]="node.osrelease" disabled>
+									</td>
+								</tr>
+								<tr>
+									<td class="text-nowrap">Pool Worker?</td>
+									<td class="p-1">
+										<div class="form-check">
+											<input class="form-check-input" name="nIPW" type="checkbox" [(ngModel)]="node.isPoolWorker">
+											<!-- <label class="form-check-label" for="defaultCheck1">
+												Default checkbox
+											</label> -->
+										</div>
 									</td>
 								</tr>
 							</tbody>

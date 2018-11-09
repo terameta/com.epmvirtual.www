@@ -7,7 +7,8 @@ export interface Node extends NodeCandidate {
 		dimensions: {
 			cols: number, rows: number
 		}
-	}
+	},
+	isPoolWorker: boolean
 }
 
 export const defaultNode = (): Node => ( { id: '', name: '', type: ItemType.node, terminal: { dimensions: { cols: 0, rows: 0 } } } as Node );

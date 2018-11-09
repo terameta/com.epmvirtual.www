@@ -20,7 +20,8 @@ const routes: Routes = [
 			{ path: 'image-groups', loadChildren: './admin-image-groups/admin-image-groups.module#AdminImageGroupsModule' },
 			{ path: 'images', loadChildren: './admin-images/admin-images.module#AdminImagesModule' },
 			{ path: 'nodes', loadChildren: './admin-nodes/admin-nodes.module#AdminNodesModule' },
-			{ path: 'datacenters', loadChildren: './admin-datacenters/admin-datacenters.module#AdminDataCentersModule' }
+			{ path: 'datacenters', loadChildren: './admin-datacenters/admin-datacenters.module#AdminDataCentersModule' },
+			{ path: 'storagepools', loadChildren: './admin-storage-pools/admin-storage-pools.module#AdminStoragePoolsModule' }
 		]
 	}
 ];

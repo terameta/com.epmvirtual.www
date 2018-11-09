@@ -1,0 +1,34 @@
+<div class="container-fluid">
+	<div class="row">
+		<div class="col">
+			<div class="table-responsie m-0 p-0">
+				<table class="table table-sm table-bordered m-0">
+					<thead>
+						<tr>
+							<th class="text-nowrap" width="10">Actions</th>
+							<th>Name</th>
+						</tr>
+					</thead>
+					<tbody>
+						<ng-container *ngIf="pools$ | async as pools; else loading">
+							<tr *ngFor="let pool of pools">
+								<td class="text-nowrap">
+									<a [routerLink]="pool.id"><i class="fas fa-sliders-h fa-fw" title="Storage Pool Details"></i></a>
+									<i class="far fa-trash-alt fa-fw pointer text-danger ml-3" title="Delete Storage Pool" (click)="ss.delete(pool)"></i>
+								</td>
+								<td>
+									<a [routerLink]="pool.id">{{pool.name}}</a>
+								</td>
+							</tr>
+						</ng-container>
+						<ng-template #loading>
+							<tr>
+								<td colspan="100">Please wait, loading...</td>
+							</tr>
+						</ng-template>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>

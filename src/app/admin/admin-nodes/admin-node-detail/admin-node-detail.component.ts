@@ -1,9 +1,8 @@
 import { Component, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
 import { SharedService } from 'src/app/shared/shared.service';
-import { filter, map } from 'rxjs/operators';
-import { Node, defaultNode } from 'src/app/models/node.models';
+import { map } from 'rxjs/operators';
+import { Node } from 'src/app/models/node.models';
 import { subsCreate, subsDispose } from 'src/utilities/ngUtilities';
-import { ItemType } from 'src/app/models/generic.models';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { UtilitiesService } from 'src/app/shared/utilities.service';
@@ -21,7 +20,7 @@ export class AdminNodeDetailComponent implements OnInit, OnDestroy {
 	private subs = subsCreate();
 
 	constructor(
-		private ss: SharedService,
+		public ss: SharedService,
 		private db: AngularFirestore,
 		private us: UtilitiesService
 	) { }

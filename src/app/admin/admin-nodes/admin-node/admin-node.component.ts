@@ -3,6 +3,7 @@ import { SharedService } from 'src/app/shared/shared.service';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { Node, CommandType } from 'src/app/models/node.models';
 import { firestore } from 'firebase/app';
+import { Subscription } from 'rxjs';
 
 @Component( {
 	selector: 'app-admin-node',
