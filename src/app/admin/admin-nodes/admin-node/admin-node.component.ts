@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SharedService } from 'src/app/shared/shared.service';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
-import { Node, CommandType } from 'src/app/models/node.models';
+import { Node } from 'src/app/models/node.models';
 import { firestore } from 'firebase/app';
 import { Subscription } from 'rxjs';
 
@@ -27,7 +27,7 @@ export class AdminNodeComponent implements OnInit {
 			this.nodeRef.update( {
 				commands: firestore.FieldValue.arrayUnion( {
 					date: new Date(),
-					commandType: CommandType.reboot
+					command: 'sudo reboot'
 				} )
 			} );
 		}
@@ -38,7 +38,7 @@ export class AdminNodeComponent implements OnInit {
 			this.nodeRef.update( {
 				commands: firestore.FieldValue.arrayUnion( {
 					date: new Date(),
-					commandType: CommandType.shutdown
+					command: 'sudo shutdown -h now'
 				} )
 			} );
 		}

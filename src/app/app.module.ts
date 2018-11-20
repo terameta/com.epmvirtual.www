@@ -18,7 +18,7 @@ import { MonacoEditorModule } from 'ngx-monaco-editor';
 
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { ProgressbarModule } from 'ngx-bootstrap/progressbar';
-import { TabsModule } from 'ngx-bootstrap/tabs';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 
 const routes: Routes = [
 	{ path: '', loadChildren: './end-user/end-user.module#EndUserModule' },
@@ -42,7 +42,7 @@ const routes: Routes = [
 		SharedModule,
 		ModalModule.forRoot(),
 		ProgressbarModule.forRoot(),
-		TabsModule.forRoot(),
+		BsDropdownModule.forRoot(),
 		MonacoEditorModule.forRoot()
 	],
 	exports: [

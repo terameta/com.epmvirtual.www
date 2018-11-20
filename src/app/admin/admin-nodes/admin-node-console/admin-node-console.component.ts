@@ -56,6 +56,7 @@ export class AdminNodeConsoleComponent implements OnInit, AfterContentInit, OnDe
 					this.node.responses.forEach( re => re.dateValue = re.date.toDate() );
 					this.node.responses.sort( SortByDateValue );
 					if ( this.node.responses.length > 0 ) {
+						await this.waitForConsole();
 						const response = this.node.responses.shift();
 						this.term.write( response.datum );
 						delete response.dateValue;
@@ -68,6 +69,16 @@ export class AdminNodeConsoleComponent implements OnInit, AfterContentInit, OnDe
 				} ).catch( console.error );
 			} )
 		);
+	}
+
+	private waitForConsole = () => {
+		return new Promise( ( resolve, reject ) => {
+			if ( this.term ) {
+				resolve();
+			} else {
+				setTimeout( this.waitForConsole, 200 );
+			}
+		} );
 	}
 
 	ngOnDestroy() { subsDispose( this.subs ); }

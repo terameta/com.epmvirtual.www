@@ -8,6 +8,7 @@ import { FormsModule } from '@angular/forms';
 import { AdminNodeCandidatesComponent } from './admin-node-candidates/admin-node-candidates.component';
 import { AdminNodeComponent } from './admin-node/admin-node.component';
 import { AdminNodeConsoleComponent } from './admin-node-console/admin-node-console.component';
+import { AdminNodeCommandsComponent } from './admin-node-commands/admin-node-commands.component';
 
 const routes: Routes = [
 	{
@@ -17,7 +18,8 @@ const routes: Routes = [
 			{
 				path: ':id', component: AdminNodeComponent, children: [
 					{ path: '', component: AdminNodeDetailComponent },
-					{ path: 'console', component: AdminNodeConsoleComponent }
+					{ path: 'console', component: AdminNodeConsoleComponent },
+					{ path: 'commands', component: AdminNodeCommandsComponent }
 				]
 			}
 		]
@@ -36,7 +38,8 @@ const routes: Routes = [
 		AdminNodeDetailComponent,
 		AdminNodeCandidatesComponent,
 		AdminNodeComponent,
-		AdminNodeConsoleComponent
+		AdminNodeConsoleComponent,
+		AdminNodeCommandsComponent
 	]
 } )
 export class AdminNodesModule { }
