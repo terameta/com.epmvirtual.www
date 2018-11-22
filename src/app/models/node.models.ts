@@ -8,6 +8,7 @@ export interface Node extends NodeCandidate {
 			cols: number, rows: number
 		}
 	},
+	lastCommandResult: string,
 	poolAssignments: PoolAssignment,
 	poolWorkerAssignments: PoolWorkerAssignment
 }

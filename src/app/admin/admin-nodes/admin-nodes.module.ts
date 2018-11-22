@@ -9,6 +9,7 @@ import { AdminNodeCandidatesComponent } from './admin-node-candidates/admin-node
 import { AdminNodeComponent } from './admin-node/admin-node.component';
 import { AdminNodeConsoleComponent } from './admin-node-console/admin-node-console.component';
 import { AdminNodeCommandsComponent } from './admin-node-commands/admin-node-commands.component';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 
 const routes: Routes = [
 	{
@@ -30,7 +31,8 @@ const routes: Routes = [
 	imports: [
 		CommonModule,
 		RouterModule.forChild( routes ),
-		FormsModule
+		FormsModule,
+		BsDropdownModule
 	],
 	declarations: [
 		AdminNodesComponent,
