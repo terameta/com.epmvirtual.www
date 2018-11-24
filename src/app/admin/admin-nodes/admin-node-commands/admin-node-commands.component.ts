@@ -14,11 +14,60 @@ import { UtilitiesService } from 'src/app/shared/utilities.service';
 } )
 export class AdminNodeCommandsComponent implements OnInit {
 	public node$: Observable<Node>;
+	public customCommand = '';
 	private nodeRef: AngularFirestoreDocument;
 
 	public setCommands = [
 		{ label: 'List Files (ls -lh)', command: 'ls -lh' },
-		{ label: 'List Files (dir)', command: 'dir' }
+		{ label: 'List Files (dir)', command: 'dir' },
+		{
+			label: 'Deploy', command: [
+				'sudo apt update',
+				'sudo apt -y dist-upgrade',
+				'sudo -S sed -i \'/Port 22/c\Port 14422\' /etc/ssh/sshd_config',
+				'sudo -S sed -i \'/PermitRootLogin yes/c\PermitRootLogin no\' /etc/ssh/sshd_config',
+				'sudo -S service ssh restart',
+				'sudo apt -y install build-essential',
+				'sudo apt -y install curl',
+				'sudo apt -y autoremove',
+				'sudo apt -y autoclean',
+				'sudo apt -y install isc-dhcp-server',
+				'sudo apt -y install apparmor',
+				'sudo apt -y install apparmor-profiles',
+				'sudo apt -y install htop',
+				'sudo apt -y install iptables',
+				'sudo apt -y install screen',
+				'sudo apt -y install nfs-common',
+				'sudo apt -y install netcf',
+				'sudo apt -y install ntfs-3g',
+				'sudo apt -y install ksmtuned',
+				'sudo apt -y install kvm',
+				'sudo apt -y install qemu',
+				'sudo apt -y install libvirt-bin',
+				'sudo apt -y install libvirt-dev',
+				'sudo apt -y install qemu-kvm',
+				'sudo apt -y install bridge-utils',
+				'sudo apt -y install supermin',
+				'sudo apt -y install debconf-utils',
+				'sudo echo libguestfs-tools libguestfs/update-appliance boolean true | debconf-set-selections',
+				'sudo apt -y install libguestfs-tools',
+				'sudo apt -y install libguestfs0',
+				'sudo apt -y install libguestfs-*',
+				'sudo apt -y install virt-top',
+				'sudo apt -y install virtinst',
+				'sudo apt -y install sysv-rc-conf',
+				'sudo apt -y install gcc',
+				'sudo apt -y install make',
+				'sudo apt -y install git',
+				'sudo apt usermod -a -G libvirtd $(whoami)',
+				'sudo service iptables start',
+				'sudo echo "net.ipv4.ip_forward = 1"  /etc/sysctl.conf',
+				'node -v',
+				'npm -v',
+				'sudo mkdir /etc/libvirt/hooks -p',
+				'sudo service libvirt-bin restart'
+			]
+		}
 	];
 
 	constructor(
@@ -34,14 +83,20 @@ export class AdminNodeCommandsComponent implements OnInit {
 			pipe( map( a => ( { ...defaultNode(), ...this.us.action2Data<Node>( a ) } ) ) );
 	}
 
-	public runCommand = async ( command: string ) => {
-		console.log( 'Command to run:', command );
-		this.nodeRef.update( {
-			commands: firestore.FieldValue.arrayUnion( {
-				date: new Date(),
-				command
-			} )
-		} );
+	public runCommand = async ( command: string | string[] ) => {
+		if ( Array.isArray( command ) ) {
+			for ( const cmd of command ) {
+				await this.runCommand( cmd );
+			}
+		} else {
+			console.log( 'Command to run:', command );
+			await this.nodeRef.update( {
+				commands: firestore.FieldValue.arrayUnion( {
+					date: new Date(),
+					command
+				} )
+			} );
+		}
 	}
 
 }
