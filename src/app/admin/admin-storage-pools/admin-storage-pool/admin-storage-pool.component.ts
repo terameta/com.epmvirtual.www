@@ -7,6 +7,7 @@ import { map } from 'rxjs/operators';
 import { SortByPosition } from 'src/utilities/utilityFunctions';
 import { UtilitiesService } from 'src/app/shared/utilities.service';
 import { StoragePool } from 'src/app/models/storagepool.models';
+import { v1 as uuid } from 'uuid';
 
 @Component( {
 	selector: 'app-admin-storage-pool',
@@ -35,6 +36,12 @@ export class AdminStoragePoolComponent implements OnInit {
 	public keyChange = async () => {
 		const key: string = await this.ss.prompt( 'What is the new key?' );
 		if ( key && key !== '' ) this.db.doc( 'storagepools/' + this.ss.cID$.getValue() ).update( { key } );
+	}
+
+	public regenerateUUID = async () => {
+		if ( await this.ss.confirm( 'Are you sure you want to re-generate the UUID' ) ) {
+			this.db.doc<StoragePool>( 'storagepools/' + this.ss.cID$.getValue() ).update( { secretuuid: uuid() } );
+		}
 	}
 
 }

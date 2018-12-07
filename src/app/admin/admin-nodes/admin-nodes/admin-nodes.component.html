@@ -1,11 +1,4 @@
 <div class="container-fluid py-2">
-	<!-- <div class="btn-toolbar w-100" role="toolbar">
-		<div class="btn-group btn-group-sm ml-auto">
-			<button type="button" class="btn btn-outline-dark" title="New Node">
-				<i class="fas fa-industry fa-fw"></i> New Node
-			</button>
-		</div>
-	</div> -->
 	<div class="row">
 		<ul class="nav nav-tabs w-100">
 			<li class="nav-item ml-3">
@@ -13,16 +6,20 @@
 					<i class="far fa-list-alt fa-fw"></i> List
 				</a>
 			</li>
-			<li class="nav-item" *ngIf="candidates.length > 0">
-				<a routerLink="candidates" class="nav-link" routerLinkActive="active">
-					<i class="fas fa-handshake fa-fw"></i> Candidates
-				</a>
-			</li>
-			<li class="nav-item" *ngFor="let item of items;">
-				<a routerLink="{{item.id}}" class="nav-link" routerLinkActive="active">
-					<i class="fas fa-industry fa-fw"></i> {{ item.name }}
-				</a>
-			</li>
+			<ng-container *ngIf="candidates$ | async as candidates">
+				<li class="nav-item" *ngIf="candidates.items && candidates.items.length > 0">
+					<a routerLink="candidates" class="nav-link" routerLinkActive="active">
+						<i class="fas fa-handshake fa-fw"></i> Candidates
+					</a>
+				</li>
+			</ng-container>
+			<ng-container *ngIf="nodes$ | async as nodes">
+				<li class="nav-item" *ngFor="let node of nodes;">
+					<a routerLink="{{node.id}}" class="nav-link" routerLinkActive="active">
+						<i class="fas fa-industry fa-fw"></i> {{ node.name }}
+					</a>
+				</li>
+			</ng-container>
 		</ul>
 	</div>
 	<div class="row">

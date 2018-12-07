@@ -45,30 +45,30 @@ export class AdminNodeConsoleComponent implements OnInit, AfterContentInit, OnDe
 	) { }
 
 	ngOnInit() {
-		this.subs.push(
-			combineLatest(
-				this.ss.cItem$.pipe( filter( i => !!i.id ), map( i => ( { ...i, type: ItemType.node } as Node ) ) ),
-				this.terminalDimensions$
-			).subscribe( async ( [ i, terminalDims ] ) => {
-				this.node = i;
-				if ( this.term ) this.term.focus();
-				if ( this.node.responses ) {
-					this.node.responses.forEach( re => re.dateValue = re.date.toDate() );
-					this.node.responses.sort( SortByDateValue );
-					if ( this.node.responses.length > 0 ) {
-						await this.waitForConsole();
-						const response = this.node.responses.shift();
-						this.term.write( response.datum );
-						delete response.dateValue;
-						await this.db.doc( '/nodes/' + this.node.id ).update( { responses: firestore.FieldValue.arrayRemove( response ) } );
-					}
-				}
-				await this.db.doc( '/nodes/' + this.node.id ).update( {
-					'terminal.dimensions.cols': terminalDims.cols,
-					'terminal.dimensions.rows': terminalDims.rows
-				} ).catch( console.error );
-			} )
-		);
+		// this.subs.push(
+		// 	combineLatest(
+		// 		this.ss.cItem$.pipe( filter( i => !!i.id ), map( i => ( { ...i, type: ItemType.node } as Node ) ) ),
+		// 		this.terminalDimensions$
+		// 	).subscribe( async ( [ i, terminalDims ] ) => {
+		// 		this.node = i;
+		// 		if ( this.term ) this.term.focus();
+		// 		if ( this.node.responses ) {
+		// 			this.node.responses.forEach( re => re.dateValue = re.date.toDate() );
+		// 			this.node.responses.sort( SortByDateValue );
+		// 			if ( this.node.responses.length > 0 ) {
+		// 				await this.waitForConsole();
+		// 				const response = this.node.responses.shift();
+		// 				this.term.write( response.datum );
+		// 				delete response.dateValue;
+		// 				await this.db.doc( '/nodes/' + this.node.id ).update( { responses: firestore.FieldValue.arrayRemove( response ) } );
+		// 			}
+		// 		}
+		// 		await this.db.doc( '/nodes/' + this.node.id ).update( {
+		// 			'terminal.dimensions.cols': terminalDims.cols,
+		// 			'terminal.dimensions.rows': terminalDims.rows
+		// 		} ).catch( console.error );
+		// 	} )
+		// );
 	}
 
 	private waitForConsole = () => {
