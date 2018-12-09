@@ -11,7 +11,7 @@
 								<th>Candidate ID</th>
 								<th>Hostname</th>
 								<th>Platform</th>
-								<th>Type</th>
+								<th>Kernel</th>
 								<th>Arch</th>
 								<th>Release</th>
 							</tr>
@@ -23,11 +23,11 @@
 									<i class="far fa-trash-alt fa-fw pointer text-danger ml-3" title="Reject Candidate" (click)="candidateReject(candidate)"></i>
 								</td>
 								<td>{{candidate.id}}</td>
-								<td>{{candidate.hostname}}</td>
-								<td>{{candidate.osplatform}}</td>
-								<td>{{candidate.ostype}}</td>
-								<td>{{candidate.osarch}}</td>
-								<td>{{candidate.osrelease}}</td>
+								<td>{{candidate.os.hostname}}</td>
+								<td>{{candidate.os.platform}}</td>
+								<td>{{candidate.os.kernel}}</td>
+								<td>{{candidate.os.arch}}</td>
+								<td>{{candidate.os.release}}</td>
 							</tr>
 						</tbody>
 					</table>
@@ -38,5 +38,7 @@
 	</div>
 </ng-container>
 <ng-template #loading>
-	<i class="fas fa-circle-notch fa-spin"></i> Loading please wait...
+	<div class="alert alert-info" role="alert">
+		<i class="fas fa-circle-notch fa-spin mr-2"></i> Loading please wait...
+	</div>
 </ng-template>

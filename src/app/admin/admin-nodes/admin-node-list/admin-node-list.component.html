@@ -1,35 +1,44 @@
-<div class="container-fluid">
-	<div class="row" *ngIf="candidates.length > 0">
-		<div class="col">
-			<div class="alert alert-danger" role="alert">
-				There are candidates to be registered. <br>Please check candidates tab to take action.
+<div class="container-fluid py-2">
+	<ng-container *ngIf="candidates$ | async as candidates">
+		<div class="row" *ngIf="candidates.items && candidates.items.length">
+			<div class="col">
+				<div class="alert alert-danger" role="alert">
+					There are candidates to be registered. <br>Please check candidates tab to take action.
+				</div>
 			</div>
 		</div>
-	</div>
-	<div class="row">
-		<div class="col">
-			<div class="table-responsive m-0 p-0">
-				<table class="table table-sm table-bordered m-0">
-					<thead>
-						<tr>
-							<th class="text-nowrap" width="10">Actions</th>
-							<th>Name</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr *ngIf="items.length == 0">
-							<td colspan="100">Currently there are no nodes assigned to the system.</td>
-						</tr>
-						<tr *ngFor="let item of items;">
-							<td class="text-nowrap">
-								<a routerLink="{{item.id}}"><i class="fas fa-sliders-h fa-fw" title="Node Details"></i></a>
-								<i class="far fa-trash-alt fa-fw pointer text-danger ml-3" title="Delete Node" (click)="nodeDelete(item.id, item.name)"></i>
-							</td>
-							<td>{{item.name}}</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
+	</ng-container>
+	<ng-container *ngIf="nodes$ | async as nodes; else loading">
+		<div class="table-responsive m-0 p-0">
+			<table class="table table-sm table-bordered m-0">
+				<thead>
+					<tr>
+						<th class="text-nowrap" width="10">Actions</th>
+						<th>Name</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr *ngIf="nodes.length == 0">
+						<td colspan="100">
+							Currently there are no nodes assigned to the system.
+						</td>
+					</tr>
+					<tr *ngFor="let node of nodes;">
+						<td class="text-nowrap">
+							<a routerLink="{{node.id}}"><i class="fas fa-sliders-h fa-fw" title="Node Details"></i></a>
+							<i class="far fa-trash-alt fa-fw pointer text-danger ml-3" title="Delete Node" (click)="nodeDelete(node.id, node.name)"></i>
+						</td>
+						<td>
+							{{node.name}}
+						</td>
+					</tr>
+				</tbody>
+			</table>
 		</div>
-	</div>
+	</ng-container>
+	<ng-template #loading>
+		<div class="alert alert-info" role="alert">
+			<i class="fas fa-circle-notch fa-spin mr-2"></i> Loading please wait...
+		</div>
+	</ng-template>
 </div>

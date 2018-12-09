@@ -19,6 +19,7 @@ import { MonacoEditorModule } from 'ngx-monaco-editor';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { ProgressbarModule } from 'ngx-bootstrap/progressbar';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
 
 const routes: Routes = [
 	{ path: '', loadChildren: './end-user/end-user.module#EndUserModule' },
@@ -43,7 +44,8 @@ const routes: Routes = [
 		ModalModule.forRoot(),
 		ProgressbarModule.forRoot(),
 		BsDropdownModule.forRoot(),
-		MonacoEditorModule.forRoot()
+		MonacoEditorModule.forRoot(),
+		TooltipModule.forRoot()
 	],
 	exports: [
 		FormsModule

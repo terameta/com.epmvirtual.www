@@ -1,8 +1,7 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { subsCreate, subsDispose } from 'src/utilities/ngUtilities';
-import { AngularFirestore, DocumentChangeAction, Action, DocumentSnapshot } from '@angular/fire/firestore';
+import { Component, OnInit } from '@angular/core';
+import { AngularFirestore } from '@angular/fire/firestore';
 import { UtilitiesService } from 'src/app/shared/utilities.service';
-import { Subject } from 'rxjs';
+import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { NodeCandidateObject, Node } from 'src/app/models/node.models';
 
@@ -12,40 +11,19 @@ import { NodeCandidateObject, Node } from 'src/app/models/node.models';
 	styleUrls: [ './admin-nodes.component.scss' ]
 } )
 export class AdminNodesComponent implements OnInit {
-	// public items: Node[] = [];
-	// public itemsReceived = false;
-	// public candidates: NodeCandidate[] = [];
-	// public candidatesReceived = false;
 
-	// private subs = subsCreate();
-
-	public candidates$ = this.db.doc<NodeCandidateObject>( 'nodecandidates/list' ).snapshotChanges().pipe( map( this.us.action2Data ) );
-	public nodes$ = this.db.collection<Node>( 'nodes' ).snapshotChanges().pipe( map( this.us.actions2Data ) );
+	public candidates$: Observable<NodeCandidateObject> = this.db.doc<NodeCandidateObject>( 'nodecandidates/list' ).
+		snapshotChanges().
+		pipe( map( a => this.us.action2Data<NodeCandidateObject>( a ) ) );
+	public nodes$: Observable<Node[]> = this.db.collection<Node>( 'nodes' ).
+		snapshotChanges().
+		pipe( map( a => this.us.actions2Data<Node>( a ) ) );
 
 	constructor(
 		private db: AngularFirestore,
 		private us: UtilitiesService
 	) { }
 
-	ngOnInit() {
-		// this.subs.push( this.db.collection<Node>( '/nodes' ).
-		// 	snapshotChanges().
-		// 	subscribe( this.handleNodeList )
-		// );
-		// this.subs.push( this.db.doc<NodeCandidateObject>( '/nodecandidates/list' ).
-		// 	snapshotChanges().
-		// 	subscribe( this.handleNodeCandidates )
-		// );
-	}
-
-	// private handleNodeList = ( actions: DocumentChangeAction<Node>[] ) => {
-	// 	this.itemsReceived = true;
-	// 	this.items = this.us.actions2Data<Node>( actions ).sort( SortByName );
-	// }
-
-	// private handleNodeCandidates = ( action: Action<DocumentSnapshot<NodeCandidateObject>> ) => {
-	// 	this.candidatesReceived = true;
-	// 	this.candidates = action.payload.data().items;
-	// }
+	ngOnInit() { }
 
 }

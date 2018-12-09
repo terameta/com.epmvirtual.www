@@ -1,10 +1,11 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AngularFirestore, DocumentChangeAction, DocumentSnapshot, Action } from '@angular/fire/firestore';
-import { Node, NodeCandidate, NodeCandidateObject } from 'src/app/models/node.models';
+import { Node, NodeCandidateObject } from 'src/app/models/node.models';
 import { subsCreate, subsDispose } from 'src/utilities/ngUtilities';
 import { SharedService } from 'src/app/shared/shared.service';
 import { UtilitiesService } from 'src/app/shared/utilities.service';
 import { SortByName } from 'src/utilities/utilityFunctions';
+import { map } from 'rxjs/operators';
 
 @Component( {
 	selector: 'app-admin-node-list',
@@ -12,40 +13,19 @@ import { SortByName } from 'src/utilities/utilityFunctions';
 	styleUrls: [ './admin-node-list.component.scss' ]
 } )
 export class AdminNodeListComponent implements OnInit, OnDestroy {
-	public items: Node[] = [];
-	public itemsReceived = false;
-	public candidates: NodeCandidate[] = [];
-	public candidatesReceived = false;
-
-	private subs = subsCreate();
+	public candidates$ = this.db.doc<NodeCandidateObject>( 'nodecandidates/list' ).snapshotChanges().pipe( map( this.us.action2Data ) );
+	public nodes$ = this.db.collection<Node>( 'nodes' ).snapshotChanges().pipe( map( this.us.actions2Data ) );
 
 	constructor(
-		private ss: SharedService,
 		private db: AngularFirestore,
+		private ss: SharedService,
 		private us: UtilitiesService
 	) { }
 
-	ngOnInit() {
-		this.subs.push( this.db.collection<Node>( '/nodes' ).
-			snapshotChanges().
-			subscribe( this.handleNodeList )
-		);
-		this.subs.push( this.db.doc<NodeCandidateObject>( '/nodecandidates/list' ).
-			snapshotChanges().
-			subscribe( this.handleNodeCandidates )
-		);
-	}
+	ngOnInit() { }
 
-	ngOnDestroy() { subsDispose( this.subs ); }
+	ngOnDestroy() { }
 
-	private handleNodeList = ( actions: DocumentChangeAction<Node>[] ) => {
-		this.itemsReceived = true;
-		this.items = this.us.actions2Data<Node>( actions ).sort( SortByName );
-	}
-	private handleNodeCandidates = ( action: Action<DocumentSnapshot<NodeCandidateObject>> ) => {
-		this.candidatesReceived = true;
-		this.candidates = action.payload.data().items;
-	}
 	public nodeDelete = async ( id: string, name: string ) => {
 		const response = await this.ss.confirm( 'Are you sure you want to delete ' + ( name ? name : 'node with id' + id ) + '?' );
 		if ( response ) {

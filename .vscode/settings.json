@@ -8,5 +8,8 @@
 	"editor.formatOnSave": true,
 	"editor.formatOnPaste": true,
 	"editor.formatOnType": true,
-	"workbench.editor.enablePreview": false
+	"workbench.editor.enablePreview": false,
+	"zenMode.centerLayout": false,
+	"zenMode.hideTabs": false,
+	"zenMode.hideStatusBar": false
 }

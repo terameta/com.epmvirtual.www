@@ -1,8 +1,7 @@
 import { Component, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
 import { SharedService } from 'src/app/shared/shared.service';
-import { map } from 'rxjs/operators';
-import { Node, defaultNode } from 'src/app/models/node.models';
-import { subsCreate, subsDispose } from 'src/utilities/ngUtilities';
+import { map, switchMap } from 'rxjs/operators';
+import { Node } from 'src/app/models/node.models';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { UtilitiesService } from 'src/app/shared/utilities.service';
@@ -15,12 +14,16 @@ import { SortByName } from 'src/utilities/utilityFunctions';
 	templateUrl: './admin-node-detail.component.html',
 	styleUrls: [ './admin-node-detail.component.scss' ]
 } )
-export class AdminNodeDetailComponent implements OnInit, OnDestroy {
-	// public node: Node = defaultNode();
-	public node$: Observable<Node>;
-	public pools$: Observable<StoragePool[]>;
+export class AdminNodeDetailComponent implements OnInit {
+	public osToggle = false;
 
-	private subs = subsCreate();
+	public node$: Observable<Node> = this.ss.cID$.pipe(
+		switchMap( id => this.db.doc<Node>( 'nodes/' + id ).snapshotChanges() ),
+		map( a => this.us.action2Data<Node>( a ) )
+	);
+
+	public pools$: Observable<StoragePool[]> = this.db.collection<StoragePool>( 'storagepools' ).
+		snapshotChanges().pipe( map( a => this.us.actions2Data<StoragePool>( a ).sort( SortByName ) ) );
 
 	constructor(
 		public ss: SharedService,
@@ -28,22 +31,9 @@ export class AdminNodeDetailComponent implements OnInit, OnDestroy {
 		private us: UtilitiesService
 	) { }
 
-	ngOnInit() {
-		this.node$ = this.db.doc<Node>( 'nodes/' + this.ss.cID$.getValue() ).
-			snapshotChanges().pipe( map( a => ( { ...defaultNode(), ...this.us.action2Data<Node>( a ) } ) ) );
-		this.pools$ = this.db.collection<StoragePool>( 'storagepools' ).
-			snapshotChanges().pipe( map( a => this.us.actions2Data<StoragePool>( a ).sort( SortByName ) ) );
-		// this.subs.push( this.ss.cItem$.pipe(
-		// 	filter( i => !!i.id ),
-		// 	map( i => ( { ...i, type: ItemType.node } as Node ) )
-		// ).subscribe( i => {
-		// 	this.node = i;
-		// } ) );
-	}
+	ngOnInit() { }
 
 	public save = ( f: NgForm ) => {
 		console.log( f.form.controls );
 	}
-
-	ngOnDestroy() { subsDispose( this.subs ); }
 }
