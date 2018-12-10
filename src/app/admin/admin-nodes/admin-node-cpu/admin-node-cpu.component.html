@@ -1,0 +1,112 @@
+<ng-container *ngIf="node$ | async as node; else loading">
+	<div class="container-fluid my-3">
+		<div class="row">
+			<div class="col">
+				<div class="table-responsive">
+					<table class="table table-sm table-hover table-borderless m-0">
+						<thead>
+							<tr>
+								<th class="border-bottom border-evwarning m-0 p-0" width="120"> Property </th>
+								<th width="24"></th>
+								<th class="border-bottom border-evwarning m-0 p-0">
+									<div class="d-flex w-100">
+										Value
+										<i class="fas fa-code ml-auto my-auto pointer" title="Toggle Code View" (click)="codeToggle = !codeToggle"></i>
+									</div>
+								</th>
+							</tr>
+						</thead>
+						<tbody *ngIf="!codeToggle">
+							<tr>
+								<td class="px-0">Brand:</td>
+								<td class="px-0">&nbsp;</td>
+								<td class="px-0">{{node.cpu.brand}}</td>
+							</tr>
+							<tr>
+								<td class="px-0">Vendor:</td>
+								<td class="px-0">&nbsp;</td>
+								<td class="px-0">{{node.cpu.vendor}}</td>
+							</tr>
+							<tr>
+								<td class="px-0">Cache:</td>
+								<td class="px-0">&nbsp;</td>
+								<td class="px-0">
+									<ul class="mb-0">
+										<li>l1d: {{node.cpu.cache.l1d}}</li>
+										<li>l1i: {{node.cpu.cache.l1i}}</li>
+										<li>l2: {{node.cpu.cache.l2}}</li>
+										<li>l3: {{node.cpu.cache.l3}}</li>
+									</ul>
+								</td>
+							</tr>
+							<tr>
+								<td class="px-0">Cores:</td>
+								<td class="px-0">&nbsp;</td>
+								<td class="px-0">{{node.cpu.cores}}</td>
+							</tr>
+							<tr>
+								<td class="px-0">Family:</td>
+								<td class="px-0">&nbsp;</td>
+								<td class="px-0">{{node.cpu.family}}</td>
+							</tr>
+							<tr>
+								<td class="px-0">Manufacturer:</td>
+								<td class="px-0">&nbsp;</td>
+								<td class="px-0">{{node.cpu.manufacturer}}</td>
+							</tr>
+							<tr>
+								<td class="px-0">Model:</td>
+								<td class="px-0">&nbsp;</td>
+								<td class="px-0">{{node.cpu.model}}</td>
+							</tr>
+							<tr>
+								<td class="px-0">Revision:</td>
+								<td class="px-0">&nbsp;</td>
+								<td class="px-0">{{node.cpu.revision}}</td>
+							</tr>
+							<tr>
+								<td class="px-0">Speed:</td>
+								<td class="px-0">&nbsp;</td>
+								<td class="px-0">{{node.cpu.speed}}</td>
+							</tr>
+							<tr>
+								<td class="px-0">Maximum Speed:</td>
+								<td class="px-0">&nbsp;</td>
+								<td class="px-0">{{node.cpu.speedmax}}</td>
+							</tr>
+							<tr>
+								<td class="px-0">Minimum Speed:</td>
+								<td class="px-0">&nbsp;</td>
+								<td class="px-0">{{node.cpu.speedmin}}</td>
+							</tr>
+							<tr>
+								<td class="px-0">Stepping:</td>
+								<td class="px-0">&nbsp;</td>
+								<td class="px-0">{{node.cpu.stepping}}</td>
+							</tr>
+							<tr>
+								<td class="px-0">Voltage:</td>
+								<td class="px-0">&nbsp;</td>
+								<td class="px-0">{{node.cpu.voltage}}</td>
+							</tr>
+						</tbody>
+						<tbody *ngIf="codeToggle">
+							<tr>
+								<td colspan="100">
+									<pre>{{node.cpu | json}}</pre>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</ng-container>
+<ng-template #loading>
+	<div class="container-fluid mt-3">
+		<div class="alert alert-info" role="alert">
+			<i class="fas fa-circle-notch fa-spin mr-2"></i> Loading please wait...
+		</div>
+	</div>
+</ng-template>

@@ -1,0 +1,85 @@
+<ng-container *ngIf="node$ | async as node; else loading">
+	<div class="container-fluid my-3">
+		<div class="row">
+			<div class="col">
+				<div class="table-responsive">
+					<table class="table table-sm table-hover table-borderless m-0">
+						<thead>
+							<tr>
+								<th class="border-bottom border-evwarning m-0 p-0" width="120"> Property </th>
+								<th width="24"></th>
+								<th class="border-bottom border-evwarning m-0 p-0">
+									<div class="d-flex w-100">
+										Value
+										<i class="fas fa-code ml-auto my-auto pointer" title="Toggle Code View" (click)="codeToggle = !codeToggle"></i>
+									</div>
+								</th>
+							</tr>
+						</thead>
+						<tbody *ngIf="!codeToggle">
+							<tr>
+								<td class="px-0">Hostname:</td>
+								<td class="px-0">&nbsp;</td>
+								<td class="px-0">{{node.os.hostname}}</td>
+							</tr>
+							<tr>
+								<td class="px-0">Platform:</td>
+								<td class="px-0">&nbsp;</td>
+								<td class="px-0">{{node.os.platform}}</td>
+							</tr>
+							<tr>
+								<td class="px-0">Release:</td>
+								<td class="px-0">&nbsp;</td>
+								<td class="px-0">{{node.os.release}}</td>
+							</tr>
+							<tr>
+								<td class="px-0">Arch:</td>
+								<td class="px-0">&nbsp;</td>
+								<td class="px-0">{{node.os.arch}}</td>
+							</tr>
+							<tr>
+								<td class="px-0">Build:</td>
+								<td class="px-0">&nbsp;</td>
+								<td class="px-0">{{node.os.build}}</td>
+							</tr>
+							<tr>
+								<td class="px-0">Codename:</td>
+								<td class="px-0">&nbsp;</td>
+								<td class="px-0">{{node.os.codename}}</td>
+							</tr>
+							<tr>
+								<td class="px-0">Distro:</td>
+								<td class="px-0">&nbsp;</td>
+								<td class="px-0">{{node.os.distro}}</td>
+							</tr>
+							<tr>
+								<td class="px-0">Kernel:</td>
+								<td class="px-0">&nbsp;</td>
+								<td class="px-0">{{node.os.kernel}}</td>
+							</tr>
+							<tr>
+								<td class="px-0">Serial:</td>
+								<td class="px-0">&nbsp;</td>
+								<td class="px-0">{{node.os.serial}}</td>
+							</tr>
+						</tbody>
+						<tbody *ngIf="codeToggle">
+							<tr>
+								<td colspan="100">
+									<pre>{{node.os | json}}</pre>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</ng-container>
+<ng-template #loading>
+	<div class="container-fluid mt-3">
+		<div class="alert alert-info" role="alert">
+			<i class="fas fa-circle-notch fa-spin mr-2"></i> Loading please wait...
+		</div>
+	</div>
+</ng-template>

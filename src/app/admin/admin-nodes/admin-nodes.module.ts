@@ -11,6 +11,12 @@ import { AdminNodeConsoleComponent } from './admin-node-console/admin-node-conso
 import { AdminNodeCommandsComponent } from './admin-node-commands/admin-node-commands.component';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
+import { AdminNodeOsComponent } from './admin-node-os/admin-node-os.component';
+import { AdminNodeSystemComponent } from './admin-node-system/admin-node-system.component';
+import { AdminNodeCpuComponent } from './admin-node-cpu/admin-node-cpu.component';
+import { AdminNodeNicsComponent } from './admin-node-nics/admin-node-nics.component';
+import { AdminNodeMemoryComponent } from './admin-node-memory/admin-node-memory.component';
+import { AdminNodeDiskComponent } from './admin-node-disk/admin-node-disk.component';
 
 const routes: Routes = [
 	{
@@ -21,7 +27,14 @@ const routes: Routes = [
 				path: ':id', component: AdminNodeComponent, children: [
 					{ path: '', component: AdminNodeDetailComponent },
 					{ path: 'console', component: AdminNodeConsoleComponent },
-					{ path: 'commands', component: AdminNodeCommandsComponent }
+					{ path: 'commands', component: AdminNodeCommandsComponent },
+					{ path: 'os', component: AdminNodeOsComponent },
+					{ path: 'system', component: AdminNodeSystemComponent },
+					{ path: 'cpu', component: AdminNodeCpuComponent },
+					{ path: 'nics', component: AdminNodeNicsComponent },
+					{ path: 'memory', component: AdminNodeMemoryComponent },
+					{ path: 'disk', component: AdminNodeDiskComponent }
+
 				]
 			}
 		]
@@ -43,7 +56,13 @@ const routes: Routes = [
 		AdminNodeCandidatesComponent,
 		AdminNodeComponent,
 		AdminNodeConsoleComponent,
-		AdminNodeCommandsComponent
+		AdminNodeCommandsComponent,
+		AdminNodeOsComponent,
+		AdminNodeSystemComponent,
+		AdminNodeCpuComponent,
+		AdminNodeNicsComponent,
+		AdminNodeMemoryComponent,
+		AdminNodeDiskComponent
 	]
 } )
 export class AdminNodesModule { }
