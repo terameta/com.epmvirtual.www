@@ -8,8 +8,19 @@ export interface Node {
 	networkInterfaces: NodeNetworkInterfacesData[],
 	cpu: NodeCpuData,
 	memory: NodeMemoryLayoutData,
-	disk: NodeBlockDevicesData[]
+	disk: NodeBlockDevicesData[],
+	poolAssignments: PoolAssignment,
+	poolWorkerAssignments: PoolWorkerAssignment
 }
+
+export interface PoolAssignment {
+	[ key: string ]: boolean
+}
+
+export interface PoolWorkerAssignment {
+	[ key: string ]: boolean
+}
+
 
 interface NodeNetworkInterfacesData {
 	iface: string;
@@ -97,7 +108,9 @@ const baseNode: Node = {
 	networkInterfaces: null,
 	cpu: null,
 	memory: null,
-	disk: null
+	disk: null,
+	poolAssignments: {},
+	poolWorkerAssignments: {}
 };
 
 export const defaultNode = (): Node => JSONDeepCopy( baseNode );
@@ -156,10 +169,3 @@ export interface NodeCandidateObject {
 // 	dateValue?: Date
 // }
 
-// export interface PoolAssignment {
-// 	[ key: string ]: boolean
-// }
-
-// export interface PoolWorkerAssignment {
-// 	[ key: string ]: boolean
-// }

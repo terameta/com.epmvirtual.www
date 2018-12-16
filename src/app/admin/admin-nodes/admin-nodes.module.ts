@@ -17,6 +17,7 @@ import { AdminNodeCpuComponent } from './admin-node-cpu/admin-node-cpu.component
 import { AdminNodeNicsComponent } from './admin-node-nics/admin-node-nics.component';
 import { AdminNodeMemoryComponent } from './admin-node-memory/admin-node-memory.component';
 import { AdminNodeDiskComponent } from './admin-node-disk/admin-node-disk.component';
+import { AdminNodeStorageAssignmentsComponent } from './admin-node-storage-assignments/admin-node-storage-assignments.component';
 
 const routes: Routes = [
 	{
@@ -33,8 +34,8 @@ const routes: Routes = [
 					{ path: 'cpu', component: AdminNodeCpuComponent },
 					{ path: 'nics', component: AdminNodeNicsComponent },
 					{ path: 'memory', component: AdminNodeMemoryComponent },
-					{ path: 'disk', component: AdminNodeDiskComponent }
-
+					{ path: 'disk', component: AdminNodeDiskComponent },
+					{ path: 'storage-assignments', component: AdminNodeStorageAssignmentsComponent }
 				]
 			}
 		]
@@ -62,7 +63,8 @@ const routes: Routes = [
 		AdminNodeCpuComponent,
 		AdminNodeNicsComponent,
 		AdminNodeMemoryComponent,
-		AdminNodeDiskComponent
+		AdminNodeDiskComponent,
+		AdminNodeStorageAssignmentsComponent
 	]
 } )
 export class AdminNodesModule { }

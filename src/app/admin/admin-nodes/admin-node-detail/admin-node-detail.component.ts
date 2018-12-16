@@ -15,16 +15,11 @@ import { SortByName } from 'src/utilities/utilityFunctions';
 	styleUrls: [ './admin-node-detail.component.scss' ]
 } )
 export class AdminNodeDetailComponent implements OnInit {
-	public osToggle = false;
 
 	public node$: Observable<Node> = this.ss.cID$.pipe(
 		switchMap( id => this.db.doc<Node>( 'nodes/' + id ).snapshotChanges() ),
 		map( a => this.us.action2Data<Node>( a ) )
 	);
-
-	public pools$: Observable<StoragePool[]> = this.db.collection<StoragePool>( 'storagepools' ).
-		snapshotChanges().pipe( map( a => this.us.actions2Data<StoragePool>( a ).sort( SortByName ) ) );
-
 	constructor(
 		public ss: SharedService,
 		private db: AngularFirestore,
@@ -33,7 +28,4 @@ export class AdminNodeDetailComponent implements OnInit {
 
 	ngOnInit() { }
 
-	public save = ( f: NgForm ) => {
-		console.log( f.form.controls );
-	}
 }

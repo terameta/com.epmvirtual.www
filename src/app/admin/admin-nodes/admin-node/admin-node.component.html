@@ -1,12 +1,10 @@
 <div class="container-fluid">
-	<div class="btn-toolbar w-100 pb-1" role="toolbar">
-		<div class="btn-group btn-group-sm ml-auto">
-			<button type="button" class="btn btn-outline-dark" title="Reboot" (click)="reboot()">
-				<i class="fas fa-redo-alt fa-fw"></i> <br>Reboot
-			</button>
-			<button type="button" class="btn btn-outline-dark" title="Shutdown" (click)="shutdown()">
-				<i class="fas fa-stop fa-fw"></i> <br>Shutdown
-			</button>
+	<div class="row">
+		<div class="btn-toolbar w-100 mb-1" role="toolbar">
+			<div class="btn-group btn-group-xs ml-auto">
+				<button class="btn btn-outline-dark" title="Reboot" (click)="reboot()"><i class="fas fa-redo-alt fa-fw"></i> Reboot</button>
+				<button class="btn btn-outline-dark" title="Shutdown" (click)="shutdown()"><i class="fas fa-stop fa-fw"></i> Shutdown</button>
+			</div>
 		</div>
 	</div>
 	<div class="row">
@@ -54,6 +52,11 @@
 			<li class="nav-item">
 				<a routerLink="disk" class="nav-link" routerLinkActive="active">
 					Disks
+				</a>
+			</li>
+			<li class="nav-item">
+				<a routerLink="storage-assignments" class="nav-link" routerLinkActive="active">
+					Storage Assignments
 				</a>
 			</li>
 		</ul>

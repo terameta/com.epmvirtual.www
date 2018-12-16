@@ -11,5 +11,6 @@
 	"workbench.editor.enablePreview": false,
 	"zenMode.centerLayout": false,
 	"zenMode.hideTabs": false,
-	"zenMode.hideStatusBar": false
+	"zenMode.hideStatusBar": false,
+	"typescript.tsdk": "node_modules\\typescript\\lib"
 }

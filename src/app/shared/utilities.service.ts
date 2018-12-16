@@ -39,4 +39,7 @@ export class UtilitiesService {
 	public action2Data = <T>( action: Action<DocumentSnapshot<any>> ): T => {
 		return ( { ...action.payload.data(), ...{ id: action.payload.id } } );
 	}
+	public assignOver = <T extends object>( base: T, over: T ) => {
+		return <T>{ ...( base as object ), ...( over as object ) };
+	}
 }
