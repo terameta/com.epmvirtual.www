@@ -10,6 +10,7 @@ import { AdminSettingsTwocoComponent } from './admin-settings-twoco/admin-settin
 import { AdminSettingsSmtpComponent } from './admin-settings-smtp/admin-settings-smtp.component';
 import { AdminSettingsSparkpostComponent } from './admin-settings-sparkpost/admin-settings-sparkpost.component';
 import { AdminSettingsSeoComponent } from './admin-settings-seo/admin-settings-seo.component';
+import { AdminSettingsRtcComponent } from './admin-settings-rtc/admin-settings-rtc.component';
 
 const routes: Routes = [
 	{ path: '', pathMatch: 'full', redirectTo: 'general' },
@@ -18,7 +19,8 @@ const routes: Routes = [
 	{ path: '2co', component: AdminSettingsTwocoComponent },
 	{ path: 'smtp', component: AdminSettingsSmtpComponent },
 	{ path: 'sparkpost', component: AdminSettingsSparkpostComponent },
-	{ path: 'seo', component: AdminSettingsSeoComponent }
+	{ path: 'seo', component: AdminSettingsSeoComponent },
+	{ path: 'rtc', component: AdminSettingsRtcComponent }
 ];
 
 @NgModule( {
@@ -34,7 +36,8 @@ const routes: Routes = [
 		AdminSettingsTwocoComponent,
 		AdminSettingsSmtpComponent,
 		AdminSettingsSparkpostComponent,
-		AdminSettingsSeoComponent
+		AdminSettingsSeoComponent,
+		AdminSettingsRtcComponent
 	]
 } )
 export class AdminSettingsModule { }

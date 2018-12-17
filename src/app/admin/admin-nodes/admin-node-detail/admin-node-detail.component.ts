@@ -5,9 +5,6 @@ import { Node } from 'src/app/models/node.models';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { UtilitiesService } from 'src/app/shared/utilities.service';
-import { NgForm } from '@angular/forms';
-import { StoragePool } from 'src/app/models/storagepool.models';
-import { SortByName } from 'src/utilities/utilityFunctions';
 
 @Component( {
 	selector: 'app-admin-node-detail',

@@ -1,0 +1,85 @@
+<form #f="ngForm" *ngIf="settings$ | async as settings; else loading" (ngSubmit)="save(settings, f)">
+	<div class="container-fluid mt-3">
+		<div class="row">
+			<div class="col">
+				<div class="btn-toolbar w-100 my-1" role="toolbar">
+					<div class="btn-group btn-group-xs ml-auto">
+						<button type="submit" class="btn btn-outline-dark btn-xs" title="Save"><i class="fas fa-save fa-fw"></i> Save</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col">
+				<div class="table-responsive">
+					<table class="table table-sm table-hover table-borderless">
+						<thead>
+							<tr>
+								<th class="border-bottom border-evwarning m-0 p-0 text-nowrap" width="10">Property</th>
+								<th width="24">&nbsp;</th>
+								<th class="border-bottom border-evwarning m-0 p-0 text-nowrap">Value</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr *ngIf="settings.servers; else noServers">
+								<td class="px-0 text-nowrap pt-2 align-middle">iceServers</td>
+								<td class="px-0">&nbsp;</td>
+								<td class="p-0 pt-2">
+									New Server
+									<div class="input-group input-group-sm mt-2">
+										<div class="input-group-prepend">
+											<span class="input-group-text">urls</span>
+										</div>
+										<input type="text" name="newServer" class="form-control" placeholder="stun:stun.l.google.com:19302" [(ngModel)]="newServer">
+										<div class="input-group-append" id="button-addon4">
+											<button class="btn btn-success" type="button" (click)="addiceServer(f)">
+												<i class="fas fa-plus fa-fw"></i>
+											</button>
+										</div>
+									</div>
+									<hr>
+									Existing Servers
+									<ng-container *ngIf="settings.servers.iceServers; else noiceServers">
+										<div class="input-group input-group-sm mt-2" *ngFor="let server of settings.servers.iceServers; let i = index;">
+											<div class="input-group-prepend">
+												<span class="input-group-text">urls</span>
+											</div>
+											<input type="text" name="iceServer{{i}}" class="form-control" placeholder="stun:f.q.d.n:port" [(ngModel)]="server.urls">
+											<div class="input-group-append" id="button-addon4">
+												<button class="btn btn-evwarning" type="button" (click)="deliceServer(server)">
+													<i class="fas fa-minus fa-fw"></i>
+												</button>
+											</div>
+										</div>
+									</ng-container>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+	<pre>{{settings | json}}</pre>
+</form>
+<ng-template #loading>
+	<div class="container-fluid mt-3">
+		<div class="alert alert-info" role="alert">
+			<i class="fas fa-circle-notch fa-spin mr-2"></i> Loading please wait...
+		</div>
+	</div>
+</ng-template>
+<ng-template #noServers>
+	<div class="container-fluid mt-3">
+		<div class="alert alert-danger" role="alert">
+			There is no servers property on the settings object.
+		</div>
+	</div>
+</ng-template>
+<ng-template #noiceServers>
+	<div class="container-fluid mt-3">
+		<div class="alert alert-danger" role="alert">
+			Property settings.servers.iceServers doesn't exist.
+		</div>
+	</div>
+</ng-template>

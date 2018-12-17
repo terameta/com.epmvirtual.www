@@ -10,7 +10,8 @@ export interface Node {
 	memory: NodeMemoryLayoutData,
 	disk: NodeBlockDevicesData[],
 	poolAssignments: PoolAssignment,
-	poolWorkerAssignments: PoolWorkerAssignment
+	poolWorkerAssignments: PoolWorkerAssignment,
+	rtc: any
 }
 
 export interface PoolAssignment {
@@ -110,7 +111,8 @@ const baseNode: Node = {
 	memory: null,
 	disk: null,
 	poolAssignments: {},
-	poolWorkerAssignments: {}
+	poolWorkerAssignments: {},
+	rtc: null
 };
 
 export const defaultNode = (): Node => JSONDeepCopy( baseNode );
