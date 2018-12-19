@@ -1,19 +1,41 @@
-<!-- <div #terminal style="width: 100%; height: 600px;" [ngStyle]="{'height.px': screenHeight - 218}"></div> -->
 <ng-container *ngIf="node$ | async as node; else loading">
 	<div class="container-fluid my-3">
 		<div class="row">
 			<div class="col">
 				<div class="btn-toolbar w-100 my-1" role="toolbar">
-					<div class="btn-group btn-group-xs ml-auto">
-						<button type="button" class="btn btn-outline-dark btn-xs" title="Start Console" (click)="start$.next()"><i class="fas fa-play"></i> Start Console</button>
-						<button type="button" class="btn btn-outline-dark btn-xs" title="Stop Console"><i class="fas fa-stop"></i> Stop Console</button>
+					<span>
+						<!-- <i class="fas fa-pause-circle fa-fw" *ngIf="(pcstate$ | async) == 'Not initiated'"></i> -->
+						<i class="fas fa-pause-circle fa-fw" *ngIf="pcstate == 'Not initiated'"></i>
+						<!-- <i class="fas fa-circle-notch fa-spin fa-fw" *ngIf="(pcstate$ | async) != 'Not initiated' && (pcstate$ | async) != 'completed'"></i> -->
+						<i class="fas fa-circle-notch fa-spin fa-fw" *ngIf="pcstate != 'Not initiated' && pcstate != 'completed'"></i>
+						<!-- <i class="fas fa-check-circle fa-fw" *ngIf="(pcstate$ | async) == 'completed'"></i> -->
+						<i class="fas fa-check-circle fa-fw" *ngIf="pcstate == 'completed'"></i>
+						<!-- Peer Connection: {{ pcstate$ | async }} -->
+						Peer Connection: {{ pcstate }}
+					</span>
+					<span class="ml-auto">
+						Dims: {{ termDims }}
+					</span>
+					<div class="btn-group btn-group-xs ml-5">
+						<!-- <button type="button" class="btn btn-outline-dark btn-xs" title="Start Console" (click)="consoleStart()" [disabled]="(pcstate$ | async) !== 'completed' || !!term"> -->
+						<button type="button" class="btn btn-outline-dark btn-xs" title="Start Console" (click)="consoleStart()" [disabled]="pcstate !== 'completed' || !!term">
+							<i class="fas fa-play fa-fw"></i> Start Console
+						</button>
+						<!-- <button type="button" class="btn btn-outline-dark btn-xs" title="Stop Console" [disabled]="(pcstate$ | async) !== 'completed' || !term"> -->
+						<button type="button" class="btn btn-outline-dark btn-xs" title="Stop Console" (click)="consoleStop()" [disabled]="pcstate !== 'completed' || !term">
+							<i class="fas fa-stop fa-fw"></i> Stop Console
+						</button>
+						<button type="button" class="btn btn-outline-dark btn-xs" title="Toggle Zen Mode" (click)="toggleZenMode()" [disabled]="pcstate !== 'completed' || !term">
+							<i class="fas fa-expand-arrows-alt fa-fw"></i>
+						</button>
 					</div>
 				</div>
 			</div>
 		</div>
 		<div class="row">
-			<div class="col">
-				<pre>{{node.rtc | json}}</pre>
+			<div class="col p-0">
+				<i class="fas fa-compress-arrows-alt fa-fw pointer zen-toggler" *ngIf="zenModeEnabled" (click)="toggleZenMode()" title="Toggle Zen Mode"></i>
+				<div #terminal style="width: 100%; height: 100px;" [ngClass]="{'zen-mode': zenModeEnabled}" [ngStyle]="{'height': consoleHeight, 'width': consoleWidth}"></div>
 			</div>
 		</div>
 	</div>
