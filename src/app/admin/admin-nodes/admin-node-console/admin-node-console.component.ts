@@ -84,9 +84,11 @@ export class AdminNodeConsoleComponent implements OnInit, OnDestroy, AfterConten
 
 	private cleanUp = () => {
 		if ( this.pc ) this.pc.close();
-		this.pc = null;
+		if ( this.dcinitial ) this.dcinitial.close();
+		if ( this.dc ) this.dc.close();
 		this.dcinitial = null;
 		this.dc = null;
+		this.pc = null;
 	}
 
 	private establishPeerConnection = async ( settings: SettingsRTC ) => {
@@ -120,13 +122,15 @@ export class AdminNodeConsoleComponent implements OnInit, OnDestroy, AfterConten
 		await this.pc.setLocalDescription( offer );
 		await nodeRef.update( { rtc: { offer: JSON.stringify( this.pc.localDescription ) } } );
 		nodeRef.valueChanges().pipe( filter( n => n.rtc.answer ), take( 1 ) ).subscribe( async ( n ) => {
-			await this.pc.setRemoteDescription( JSON.parse( n.rtc.answer ) );
-			await nodeRef.update( { 'rtc.answer': null } );
+			if ( this.pc ) {
+				await this.pc.setRemoteDescription( JSON.parse( n.rtc.answer ) );
+				await nodeRef.update( { 'rtc.answer': null } );
+			}
 		} );
-		nodeRef.valueChanges().pipe( filter( n => n.rtc.answerice ) ).subscribe( async ( n ) => {
+		nodeRef.valueChanges().pipe( takeUntil( this.destroy$ ), filter( n => n.rtc.answerice ) ).subscribe( async ( n ) => {
 			if ( Array.isArray( n.rtc.answerice ) ) {
 				n.rtc.answerice.forEach( ic => {
-					this.pc.addIceCandidate( ( JSON.parse( ic ) ).ice );
+					if ( this.pc ) this.pc.addIceCandidate( ( JSON.parse( ic ) ).ice );
 				} );
 			}
 		} );
@@ -172,13 +176,13 @@ export class AdminNodeConsoleComponent implements OnInit, OnDestroy, AfterConten
 	}
 
 	private forceChangeDetection = () => {
-		this.cdr.detectChanges();
-		setTimeout( () => { this.cdr.detectChanges(); }, 1 );
-		setTimeout( () => { this.cdr.detectChanges(); }, 1000 );
-		setTimeout( () => { this.cdr.detectChanges(); }, 2000 );
-		setTimeout( () => { this.cdr.detectChanges(); }, 3000 );
-		setTimeout( () => { this.cdr.detectChanges(); }, 4000 );
-		setTimeout( () => { this.cdr.detectChanges(); }, 5000 );
+		if ( this.destroy$ ) this.cdr.detectChanges();
+		setTimeout( () => { if ( this.destroy$ ) this.cdr.detectChanges(); }, 1 );
+		setTimeout( () => { if ( this.destroy$ ) this.cdr.detectChanges(); }, 1000 );
+		setTimeout( () => { if ( this.destroy$ ) this.cdr.detectChanges(); }, 2000 );
+		setTimeout( () => { if ( this.destroy$ ) this.cdr.detectChanges(); }, 3000 );
+		setTimeout( () => { if ( this.destroy$ ) this.cdr.detectChanges(); }, 4000 );
+		setTimeout( () => { if ( this.destroy$ ) this.cdr.detectChanges(); }, 5000 );
 	}
 
 	public toggleZenMode = () => {
