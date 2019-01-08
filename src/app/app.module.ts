@@ -11,7 +11,7 @@ import { AppComponent } from './app.component';
 import { systemSettings } from './app.settings';
 import { Routes, RouterModule } from '@angular/router';
 
-import { AuthGuardService as AuthGuard } from './auth-guard.service';
+import { AuthGuardService } from './auth-guard.service';
 import { SharedModule } from './shared/shared.module';
 
 import { MonacoEditorModule } from 'ngx-monaco-editor';
@@ -23,8 +23,8 @@ import { TooltipModule } from 'ngx-bootstrap/tooltip';
 
 const routes: Routes = [
 	{ path: '', loadChildren: './end-user/end-user.module#EndUserModule' },
-	{ path: 'admin', canActivate: [ AuthGuard ], data: { expectedRole: 'admin' }, loadChildren: './admin/admin.module#AdminModule' },
-	{ path: 'cloud', canActivate: [ AuthGuard ], loadChildren: './cloud/cloud.module#CloudModule' }
+	{ path: 'admin', canActivate: [ AuthGuardService ], data: { expectedRole: 'admin' }, loadChildren: './admin/admin.module#AdminModule' },
+	{ path: 'cloud', canActivate: [ AuthGuardService ], loadChildren: './cloud/cloud.module#CloudModule' }
 ];
 
 

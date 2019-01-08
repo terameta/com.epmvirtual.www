@@ -6,6 +6,7 @@ import { firestore } from 'firebase/app';
 import { SharedService } from 'src/app/shared/shared.service';
 import { map } from 'rxjs/operators';
 import { UtilitiesService } from 'src/app/shared/utilities.service';
+import * as uuid from 'uuid';
 
 @Component( {
 	selector: 'app-admin-node-commands',
@@ -74,7 +75,8 @@ export class AdminNodeCommandsComponent implements OnInit {
 				'sudo mkdir /etc/libvirt/hooks -p',
 				'sudo service libvirt-bin restart'
 			]
-		}
+		},
+		{ label: 'Restart Node Service', command: 'sudo systemctl restart epmvirtualnode' }
 	];
 
 	constructor(
@@ -93,13 +95,14 @@ export class AdminNodeCommandsComponent implements OnInit {
 	public runCommand = async ( command: string | string[] ) => {
 		if ( Array.isArray( command ) ) {
 			for ( const cmd of command ) {
-				await this.runCommand( cmd );
+				// await this.runCommand( cmd );
+				this.runCommand( cmd );
 			}
 		} else {
 			console.log( 'Command to run:', command );
 			await this.nodeRef.update( {
 				commands: firestore.FieldValue.arrayUnion( {
-					date: new Date(),
+					uuid: uuid.v1(),
 					command
 				} )
 			} );

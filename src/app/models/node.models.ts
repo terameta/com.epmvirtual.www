@@ -11,17 +11,15 @@ export interface Node {
 	disk: NodeBlockDevicesData[],
 	poolAssignments: PoolAssignment,
 	poolWorkerAssignments: PoolWorkerAssignment,
-	rtc: any
+	rtc: any,
+	commands: NodeCommand[]
 }
 
-export interface PoolAssignment {
-	[ key: string ]: boolean
-}
+export interface NodeCommand { uuid: string, command: string }
 
-export interface PoolWorkerAssignment {
-	[ key: string ]: boolean
-}
+export interface PoolAssignment { [ key: string ]: boolean }
 
+export interface PoolWorkerAssignment { [ key: string ]: boolean }
 
 interface NodeNetworkInterfacesData {
 	iface: string;
@@ -63,7 +61,7 @@ interface NodeCpuData {
 	speedmax: string;
 	cores: number;
 	cache: NodeCpuCacheData;
-	flags: string;
+	flags?: string;
 }
 
 interface NodeCpuCacheData {
@@ -112,7 +110,8 @@ const baseNode: Node = {
 	disk: null,
 	poolAssignments: {},
 	poolWorkerAssignments: {},
-	rtc: null
+	rtc: null,
+	commands: []
 };
 
 export const defaultNode = (): Node => JSONDeepCopy( baseNode );
@@ -162,12 +161,6 @@ export interface NodeCandidateObject {
 // export interface PtyResponse {
 // 	date: any,
 // 	datum: string,
-// 	dateValue?: Date
-// }
-
-// export interface NodeCommand {
-// 	date: any,
-// 	command: string,
 // 	dateValue?: Date
 // }
 

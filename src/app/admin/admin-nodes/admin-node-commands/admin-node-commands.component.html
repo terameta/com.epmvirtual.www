@@ -42,6 +42,11 @@
 				<pre>Last Command Result:{{ '\n' + node.lastCommandResult }}</pre>
 			</div>
 		</div>
+		<div class="row">
+			<div class="col">
+				<pre>{{node.commands | json}}</pre>
+			</div>
+		</div>
 	</div>
 </ng-container>
 <ng-template #loading>
