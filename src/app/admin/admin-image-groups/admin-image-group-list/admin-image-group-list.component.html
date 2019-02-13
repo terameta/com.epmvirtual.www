@@ -1,3 +1,7 @@
-<p>
-  admin-image-group-list works!
-</p>
+<div class="container-fluid" *ngIf="igs$ | async as groups">
+	<div class="row">
+		<div class="col">
+			<pre>{{ groups | json }}</pre>
+		</div>
+	</div>
+</div>

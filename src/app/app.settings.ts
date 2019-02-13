@@ -6,6 +6,5 @@ export const systemSettings = {
 		projectId: 'epmvirtual-d8014',
 		storageBucket: 'epmvirtual-d8014.appspot.com',
 		messagingSenderId: '830847148266',
-		timestampsInSnapshots: true
 	}
 };

@@ -9,13 +9,14 @@ export interface StoragePool extends Partial<Item> {
 	user: string,
 	secretuuid: string,
 	key: string,
-	files: StoragePoolFile[]
+	files: { [ key: string ]: StoragePoolFile }
 }
 
 export interface StoragePoolFile {
 	name: string,
 	size: number,
-	actualsize: number
+	actualSize: number,
+	lastCheck: Date
 }
 
 export const defaultStoragePool = (): StoragePool => ( {
@@ -27,5 +28,5 @@ export const defaultStoragePool = (): StoragePool => ( {
 	user: '',
 	secretuuid: '',
 	key: '',
-	files: []
+	files: {}
 } );

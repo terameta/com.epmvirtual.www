@@ -103,11 +103,14 @@
 										</tr>
 									</thead>
 									<tbody *ngIf="pool.files as files else nofiles">
-										<tr *ngFor="let file of files">
-											<td>{{file.name}}</td>
-											<td>{{file.size}}</td>
-											<td>{{file.actualsize}}</td>
-										</tr>
+										<ng-container *ngFor="let item of files | keyvalue">
+											<tr *ngIf="item.value as file">
+												<td>{{file.Name}}</td>
+												<td>{{file.Allocation}}</td>
+												<td>{{file.Capacity}}</td>
+												<!-- <td><pre>{{file | json}}</pre></td> -->
+											</tr>
+										</ng-container>
 									</tbody>
 									<ng-template #nofiles>
 										<tbody>
