@@ -13,6 +13,11 @@
 					<i class="far fa-list-alt fa-fw"></i> List
 				</a>
 			</li>
+			<li class="nav-item" *ngFor="let group of igs$ | async">
+				<a routerLink="{{group.id}}" class="nav-link">
+					<i class="far fa-object-group fa-fw"></i> {{group.name}}
+				</a>
+			</li>
 		</ul>
 	</div>
 	<div class="row">

@@ -1,6 +1,50 @@
 <div class="container-fluid" *ngIf="igs$ | async as groups">
 	<div class="row">
 		<div class="col">
+			<div class="table-responsive">
+				<table class="table table-sm table-hover table-borderless m-0">
+					<thead>
+						<tr>
+							<th class="border-bottom border-warning m-0 p-0" width="10">Actions</th>
+							<th width="24">&nbsp;</th>
+							<th class="border-bottom border-warning m-0 p-0">Name</th>
+							<th width="24">&nbsp;</th>
+							<th class="border-bottom border-warning m-0 p-0">Type</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td class="px-0 text-nowrap text-right">
+								<i class="fa fa-plus-square fa-fw text-success pointer" (click)="create()"></i>
+							</td>
+							<td>&nbsp;</td>
+							<td class="px-0">
+								<span class="p-0 pointer" (click)="create()" title="New Item">
+									<i class="fa fa-chevron-right text-warning"></i>
+									<i class="fa fa-chevron-right text-warning"></i>
+									New Item
+								</span>
+							</td>
+						</tr>
+						<tr *ngFor="let group of groups">
+							<td class="p-0 text-nowrap d-flex">
+								<i class="fa fa-caret-up fa-fw pointer text-danger" (click)="move(group, groups, -1)"></i>
+								<i class="fa fa-caret-down fa-fw pointer text-danger" (click)="move(group, groups, 1)"></i>
+								<i class="fa fa-trash fa-fw pointer text-danger ml-auto" (click)="delete(group.id)"></i>
+							</td>
+							<td class="p-0">&nbsp;</td>
+							<td class="p-0">
+								<a [routerLink]="group.id">
+									<i class="fa fa-chevron-right text-warning"></i>
+									{{group.name}}
+								</a>
+							</td>
+							<td class="p-0">&nbsp;</td>
+							<td class="p-0">{{igTypes[group.type]}}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
 			<pre>{{ groups | json }}</pre>
 		</div>
 	</div>
