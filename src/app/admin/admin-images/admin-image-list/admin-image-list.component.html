@@ -1,3 +1,58 @@
-<p>
-  admin-image-list works!
-</p>
+<div class="container-fluid" *ngIf="images$ | async as images">
+	<div class="row">
+		<div class="col">
+			<div class="table-responsive">
+				<table class="table table-sm table-hover table-borderless m-0">
+					<thead>
+						<tr>
+							<th class="border-bottom border-warning m-0 p-0" width="10">Actions</th>
+							<th width="24">&nbsp;</th>
+							<th class="border-bottom border-warning m-0 p-0">Name</th>
+							<th width="24">&nbsp;</th>
+							<th class="border-bottom border-warning m-0 p-0">OS</th>
+							<th width="24">&nbsp;</th>
+							<th class="border-bottom border-warning m-0 p-0">Group</th>
+							<th width="24">&nbsp;</th>
+							<th class="border-bottom border-warning m-0 p-0">Pool</th>
+							<th width="24">&nbsp;</th>
+							<th class="border-bottom border-warning m-0 p-0">Status</th>
+							<th width="24">&nbsp;</th>
+							<th class="border-bottom border-warning m-0 p-0">Connection Info</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td class="px-0 text-nowrap text-right">
+								<i class="fa fa-plus-square fa-fw text-success pointer" (click)="create()"></i>
+							</td>
+							<td>&nbsp;</td>
+							<td class="px-0">
+								<span class="p-0 pointer" (click)="create()" title="New Item">
+									<i class="fa fa-chevron-right text-warning"></i>
+									<i class="fa fa-chevron-right text-warning"></i>
+									New Item
+								</span>
+							</td>
+						</tr>
+						<tr *ngFor="let image of images">
+							<td class="p-0 text-nowrap d-flex">
+								<i class="fa fa-trash fa-fw pointer text-danger ml-auto" (click)="delete(image.id)"></i>
+							</td>
+							<td class="p-0">&nbsp;</td>
+							<td class="p-0">
+								<a [routerLink]="image.id">
+									<i class="fa fa-chevron-right text-warning"></i>
+									{{image.name}}
+								</a>
+							</td>
+							<td class="p-0">&nbsp;</td>
+							<td class="p-0">{{image.os}} - {{image.osv}}</td>
+							<td class="p-0">&nbsp;</td>
+							<td class="p-0">{{image.os}} - {{image.osv}}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>

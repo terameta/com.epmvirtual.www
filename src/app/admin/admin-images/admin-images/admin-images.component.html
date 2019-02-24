@@ -1,3 +1,25 @@
-<p>
-  admin-images works!
-</p>
+<div class="container-fluid py-2">
+	<div class="row">
+		<div class="col">
+			<ul class="nav nav-tabs">
+				<li class="nav-item">
+					<a routerLink="." class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+						<i class="far fa-list-alt fa-fw"></i> List
+					</a>
+				</li>
+				<li class="nav-item" *ngFor="let image of images$ | async">
+					<a routerLink="{{image.id}}" class="nav-link">
+						<i class="far fa-puzzle-piece fa-fw"></i> {{image.name}}
+					</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<div class="row">
+		<div class="tab-content p-3 w-100">
+			<div class="tab-pane active">
+				<router-outlet></router-outlet>
+			</div>
+		</div>
+	</div>
+</div>
