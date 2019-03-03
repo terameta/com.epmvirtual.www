@@ -1,3 +1,137 @@
-<p>
-  admin-image-detail works!
-</p>
+<ng-container *ngIf="item$ | async as item">
+	<form (ngSubmit)="ss.save(item, f)" #f="ngForm">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col">
+					<div class="btn-toolbar my-2">
+						<div class="btn-group btn-group-xs ml-auto">
+							<button type="submit" class="btn btn-success" [disabled]="f.invalid && f.dirty">
+								<i class="fas fa-save fa-fw"></i>
+							</button>
+						</div>
+					</div>
+					<div class="table-responsive">
+						<table class="table table-sm table-borderless m-0">
+							<tbody>
+								<tr>
+									<td class="text-nowrap align-middle" width="10">Name:</td>
+									<td>
+										<input type="text" name="iName" [(ngModel)]="item.name" class="form-control form-control-sm">
+									</td>
+								</tr>
+								<tr>
+									<td class="text-nowrap align-middle" width="10">Group:</td>
+									<td>
+										<select name="iGroup" [(ngModel)]="item.group" class="form-control form-control-sm" *ngIf="groups$ | async as groups">
+											<option *ngFor="let group of groups" [value]="group.id">{{group.name}}</option>
+										</select>
+									</td>
+								</tr>
+								<tr>
+									<td class="text-nowrap align-middle" width="10">Pool:</td>
+									<td>
+										<select name="iPool" [(ngModel)]="item.pool" class="form-control form-control-sm" *ngIf="pools$ | async as pools">
+											<option *ngFor="let pool of pools" [value]="pool.id">{{pool.name}}</option>
+										</select>
+									</td>
+								</tr>
+								<ng-container *ngIf="pools$ | async as pools">
+									<ng-container *ngFor="let pool of pools">
+										<ng-container *ngIf="pool.id === item.pool">
+											<tr>
+												<td class="text-nowrap align-middle" width="10">Base File:</td>
+												<td>
+													<select name="iFile" [(ngModel)]="item.basefile" class="form-control form-control-sm">
+														<option *ngFor="let file of pool.files" [value]="file.Name">{{file.Name}}</option>
+													</select>
+												</td>
+											</tr>
+										</ng-container>
+									</ng-container>
+								</ng-container>
+								<tr>
+									<td class="text-nowrap align-middle" width="10">Type:</td>
+									<td>
+										<select name="iType" [(ngModel)]="item.type" class="form-control form-control-sm">
+											<option *ngFor="let type of imageTypes" [value]="type.value">{{type.label}}</option>
+										</select>
+									</td>
+								</tr>
+								<tr>
+									<td class="text-nowrap align-middle" width="10">Status:</td>
+									<td>
+										<select name="iStatus" [(ngModel)]="item.status" class="form-control form-control-sm">
+											<option *ngFor="let status of statuses" [value]="status.value">{{status.label}}</option>
+										</select>
+									</td>
+								</tr>
+								<tr>
+									<td class="text-nowrap align-middle" width="10">Architecture:</td>
+									<td>
+										<select name="iArch" [(ngModel)]="item.architecture" class="form-control form-control-sm">
+											<option *ngFor="let arch of architectures" [value]="arch.value">{{arch.label}}</option>
+										</select>
+									</td>
+								</tr>
+								<tr>
+									<td class="text-nowrap align-middle" width="10">Disk Driver:</td>
+									<td>
+										<select name="iDiskD" [(ngModel)]="item.diskdriver" class="form-control form-control-sm">
+											<option *ngFor="let driver of diskDrivers" [value]="driver.value">{{driver.label}}</option>
+										</select>
+									</td>
+								</tr>
+								<tr>
+									<td class="text-nowrap align-middle" width="10">Network Driver:</td>
+									<td>
+										<select name="iNetD" [(ngModel)]="item.netdriver" class="form-control form-control-sm">
+											<option *ngFor="let driver of netDrivers" [value]="driver.value">{{driver.label}}</option>
+										</select>
+									</td>
+								</tr>
+								<tr>
+									<td class="text-nowrap align-middle" width="10">Operating System:</td>
+									<td>
+										<select name="iOS" [(ngModel)]="item.os" class="form-control form-control-sm">
+											<option *ngFor="let os of oses" [value]="os.value">{{os.label}}</option>
+										</select>
+									</td>
+								</tr>
+								<tr>
+									<td class="text-nowrap align-middle" width="10">OS Version:</td>
+									<td>
+										<input type="text" name="iOSV" [(ngModel)]="item.osv" class="form-control form-control-sm">
+									</td>
+								</tr>
+								<tr>
+									<td class="text-nowrap align-middle" width="10">Min CPU:</td>
+									<td>
+										<input type="number" name="iMinCPU" [(ngModel)]="item.requirements.cpu" class="form-control form-control-sm">
+									</td>
+								</tr>
+								<tr>
+									<td class="text-nowrap align-middle" width="10">Min RAM:</td>
+									<td>
+										<input type="number" name="iMinRAM" [(ngModel)]="item.requirements.ram" class="form-control form-control-sm">
+									</td>
+								</tr>
+								<tr>
+									<td class="text-nowrap align-middle" width="10">Min HDD:</td>
+									<td>
+										<input type="number" name="iMinHDD" [(ngModel)]="item.requirements.hdd" class="form-control form-control-sm">
+									</td>
+								</tr>
+								<tr>
+									<td class="text-nowrap align-middle" width="10">Connection Information:</td>
+									<td>
+										<textarea name="iConInfo" [(ngModel)]="item.connectionInformation" class="form-control form-control-sm" rows="12"></textarea>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+</ng-container>

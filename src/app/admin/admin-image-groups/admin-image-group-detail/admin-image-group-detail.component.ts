@@ -15,8 +15,6 @@ export class AdminImageGroupDetailComponent implements OnInit {
 		public ss: SharedService
 	) { }
 
-	ngOnInit() {
-		console.log( this.types );
-	}
+	ngOnInit() { }
 
 }

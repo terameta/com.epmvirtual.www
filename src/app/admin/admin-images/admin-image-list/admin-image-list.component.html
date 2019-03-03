@@ -2,7 +2,7 @@
 	<div class="row">
 		<div class="col">
 			<div class="table-responsive">
-				<table class="table table-sm table-hover table-borderless m-0">
+				<table class="table table-sm table-hover table-borderless m-0 mt-1">
 					<thead>
 						<tr>
 							<th class="border-bottom border-warning m-0 p-0" width="10">Actions</th>
@@ -10,14 +10,14 @@
 							<th class="border-bottom border-warning m-0 p-0">Name</th>
 							<th width="24">&nbsp;</th>
 							<th class="border-bottom border-warning m-0 p-0">OS</th>
-							<th width="24">&nbsp;</th>
+							<!-- <th width="24">&nbsp;</th>
 							<th class="border-bottom border-warning m-0 p-0">Group</th>
 							<th width="24">&nbsp;</th>
 							<th class="border-bottom border-warning m-0 p-0">Pool</th>
 							<th width="24">&nbsp;</th>
 							<th class="border-bottom border-warning m-0 p-0">Status</th>
 							<th width="24">&nbsp;</th>
-							<th class="border-bottom border-warning m-0 p-0">Connection Info</th>
+							<th class="border-bottom border-warning m-0 p-0">Connection Info</th> -->
 						</tr>
 					</thead>
 					<tbody>
@@ -36,6 +36,7 @@
 						</tr>
 						<tr *ngFor="let image of images">
 							<td class="p-0 text-nowrap d-flex">
+								<a [routerLink]="image.id"><i class="far fa-edit fa-fw"></i></a>
 								<i class="fa fa-trash fa-fw pointer text-danger ml-auto" (click)="delete(image.id)"></i>
 							</td>
 							<td class="p-0">&nbsp;</td>
@@ -47,8 +48,8 @@
 							</td>
 							<td class="p-0">&nbsp;</td>
 							<td class="p-0">{{image.os}} - {{image.osv}}</td>
-							<td class="p-0">&nbsp;</td>
-							<td class="p-0">{{image.os}} - {{image.osv}}</td>
+							<!-- <td class="p-0">&nbsp;</td>
+							<td class="p-0">{{image.os}} - {{image.osv}}</td> -->
 						</tr>
 					</tbody>
 				</table>
