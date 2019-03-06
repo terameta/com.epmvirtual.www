@@ -21,7 +21,8 @@ const routes: Routes = [
 			{ path: 'images', loadChildren: './admin-images/admin-images.module#AdminImagesModule' },
 			{ path: 'nodes', loadChildren: './admin-nodes/admin-nodes.module#AdminNodesModule' },
 			{ path: 'datacenters', loadChildren: './admin-datacenters/admin-datacenters.module#AdminDataCentersModule' },
-			{ path: 'storagepools', loadChildren: './admin-storage-pools/admin-storage-pools.module#AdminStoragePoolsModule' }
+			{ path: 'storagepools', loadChildren: './admin-storage-pools/admin-storage-pools.module#AdminStoragePoolsModule' },
+			{ path: 'ipblocks', loadChildren: './ip-blocks/ip-blocks.module#IpBlocksModule' }
 		]
 	}
 ];

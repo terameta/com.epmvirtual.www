@@ -1,0 +1,75 @@
+<ng-container *ngIf="item$ | async as item">
+	<form (ngSubmit)="ss.save(item, f)" #f="ngForm">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col">
+					<div class="btn-toolbar my-2">
+						<div class="btn-group btn-group-xs ml-auto">
+							<button type="submit" class="btn btn-success" [disabled]="f.invalid && f.dirty">
+								<i class="fas fa-save fa-fw"></i>
+							</button>
+						</div>
+					</div>
+					<div class="table-responsive">
+						<table class="table table-sm table-borderless m-0">
+							<tbody>
+								<tr>
+									<td class="text-nowrap align-middle" width="10">Name:</td>
+									<td>
+										<input type="text" name="iName" [(ngModel)]="item.name" class="form-control form-control-sm">
+									</td>
+								</tr>
+								<tr>
+									<td class="text-nowrap align-middle" width="10">Data Center:</td>
+									<td>
+										<select name="iGroup" [(ngModel)]="item.dc" class="form-control form-control-sm" *ngIf="dcs$ | async as dcs">
+											<option *ngFor="let dc of dcs" [value]="dc.id">{{dc.name}}</option>
+										</select>
+									</td>
+								</tr>
+								<tr>
+									<td class="text-nowrap align-middle" width="10">Gateway:</td>
+									<td>
+										<input type="text" name="iGateWay" [(ngModel)]="item.gateway" class="form-control form-control-sm">
+									</td>
+								</tr>
+								<tr>
+									<td class="text-nowrap align-middle" width="10">Netmask:</td>
+									<td>
+										<input type="text" name="iMask" [(ngModel)]="item.netmask" class="form-control form-control-sm">
+									</td>
+								</tr>
+								<tr>
+									<td class="text-nowrap align-middle" width="10">Name Server 1:</td>
+									<td>
+										<input type="text" name="iNameServer1" [(ngModel)]="item.nameserver1" class="form-control form-control-sm">
+									</td>
+								</tr>
+								<tr>
+									<td class="text-nowrap align-middle" width="10">Name Server 2:</td>
+									<td>
+										<input type="text" name="iNameServer2" [(ngModel)]="item.nameserver2" class="form-control form-control-sm">
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<div class="col">
+					<div class="table-responsive">
+						<table class="table table-sm table-borderless m-0">
+							<tbody>
+								<tr>
+									<td class="text-nowrap align-middle" width="10">We will list IP Addresses Here</td>
+									<td>
+										<input type="text" name="iName" [(ngModel)]="item.name" class="form-control form-control-sm">
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+</ng-container>
