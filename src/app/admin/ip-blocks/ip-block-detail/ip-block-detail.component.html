@@ -10,6 +10,10 @@
 							</button>
 						</div>
 					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col">
 					<div class="table-responsive">
 						<table class="table table-sm table-borderless m-0">
 							<tbody>
@@ -56,6 +60,19 @@
 					</div>
 				</div>
 				<div class="col">
+					<div class="input-group input-group-sm">
+						<div class="input-group-prepend">
+							<span class="input-group-text">IP Range:</span>
+						</div>
+						<input type="text" name="rangeStart" placeholder="First IP Address in the range" class="form-control" [(ngModel)]="rangeStart">
+						<input type="text" name="rangeEnd" placeholder="Last IP Address in the range" class="form-control" [(ngModel)]="rangeEnd">
+						<div class="input-group-append">
+							<!-- <span class="input-group-text">First and last name</span> -->
+							<button type="button" class="btn btn-outline-dark" (click)="addIP()">
+								<i class="fas fa-plus fa-fw"></i>
+							</button>
+						</div>
+					</div>
 					<div class="table-responsive">
 						<table class="table table-sm table-borderless m-0">
 							<tbody>

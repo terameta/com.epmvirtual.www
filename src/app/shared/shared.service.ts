@@ -42,6 +42,7 @@ export class SharedService {
 	) {
 		this.router.events.subscribe( this.routeHandler );
 		this.dbURL$.pipe( debounce( () => timer( 100 ) ) ).subscribe( this.dburlHandler );
+		console.log( 'Node should have a DC assignment' );
 	}
 
 	private dburlHandler = ( cstr: string ) => {
