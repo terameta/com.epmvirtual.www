@@ -1,3 +1,5 @@
+import { IPAddress } from 'src/app/models/ipblock.models';
+
 export function SortByName( e1: any, e2: any ) { if ( e1.name > e2.name ) { return 1; } else if ( e1.name < e2.name ) { return -1; } else { return 0; } }
 export function SortByDate( e1: any, e2: any ) { if ( e1.date > e2.date ) { return 1; } else if ( e1.date < e2.date ) { return -1; } else { return 0; } }
 export function SortByDateValue( e1: any, e2: any ) { if ( e1.dateValue > e2.dateValue ) { return 1; } else if ( e1.dateValue < e2.dateValue ) { return -1; } else { return 0; } }
@@ -9,6 +11,13 @@ export function SortByPosition( e1: any, e2: any ) { if ( e1.position > e2.posit
 export function SortByNothing( e1: any, e2: any ) { return 0; }
 export function isNumeric( n: any ) { return !isNaN( parseFloat( n ) ) && isFinite( n ); }
 export function isInt( n: any ) { return isNumeric( n ) && n % 1 === 0; }
+export function SortByIP( e1: IPAddress, e2: IPAddress ) {
+	const c1 = e1.ip.split( '.' ).map( p => '000' + p ).map( p => p.slice( -3 ) ).join( '.' );
+	const c2 = e2.ip.split( '.' ).map( p => '000' + p ).map( p => p.slice( -3 ) ).join( '.' );
+	if ( c1 > c2 ) return 1;
+	if ( c1 < c2 ) return -1;
+	return 0;
+}
 
 export const JSONDeepCopy = ( payload ) => JSON.parse( JSON.stringify( payload ) );
 

@@ -68,18 +68,30 @@
 						<input type="text" name="rangeEnd" placeholder="Last IP Address in the range" class="form-control" [(ngModel)]="rangeEnd">
 						<div class="input-group-append">
 							<!-- <span class="input-group-text">First and last name</span> -->
-							<button type="button" class="btn btn-outline-dark" (click)="addIP()">
+							<button type="button" class="btn btn-outline-dark" (click)="addIP(item)">
 								<i class="fas fa-plus fa-fw"></i>
 							</button>
 						</div>
 					</div>
 					<div class="table-responsive">
-						<table class="table table-sm table-borderless m-0">
-							<tbody>
+						<table class="table table-sm table-borderless m-0 table-hover">
+							<thead>
 								<tr>
-									<td class="text-nowrap align-middle" width="10">We will list IP Addresses Here</td>
-									<td>
-										<input type="text" name="iName" [(ngModel)]="item.name" class="form-control form-control-sm">
+									<th class="text-nowrap align-middle">IP Address</th>
+									<th class="text-nowrap align-middle">MAC Address</th>
+									<th class="text-nowrap align-middle">Assigned?</th>
+									<th class="text-nowrap align-middle">Actions</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr *ngFor="let ip of item.ips">
+									<td class="text-nowrap align-middle">{{ip.ip}}</td>
+									<td class="text-nowrap align-middle">{{ip.mac}}</td>
+									<td class="text-nowrap align-middle">{{ip.assigned}}</td>
+									<td class="text-nowrap align-middle">
+										<button type="button" class="btn btn-xs btn-outline-danger" (click)="deleteIP(item, ip)">
+											<i class="fas fa-trash fa-fw"></i>
+										</button>
 									</td>
 								</tr>
 							</tbody>
