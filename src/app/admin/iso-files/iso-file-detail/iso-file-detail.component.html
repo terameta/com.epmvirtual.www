@@ -1,0 +1,59 @@
+<ng-container *ngIf="item$ | async as item">
+	<form (ngSubmit)="ss.save(item, f)" #f="ngForm">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col">
+					<div class="btn-toolbar my-2">
+						<div class="btn-group btn-group-xs ml-auto">
+							<button type="submit" class="btn btn-success" [disabled]="f.invalid && f.dirty">
+								<i class="fas fa-save fa-fw"></i>
+							</button>
+						</div>
+					</div>
+					<div class="table-responsive">
+						<table class="table table-sm table-borderless m-0">
+							<tbody>
+								<tr>
+									<td class="text-nowrap align-middle" width="10">Name:</td>
+									<td>
+										<input type="text" name="iName" [(ngModel)]="item.name" class="form-control form-control-sm">
+									</td>
+								</tr>
+								<tr>
+									<td class="text-nowrap align-middle" width="10">Pool:</td>
+									<td>
+										<select name="iPool" [(ngModel)]="item.pool" class="form-control form-control-sm" *ngIf="pools$ | async as pools">
+											<option *ngFor="let pool of pools" [value]="pool.id">{{pool.name}}</option>
+										</select>
+									</td>
+								</tr>
+								<ng-container *ngIf="pools$ | async as pools">
+									<ng-container *ngFor="let pool of pools">
+										<ng-container *ngIf="pool.id === item.pool">
+											<tr>
+												<td class="text-nowrap align-middle" width="10">Base File:</td>
+												<td>
+													<select name="iFile" [(ngModel)]="item.file" class="form-control form-control-sm">
+														<option *ngFor="let file of pool.files" [value]="file.Name">{{file.Name}}</option>
+													</select>
+												</td>
+											</tr>
+										</ng-container>
+									</ng-container>
+								</ng-container>
+								<tr>
+									<td class="text-nowrap align-middle" width="10">Status:</td>
+									<td>
+										<select name="iStatus" [(ngModel)]="item.status" class="form-control form-control-sm">
+											<option *ngFor="let status of statuses" [value]="status.value">{{status.label}}</option>
+										</select>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+</ng-container>

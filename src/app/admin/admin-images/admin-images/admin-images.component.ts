@@ -12,8 +12,7 @@ import { Image } from 'src/app/models/image.models';
 } )
 export class AdminImagesComponent implements OnInit {
 	public images$ = this.db.collection<Image>( 'images' ).snapshotChanges().pipe(
-		map( d => this.us.actions2Data<Image>( d ) ),
-		map( d => d.sort( SortByName ) )
+		map( d => this.us.actions2Data<Image>( d ).sort( SortByName ) )
 	);
 
 	constructor(
