@@ -23,7 +23,8 @@ const routes: Routes = [
 			{ path: 'datacenters', loadChildren: './admin-datacenters/admin-datacenters.module#AdminDataCentersModule' },
 			{ path: 'storagepools', loadChildren: './admin-storage-pools/admin-storage-pools.module#AdminStoragePoolsModule' },
 			{ path: 'ipblocks', loadChildren: './ip-blocks/ip-blocks.module#IpBlocksModule' },
-			{ path: 'isofiles', loadChildren: './iso-files/iso-files.module#IsoFilesModule' }
+			{ path: 'isofiles', loadChildren: './iso-files/iso-files.module#IsoFilesModule' },
+			{ path: 'mailtemplates', loadChildren: './mail-templates/mail-templates.module#MailTemplatesModule' }
 		]
 	}
 ];

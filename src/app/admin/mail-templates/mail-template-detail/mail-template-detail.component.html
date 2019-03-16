@@ -1,0 +1,45 @@
+<ng-container *ngIf="item$ | async as item">
+	<form (ngSubmit)="ss.save(item, f)" #f="ngForm">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col">
+					<div class="btn-toolbar my-2">
+						<div class="btn-group btn-group-xs ml-auto">
+							<button type="submit" class="btn btn-success" [disabled]="f.invalid && f.dirty">
+								<i class="fas fa-save fa-fw"></i>
+							</button>
+						</div>
+					</div>
+					<div class="table-responsive m-0">
+						<table class="table table-sm table-borderless m-0">
+							<tbody>
+								<tr>
+									<td class="text-nowrap align-middle" width="10">Name:</td>
+									<td>
+										<input type="text" name="iName" [(ngModel)]="item.name" class="form-control form-control-sm">
+									</td>
+								</tr>
+								<tr>
+									<td class="text-nowrap align-middle" width="10">Type:</td>
+									<td>
+										<select name="iType" [(ngModel)]="item.type" class="form-control form-control-sm">
+											<option *ngFor="let type of types" [value]="type.value">{{type.label}}</option>
+										</select>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col">
+					<div style="height: calc(100vh - 300px);" class="border border-accent">
+						<ngx-monaco-editor name="content" class="h-100 d-block" [options]="editorOptions" [(ngModel)]="item.content" (onInit)="setEditor(item, $event, f)">
+						</ngx-monaco-editor>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+</ng-container>
