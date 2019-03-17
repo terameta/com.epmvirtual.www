@@ -7,6 +7,7 @@ import { map } from 'rxjs/operators';
 import { enum2array } from 'src/utilities/utilityFunctions';
 import { Observable } from 'rxjs';
 import { NgForm } from '@angular/forms';
+import { NgxMonacoEditorConfig } from 'ngx-monaco-editor';
 
 @Component( {
 	selector: 'app-mail-template-detail',
@@ -25,9 +26,9 @@ export class MailTemplateDetailComponent implements OnInit {
 	editorOptions = {
 		theme: 'vs-light',
 		language: 'html',
-		automaticLayout: true, minimap: {
-			enabled: false
-		}
+		tabSize: 2,
+		automaticLayout: true,
+		minimap: { enabled: false }
 	};
 
 	public setEditor = ( item: MailTemplate, uiEditor: any, f: NgForm ) => {

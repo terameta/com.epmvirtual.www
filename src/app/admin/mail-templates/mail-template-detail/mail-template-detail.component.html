@@ -27,6 +27,20 @@
 										</select>
 									</td>
 								</tr>
+								<tr>
+									<td class="text-nowrap align-middle" width="10">Bound Collection:</td>
+									<td>
+										<select name="boundC" [(ngModel)]="item.boundCollection" class="form-control form-control-sm">
+											<option value="isofiles">ISO Files</option>
+										</select>
+									</td>
+								</tr>
+								<tr>
+									<td class="text-nowrap align-middle" width="10">Bound Document:</td>
+									<td>
+										<input type="text" name="boundD" [(ngModel)]="item.boundDocument" class="form-control form-control-sm">
+									</td>
+								</tr>
 							</tbody>
 						</table>
 					</div>
@@ -34,10 +48,17 @@
 			</div>
 			<div class="row">
 				<div class="col">
-					<div style="height: calc(100vh - 300px);" class="border border-accent">
+					<div style="height: calc(100vh - 400px);" class="border border-accent">
 						<ngx-monaco-editor name="content" class="h-100 d-block" [options]="editorOptions" [(ngModel)]="item.content" (onInit)="setEditor(item, $event, f)">
 						</ngx-monaco-editor>
 					</div>
+				</div>
+				<div class="col">
+					<!-- <div style="height: calc(100vh - 400px);" class="border border-accent">
+						<ngx-monaco-editor name="contentf" class="h-100 d-block" [options]="editorOptions" [(ngModel)]="item.content" (onInit)="setEditor(item, $event, f)">
+						</ngx-monaco-editor>
+					</div> -->
+					<div [innerHTML]="item.content"></div>
 				</div>
 			</div>
 		</div>

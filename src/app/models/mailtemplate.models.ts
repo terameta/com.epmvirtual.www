@@ -2,6 +2,8 @@ export interface MailTemplate {
 	id: string,
 	name: string,
 	content: string,
+	boundCollection: string,
+	boundDocument: string,
 	type: MailTemplateType
 }
 
