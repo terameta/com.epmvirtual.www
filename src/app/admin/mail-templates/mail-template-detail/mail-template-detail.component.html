@@ -47,18 +47,14 @@
 				</div>
 			</div>
 			<div class="row">
-				<div class="col">
+				<div class="col-6">
 					<div style="height: calc(100vh - 400px);" class="border border-accent">
 						<ngx-monaco-editor name="content" class="h-100 d-block" [options]="editorOptions" [(ngModel)]="item.content" (onInit)="setEditor(item, $event, f)">
 						</ngx-monaco-editor>
 					</div>
 				</div>
-				<div class="col">
-					<!-- <div style="height: calc(100vh - 400px);" class="border border-accent">
-						<ngx-monaco-editor name="contentf" class="h-100 d-block" [options]="editorOptions" [(ngModel)]="item.content" (onInit)="setEditor(item, $event, f)">
-						</ngx-monaco-editor>
-					</div> -->
-					<div [innerHTML]="item.content"></div>
+				<div class="col-6">
+					<iframe *ngIf="item.id" [src]="trustedUrl" frameborder="0" width="100%" height="100%"></iframe>
 				</div>
 			</div>
 		</div>
