@@ -24,7 +24,8 @@ const routes: Routes = [
 			{ path: 'storagepools', loadChildren: './admin-storage-pools/admin-storage-pools.module#AdminStoragePoolsModule' },
 			{ path: 'ipblocks', loadChildren: './ip-blocks/ip-blocks.module#IpBlocksModule' },
 			{ path: 'isofiles', loadChildren: './iso-files/iso-files.module#IsoFilesModule' },
-			{ path: 'mailtemplates', loadChildren: './mail-templates/mail-templates.module#MailTemplatesModule' }
+			{ path: 'mailtemplates', loadChildren: './mail-templates/mail-templates.module#MailTemplatesModule' },
+			{ path: 'servers', loadChildren: './servers/servers.module#ServersModule' }
 		]
 	}
 ];

@@ -1,0 +1,9 @@
+<ng-container *ngIf="item$ | async as item">
+	<pre>{{ item | json }}</pre>
+</ng-container>
+<p>
+	server-detail works!
+</p>
+<pre>{{ id$ | async | json }}</pre>
+
+<pre>{{ item$ | async | json }}</pre>

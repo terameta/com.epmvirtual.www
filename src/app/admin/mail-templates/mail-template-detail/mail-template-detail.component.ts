@@ -24,9 +24,7 @@ export class MailTemplateDetailComponent implements OnInit {
 		map( i => ( ( i as any ) as MailTemplate ) ),
 		tap( i => {
 			const u = 'https://us-central1-' + this.settings.firebase.projectId + '.cloudfunctions.net/previewMailTemplate?id=' + i.id + '&time=' + ( new Date() ).getTime();
-			// const u = '';
 			this.trustedUrl = this.sanitizer.bypassSecurityTrustResourceUrl( u );
-			console.log( this.trustedUrl );
 		} )
 	);
 
