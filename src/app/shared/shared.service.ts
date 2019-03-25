@@ -77,7 +77,7 @@ export class SharedService {
 		} else if ( urlSegments[ 0 ] === 'cloud' ) {
 			this.urlActOnCloud( urlSegments );
 		} else {
-			this.urlActOnEndUser( urlSegments );
+			this.urlActOnVisitor( urlSegments );
 		}
 		this.urlActOnGeneral( urlSegments );
 	}
@@ -86,14 +86,13 @@ export class SharedService {
 		this.concept$.next( urlSegments[ 1 ] || '' );
 		this.cID$.next( urlSegments[ 2 ] || '0' );
 		this.dbURL$.next( this.cURL$.getValue().replace( '/admin', '' ).split( '/' ).splice( 0, 3 ).join( '/' ) );
-		// this.dbURL$.next( this.cURL$.getValue().replace( '/admin', '' ) );
 	}
 
 	private urlActOnCloud = ( urlSegments: string[] ) => {
 
 	}
 
-	private urlActOnEndUser = ( urlSegments: string[] ) => {
+	private urlActOnVisitor = ( urlSegments: string[] ) => {
 		this.concept$.next( urlSegments[ 0 ] || '' );
 		this.cID$.next( urlSegments[ 1 ] || '0' );
 		if ( urlSegments.length === 2 ) {

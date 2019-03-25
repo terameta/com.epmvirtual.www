@@ -8,6 +8,7 @@ import { AdminComponent } from './admin/admin.component';
 import { AdminFrontPageComponent } from './admin-front-page/admin-front-page.component';
 import { AdminNavbarComponent } from './admin-navbar/admin-navbar.component';
 import { AdminSettingsParentComponent } from './admin-settings/admin-settings-parent/admin-settings-parent.component';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 
 const routes: Routes = [
 	{
@@ -34,7 +35,8 @@ const routes: Routes = [
 	imports: [
 		CommonModule,
 		RouterModule.forChild( routes ),
-		CollapseModule
+		CollapseModule,
+		BsDropdownModule
 	],
 	declarations: [
 		AdminComponent,

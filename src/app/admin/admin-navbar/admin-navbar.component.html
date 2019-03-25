@@ -1,12 +1,13 @@
 <nav class="navbar navbar-expand-md navbar-light fixed-top bg-light">
 	<a class="navbar-brand" routerLink="./">
+		<!-- <img src="assets/epmvirtuallogont.png" alt="EPMVirtual" height="24px"> -->
 		<img src="assets/epmvirtuallogont.png" alt="EPMVirtual" height="24px">
 	</a>
 	<button class="btn btn-light collapsed d-block d-md-none" (click)="isCollapsed = !isCollapsed" aria-expanded="false">
 		<i class="fas fa-bars"></i>
 	</button>
 	<div class="collapse navbar-collapse" [collapse]="isCollapsed">
-		<ul class="navbar-nav mr-auto">
+		<!-- <ul class="navbar-nav mr-3">
 			<li class="nav-item" routerLinkActive="border-bottom border-evwarning">
 				<a class="nav-link" routerLink="datacenters" title="Data Centers">
 					<i class="fas fa-building fa-fw"></i>
@@ -84,12 +85,65 @@
 					<i class="fas fa-server fa-fw"></i><br>Servers
 				</a>
 			</li>
+		</ul> -->
+		<ul class="navbar-nav mr-auto">
+			<li class="nav-item dropdown pointer" dropdown *ngIf="concept$ | async as concept">
+				<!-- <a routerLink="/admin/{{concept.link}}" class="nav-link dropdown-toggle text-dark font-weight-bold" dropdownToggle> -->
+				<a class="nav-link dropdown-toggle text-dark font-weight-bold" dropdownToggle *ngIf="concept.label != ''">
+					{{ concept.label | titlecase }}
+				</a>
+				<a class="nav-link dropdown-toggle text-dark font-weight-bold" dropdownToggle *ngIf="concept.label == ''">
+					Start Here
+				</a>
+				<div class="dropdown-menu" *dropdownMenu>
+					<a class="dropdown-item px-2" routerLink="datacenters" title="Data Centers">
+						<i class="fas fa-building fa-fw"></i> Data Centers
+					</a>
+					<a class="dropdown-item px-2" routerLink="storagepools" title="Storage Pools">
+						<i class="far fa-hdd fa-fw"></i> Storage Pools
+					</a>
+					<a class="dropdown-item px-2" routerLink="settings" title="Settings">
+						<i class="fas fa-cog fa-fw"></i> Settings
+					</a>
+					<a class="dropdown-item px-2" routerLink="library" title="Library">
+						<i class="fas fa-book fa-fw"></i> Library
+					</a>
+					<a class="dropdown-item px-2" routerLink="assets" title="Assets">
+						<i class="far fa-images fa-fw"></i> Assets
+					</a>
+					<a class="dropdown-item px-2" routerLink="plans" title="Plans">
+						<i class="far fa-clone fa-fw"></i> Plans
+					</a>
+					<a class="dropdown-item px-2" routerLink="imagegroups" title="Image Groups">
+						<i class="far fa-object-group fa-fw"></i> Image Groups
+					</a>
+					<a class="dropdown-item px-2" routerLink="images" title="Images">
+						<i class="fas fa-puzzle-piece fa-fw"></i> Images
+					</a>
+					<a class="dropdown-item px-2" routerLink="nodes" title="Nodes">
+						<i class="fas fa-industry fa-fw"></i> Nodes
+					</a>
+					<a class="dropdown-item px-2" routerLink="ipblocks" title="IP Blocks">
+						<i class="fas fa-share-alt fa-fw"></i> IP Blocks
+					</a>
+					<a class="dropdown-item px-2" routerLink="isofiles" title="ISO Files">
+						<i class="fas fa-dot-circle fa-fw"></i> ISO Files
+					</a>
+					<a class="dropdown-item px-2" routerLink="mailtemplates" title="Mail Templates">
+						<i class="far fa-newspaper fa-fw"></i> Mail Templates
+					</a>
+					<a class="dropdown-item px-2" routerLink="servers" title="Servers">
+						<i class="fas fa-server fa-fw"></i> Servers
+					</a>
+				</div>
+			</li>
 		</ul>
 		<ul class="navbar-nav navbar-right">
 			<li class="nav-item">
 				<a class="nav-link" (click)="signOut()" title="Sign Out">
 					<i class="fas fa-sign-out-alt fa-fw"></i>
-					<br>Sign Out</a>
+					<!-- <br>Sign Out -->
+				</a>
 			</li>
 		</ul>
 	</div>
