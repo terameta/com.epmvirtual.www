@@ -25,6 +25,62 @@
 										<input type="text" name="sName" id="sName" class="form-control form-control-sm" [(ngModel)]="item.name">
 									</td>
 								</tr>
+								<tr>
+									<td class="text-nowrap align-middle font-weight-bold" width="10">CPU:</td>
+									<td>
+										<div class="input-group input-group-sm">
+											<input type="number" name="sCPU" id="sCPU" class="form-control form-control-sm" [(ngModel)]="item.cpu">
+											<div class="input-group-append">
+												<span class="input-group-text">Core<ng-container *ngIf="item.cpu > 1">s</ng-container></span>
+											</div>
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<td class="text-nowrap align-middle font-weight-bold" width="10">RAM:</td>
+									<td>
+										<div class="input-group input-group-sm">
+											<input type="number" name="sRAM" id="sRAM" class="form-control form-control-sm" [(ngModel)]="item.ram">
+											<div class="input-group-append">
+												<span class="input-group-text">MB ({{(item.ram || 0) / 1024}} GB)</span>
+											</div>
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<td class="text-nowrap align-middle font-weight-bold" width="10">HDD:</td>
+									<td>
+										<div class="input-group input-group-sm">
+											<input type="number" name="sHDD" id="sHDD" class="form-control form-control-sm" [(ngModel)]="item.hdd">
+											<div class="input-group-append">
+												<span class="input-group-text">GB</span>
+											</div>
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<td class="text-nowrap align-middle font-weight-bold" width="10">Bandwidth:</td>
+									<td>
+										<div class="input-group input-group-sm">
+											<input type="number" name="sBandwidth" id="sBandwidth" class="form-control form-control-sm" [(ngModel)]="item.bandwidth">
+											<div class="input-group-append">
+												<span class="input-group-text">GB</span>
+											</div>
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<td class="text-nowrap align-middle font-weight-bold" width="10">IP Address:</td>
+									<td>
+										<input type="text" name="sIP" id="sIP" class="form-control form-control-sm" [(ngModel)]="item.ip">
+									</td>
+								</tr>
+								<tr>
+									<td class="text-nowrap align-middle font-weight-bold" width="10">MAC Address:</td>
+									<td>
+										<input type="text" name="sMac" id="sMac" class="form-control form-control-sm" [(ngModel)]="item.mac">
+									</td>
+								</tr>
 							</tbody>
 						</table>
 					</div>
@@ -32,7 +88,6 @@
 			</div>
 		</div>
 	</form>
-	<pre>{{statuses | json}}</pre>
 	<pre>{{ item | json }}</pre>
 </ng-container>
 <!-- <p>

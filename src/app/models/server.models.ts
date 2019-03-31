@@ -9,6 +9,7 @@ export interface Server {
 	mac: string,
 	owner: string,
 	nextinvoicedate: Date,
+	baseImage: string,
 	plan: string,
 	dc: string,
 	price: number,
