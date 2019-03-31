@@ -1,0 +1,43 @@
+<ng-container *ngIf="item$ | async as item">
+	<form (ngSubmit)="ss.save( item, f )" #f="ngForm">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col">
+					<div class="btn-toolbar my-2">
+						<div class="btn-group btn-group-xs ml-auto">
+							<button type="submit" class="btn btn-success" [disabled]="f.invalid && f.dirty">
+								<i class="fas fa-save fa-fw"></i>
+							</button>
+						</div>
+					</div>
+					<div class="table-responsive m-0">
+						<table class="table table-sm table-borderless m-0">
+							<tbody>
+								<tr>
+									<td class="text-nowrap align-middle font-weight-bold" width="10">Status:</td>
+									<td>
+										{{statuses[item.status]}}
+									</td>
+								</tr>
+								<tr>
+									<td class="text-nowrap align-middle font-weight-bold" width="10">Name:</td>
+									<td>
+										<input type="text" name="sName" id="sName" class="form-control form-control-sm" [(ngModel)]="item.name">
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+	<pre>{{statuses | json}}</pre>
+	<pre>{{ item | json }}</pre>
+</ng-container>
+<!-- <p>
+	server-detail works!
+</p>
+<pre>{{ id$ | async | json }}</pre>
+
+<pre>{{ item$ | async | json }}</pre> -->

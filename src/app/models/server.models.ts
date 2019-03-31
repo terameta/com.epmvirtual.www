@@ -17,9 +17,10 @@ export interface Server {
 }
 
 export enum ServerStatus {
-	'Running' = 'running',
-	'ShuttingDown' = 'shutting down',
-	'ShutDown' = 'shut down',
-	'Restarting' = 'restarting',
-	'Migrating' = 'migrating'
+	'Pending Create' = -1,
+	'Running' = 1,
+	'ShuttingDown' = 2,
+	'ShutDown' = 3,
+	'Restarting' = 4,
+	'Migrating' = 5
 }

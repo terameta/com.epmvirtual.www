@@ -7,7 +7,7 @@
 		<i class="fas fa-bars"></i>
 	</button>
 	<div class="collapse navbar-collapse" [collapse]="isCollapsed">
-		<!-- <ul class="navbar-nav mr-3">
+		<ul class="navbar-nav mr-auto">
 			<li class="nav-item" routerLinkActive="border-bottom border-evwarning">
 				<a class="nav-link" routerLink="datacenters" title="Data Centers">
 					<i class="fas fa-building fa-fw"></i>
@@ -85,10 +85,9 @@
 					<i class="fas fa-server fa-fw"></i><br>Servers
 				</a>
 			</li>
-		</ul> -->
-		<ul class="navbar-nav mr-auto">
+		</ul>
+		<!-- <ul class="navbar-nav mr-auto">
 			<li class="nav-item dropdown pointer" dropdown *ngIf="concept$ | async as concept">
-				<!-- <a routerLink="/admin/{{concept.link}}" class="nav-link dropdown-toggle text-dark font-weight-bold" dropdownToggle> -->
 				<a class="nav-link dropdown-toggle text-dark font-weight-bold" dropdownToggle *ngIf="concept.label != ''">
 					{{ concept.label | titlecase }}
 				</a>
@@ -137,7 +136,7 @@
 					</a>
 				</div>
 			</li>
-		</ul>
+		</ul> -->
 		<ul class="navbar-nav navbar-right">
 			<li class="nav-item">
 				<a class="nav-link" (click)="signOut()" title="Sign Out">
