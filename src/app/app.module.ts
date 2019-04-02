@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth';
@@ -34,6 +35,7 @@ const routes: Routes = [
 	],
 	imports: [
 		BrowserModule,
+		HttpClientModule,
 		FormsModule,
 		AngularFireModule.initializeApp( systemSettings.firebase ),
 		AngularFireAuthModule,

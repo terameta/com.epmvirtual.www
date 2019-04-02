@@ -5,6 +5,8 @@ import { UtilitiesService } from 'src/app/shared/utilities.service';
 import { Observable } from 'rxjs';
 import { Server, ServerStatus } from 'src/app/models/server.models';
 import { switchMap, map, tap } from 'rxjs/operators';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { AngularFireAuth } from '@angular/fire/auth';
 
 @Component( {
 	selector: 'app-server-main-information',
@@ -22,11 +24,22 @@ export class ServerMainInformationComponent implements OnInit {
 
 	constructor(
 		private db: AngularFirestore,
+		private auth: AngularFireAuth,
 		private us: UtilitiesService,
-		public ss: SharedService
+		public ss: SharedService,
+		private http: HttpClient
 	) { }
 
 	ngOnInit() {
+		const url = 'https://us-central1-epmvirtual-d8014.cloudfunctions.net/listAllUsers';
+		this.auth.user.subscribe( async ( cu ) => {
+			const t = await cu.getIdToken();
+			const tHeader = new HttpHeaders( { 'Authorization': 'Bearer ' + t, 'Content-Type': 'application/json' } );
+			const headers = new HttpHeaders().set( 'Authorization', 'bearer ' + t );
+			// .set( 'Content-Type', 'application/json' );
+			this.http.get( url, { headers } ).subscribe( console.log );
+		} );
+		this.http.get( url ).subscribe( console.log );
 	}
 
 }
