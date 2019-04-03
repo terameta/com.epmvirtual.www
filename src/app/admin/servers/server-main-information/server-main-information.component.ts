@@ -31,14 +31,7 @@ export class ServerMainInformationComponent implements OnInit {
 	) { }
 
 	ngOnInit() {
-		const url = 'https://us-central1-epmvirtual-d8014.cloudfunctions.net/listAllUsers';
-		this.auth.user.subscribe( async ( cu ) => {
-			const t = await cu.getIdToken();
-			const tHeader = new HttpHeaders( { 'Authorization': 'Bearer ' + t, 'Content-Type': 'application/json' } );
-			const headers = new HttpHeaders().set( 'Authorization', 'bearer ' + t );
-			// .set( 'Content-Type', 'application/json' );
-			this.http.get( url, { headers } ).subscribe( console.log );
-		} );
+		const url = 'https://us-central1-epmvirtual-d8014.cloudfunctions.net/updateUserCollection';
 		this.http.get( url ).subscribe( console.log );
 	}
 
