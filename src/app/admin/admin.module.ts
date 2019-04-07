@@ -26,7 +26,8 @@ const routes: Routes = [
 			{ path: 'ipblocks', loadChildren: './ip-blocks/ip-blocks.module#IpBlocksModule' },
 			{ path: 'isofiles', loadChildren: './iso-files/iso-files.module#IsoFilesModule' },
 			{ path: 'mailtemplates', loadChildren: './mail-templates/mail-templates.module#MailTemplatesModule' },
-			{ path: 'servers', loadChildren: './servers/servers.module#ServersModule' }
+			{ path: 'servers', loadChildren: './servers/servers.module#ServersModule' },
+			{ path: 'profile', loadChildren: './profile/profile.module#ProfileModule' }
 		]
 	}
 ];
