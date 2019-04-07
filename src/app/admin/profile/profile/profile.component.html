@@ -1,5 +1,5 @@
 <ng-container *ngIf="item$ | async as item">
-	<form (ngSubmit)="saveProfile(f)" #f="ngForm">
+	<form (ngSubmit)="saveProfile(item, f)" #f="ngForm">
 		<div class="container-fluid py-2">
 			<div class="row">
 				<div class="col">
@@ -20,13 +20,13 @@
 								<tr>
 									<td class="text-nowrap align-middle" width="10">Display Name:</td>
 									<td>
-										<input type="text" name="dName" id="dName" class="form-control form-control-sm" [(ngModel)]="item.displayName">
+										<input type="text" name="dName" id="dName" class="form-control form-control-sm" [ngModel]="item.displayName">
 									</td>
 								</tr>
 								<tr>
 									<td class="text-nowrap align-middle" width="10">E-mail Address:</td>
 									<td>
-										<input type="text" name="eMailAddress" id="eMailAddress" class="form-control form-control-sm" [(ngModel)]="item.email">
+										<input type="text" name="eMailAddress" id="eMailAddress" class="form-control form-control-sm" [ngModel]="item.email">
 									</td>
 								</tr>
 							</tbody>
