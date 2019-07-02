@@ -81,6 +81,51 @@
 										<input type="text" name="sMac" id="sMac" class="form-control form-control-sm" [(ngModel)]="item.mac">
 									</td>
 								</tr>
+								<tr>
+									<td class="text-nowrap align-middle font-weight-bold" width="10">Owner:</td>
+									<td>
+										<select name="sOwner" id="sOwner" class="form-control form-control-sm" [(ngModel)]="item.owner">
+											<option [value]="owner.id" *ngFor="let owner of users$ | async">{{ owner.displayName }} ({{ owner.email }})</option>
+										</select>
+									</td>
+								</tr>
+								<tr>
+									<td class="text-nowrap align-middle font-weight-bold" width="10">Node / DC:</td>
+									<td>
+										<div class="input-group input-group-sm">
+											<select name="sNode" id="sNode" class="form-control form-control-sm" [(ngModel)]="item.node">
+												<option [value]="node.id" *ngFor="let node of nodes$ | async">{{ node.name }}</option>
+											</select>
+											<div class="input-group-append">
+												<ng-container *ngFor="let node of nodes$ | async">
+													<ng-container *ngIf="node.id == item.node">
+														<div class="input-group-text" *ngFor="let dc of dcs$ | async">
+															<ng-container *ngIf="dc.id == node.dc">
+																@ {{ dc.name }}
+															</ng-container>
+														</div>
+													</ng-container>
+												</ng-container>
+											</div>
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<td class="text-nowrap align-middle font-weight-bold" width="10">Image:</td>
+									<td>
+										<select name="sImage" id="sImage" class="form-control form-control-sm" [(ngModel)]="item.image">
+											<option [value]="image.id" *ngFor="let image of images$ | async">{{ image.name }}</option>
+										</select>
+									</td>
+								</tr>
+								<tr>
+									<td class="text-nowrap align-middle font-weight-bold" width="10">Plan:</td>
+									<td>
+										<select name="sPlan" id="sPlan" class="form-control form-control-sm" [(ngModel)]="item.plan">
+											<option [value]="plan.id" *ngFor="let plan of plans$ | async">{{ plan.name }}</option>
+										</select>
+									</td>
+								</tr>
 							</tbody>
 						</table>
 					</div>
@@ -88,6 +133,8 @@
 			</div>
 		</div>
 	</form>
+	<pre>{{ plans$ | async | json }}</pre>
+	<pre>{{ users$ | async | json }}</pre>
 	<pre>{{ item | json }}</pre>
 </ng-container>
 <!-- <p>

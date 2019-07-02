@@ -11,6 +11,7 @@ export interface Node {
 	disk: NodeBlockDevicesData[],
 	poolAssignments: PoolAssignment,
 	poolWorkerAssignments: PoolWorkerAssignment,
+	dc: string,
 	rtc: any,
 	commands: NodeCommand[]
 }
@@ -110,6 +111,7 @@ const baseNode: Node = {
 	disk: null,
 	poolAssignments: {},
 	poolWorkerAssignments: {},
+	dc: null,
 	rtc: null,
 	commands: []
 };

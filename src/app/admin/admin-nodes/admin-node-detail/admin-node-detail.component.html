@@ -28,6 +28,15 @@
 									<input type="text" name="nName" class="form-control form-control-sm" [(ngModel)]="node.name">
 								</td>
 							</tr>
+							<tr>
+								<td class="px-0 text-nowrap pt-2 align-middle">Data Center</td>
+								<td class="px-0">&nbsp;</td>
+								<td class="p-0 pt-2">
+									<select name="sPlan" id="sPlan" class="form-control form-control-sm" [(ngModel)]="node.dc">
+										<option [value]="dc.id" *ngFor="let dc of dcs$ | async">{{ dc.name }}</option>
+									</select>
+								</td>
+							</tr>
 						</tbody>
 					</table>
 				</div>
