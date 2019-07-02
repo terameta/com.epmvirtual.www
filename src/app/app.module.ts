@@ -21,6 +21,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { ProgressbarModule } from 'ngx-bootstrap/progressbar';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 const routes: Routes = [
 	{ path: '', loadChildren: './end-user/end-user.module#EndUserModule' },
@@ -47,7 +48,8 @@ const routes: Routes = [
 		ProgressbarModule.forRoot(),
 		BsDropdownModule.forRoot(),
 		MonacoEditorModule.forRoot(),
-		TooltipModule.forRoot()
+		TooltipModule.forRoot(),
+		BrowserAnimationsModule
 	],
 	exports: [
 		FormsModule

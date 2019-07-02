@@ -1,3 +1,30 @@
-<p>
-  sign-up works!
-</p>
+<div class="p-5 my-lg-5">
+	<div class="row">
+		<div class="col text-center">
+			<a [routerLink]="'/'">
+				<img src="assets/epmvirtuallogo.png" alt="EPMVirtual Logo">
+			</a>
+			<div class="card epmsigninbox mx-auto bg-accent mb-3 mt-5">
+				<div class="card-body text-center">
+					<h2 class="card-title epmsignupheader">
+						Sign Up
+					</h2>
+					<form class="form-signin mb-4" #signUpForm="ngForm" (ngSubmit)="signUp(signUpForm)">
+						<div class="form-label-group">
+							<input type="email" name="email" id="email" class="form-control" placeholder="Email address" ngModel required autofocus>
+							<label for="email">Email address</label>
+						</div>
+						<div class="form-label-group">
+							<input type="password" name="password" id="password" class="form-control" placeholder="Password" ngModel required>
+							<label for="password">Password</label>
+						</div>
+						<div class="alert alert-danger" *ngIf="signUpError">{{ signUpError }}</div>
+						<button type="submit" class="btn btn-evwarning epmsignupbutton">Sign Up</button>
+					</form>
+				</div>
+			</div>
+			Do you already have an account?
+			<a routerLink="/signin">Sign In</a>
+		</div>
+	</div>
+</div>

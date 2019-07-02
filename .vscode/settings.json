@@ -12,5 +12,7 @@
 	"zenMode.centerLayout": false,
 	"zenMode.hideTabs": false,
 	"zenMode.hideStatusBar": false,
-	"typescript.tsdk": "node_modules\\typescript\\lib"
+	"typescript.tsdk": "node_modules\\typescript\\lib",
+	"editor.fontFamily": "'Fira Code', Consolas, 'Courier New', monospace",
+	"editor.fontSize": 12
 }

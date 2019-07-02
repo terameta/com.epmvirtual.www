@@ -23,10 +23,7 @@ export class AuthService {
 		} );
 	}
 
-	signup = ( email: string, password: string ) => {
-
-	}
-
+	public signup = ( email: string, password: string ) => this.afAuth.auth.createUserWithEmailAndPassword( email, password );
 	public signin = ( email: string, password: string ) => this.afAuth.auth.signInWithEmailAndPassword( email, password );
 	public signout = () => this.afAuth.auth.signOut();
 }

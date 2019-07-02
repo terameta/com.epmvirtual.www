@@ -30,7 +30,7 @@ export class AdminNodeConsoleComponent implements OnInit, OnDestroy, AfterConten
 	public consoleWidth = '100%';
 	private afterInited = false;
 	public zenModeEnabled = false;
-	@ViewChild( 'terminal' ) terminal: ElementRef;
+	@ViewChild( 'terminal', { static: false } ) terminal: ElementRef;
 
 	public node$: Observable<Node> = this.ss.cID$.pipe(
 		switchMap( id => this.db.doc<Node>( 'nodes/' + id ).snapshotChanges() ),
@@ -144,8 +144,13 @@ export class AdminNodeConsoleComponent implements OnInit, OnDestroy, AfterConten
 		this.dc.onopen = () => {
 			console.log( 'Data channel is now open' );
 			this.term = new Terminal( { cursorBlink: true, scrollback: 60, rows: 10, cols: 10 } );
-			this.term.on( 'key', ( key, event ) => this.dc.send( JSON.stringify( { key, type: 'key' } ) ) );
-			this.term.on( 'resize', ( resizeData: { cols: number, rows: number } ) => {
+			// this.term.on( 'key', ( key, event ) => this.dc.send( JSON.stringify( { key, type: 'key' } ) ) );
+			this.term.onKey( ( { key, domEvent } ) => this.dc.send( JSON.stringify( { key, type: 'key' } ) ) );
+			// this.term.on( 'resize', ( resizeData: { cols: number, rows: number } ) => {
+			// 	this.termDims = 'W:' + resizeData.cols + ' - H:' + resizeData.rows;
+			// 	this.dc.send( JSON.stringify( { ...resizeData, type: 'resize' } ) );
+			// } );
+			this.term.onResize( ( resizeData: { cols: number, rows: number } ) => {
 				this.termDims = 'W:' + resizeData.cols + ' - H:' + resizeData.rows;
 				this.dc.send( JSON.stringify( { ...resizeData, type: 'resize' } ) );
 			} );
@@ -169,7 +174,8 @@ export class AdminNodeConsoleComponent implements OnInit, OnDestroy, AfterConten
 
 	public consoleStop = async () => {
 		if ( this.dc ) this.dc.close();
-		if ( this.term ) this.term.destroy();
+		// if ( this.term ) this.term.destroy();
+		if ( this.term ) this.term.dispose();
 		this.term = null;
 		this.zenModeEnabled = false;
 		this.forceChangeDetection();

@@ -8,6 +8,10 @@ export class AuthGuardService {
 	constructor( private as: AuthService, private router: Router ) { }
 
 	public canActivate( route: ActivatedRouteSnapshot ): boolean {
+		console.log( 'Buradayız' );
+		console.log( route.data.expectedRole );
+		console.log( this.as.userDetails );
+		console.log( this.as.isAuthenticated$.getValue() );
 		if ( !this.as.isAuthenticated$.getValue() ) {
 			this.router.navigate( [ '/signin' ] );
 			return false;
