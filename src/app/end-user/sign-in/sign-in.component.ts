@@ -27,6 +27,8 @@ export class SignInComponent implements OnInit {
 				}
 			}, 1000 );
 		}
+
+		this.authService.user.subscribe( console.log );
 	}
 
 	public signin = ( form: NgForm ) => {
@@ -35,7 +37,7 @@ export class SignInComponent implements OnInit {
 			then( ( result ) => {
 				console.log( 'Sign in succeded' );
 				console.log( result );
-				if ( this.authService.userDetails.email === 'admin@epmvirtual.com' ) {
+				if ( result.user.email === 'admin@epmvirtual.com' ) {
 					this.router.navigate( [ '/admin' ] );
 				} else {
 					this.router.navigate( [ '/cloud' ] );

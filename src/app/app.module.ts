@@ -26,7 +26,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 const routes: Routes = [
 	{ path: '', loadChildren: './end-user/end-user.module#EndUserModule' },
 	{ path: 'admin', canActivate: [ AuthGuardService ], data: { expectedRole: 'admin' }, loadChildren: './admin/admin.module#AdminModule' },
-	{ path: 'cloud', canActivate: [ AuthGuardService ], loadChildren: './cloud/cloud.module#CloudModule' }
+	{ path: 'console', canActivate: [ AuthGuardService ], loadChildren: './console/console.module#ConsoleModule' }
 ];
 
 

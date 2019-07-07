@@ -24,7 +24,7 @@ export class SignUpComponent implements OnInit {
 				if ( this.authService.userDetails.email === 'admin@epmvirtual.com' ) {
 					this.router.navigate( [ '/admin' ] );
 				} else {
-					this.router.navigate( [ '/cloud' ] );
+					this.router.navigate( [ '/console' ] );
 				}
 			}, 1000 );
 		}
@@ -34,12 +34,10 @@ export class SignUpComponent implements OnInit {
 		this.signUpError = '';
 		this.authService.signup( form.value.email, form.value.password ).
 			then( ( result ) => {
-				console.log( 'Sign in succeded' );
-				console.log( result );
-				if ( this.authService.userDetails.email === 'admin@epmvirtual.com' ) {
+				if ( result.user.email === 'admin@epmvirtual.com' ) {
 					this.router.navigate( [ '/admin' ] );
 				} else {
-					this.router.navigate( [ '/cloud' ] );
+					this.router.navigate( [ '/console' ] );
 				}
 			} ).catch( ( e: FirebaseError ) => {
 				this.signUpError = e.message;

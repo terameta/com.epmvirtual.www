@@ -102,7 +102,7 @@ export class SharedService {
 	}
 
 	private urlActOnGeneral = ( urlSegments: string[] ) => {
-		if ( this.cURL$.getValue() === '/signin' ) {
+		if ( this.cURL$.getValue() === '/signin' || this.cURL$.getValue() === '/signup' ) {
 			this.shouldShowHeader = false;
 			this.shouldShowFooter = false;
 		} else {
