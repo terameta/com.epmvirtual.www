@@ -5,9 +5,13 @@
 				<span class="flag-icon flag-icon-us"></span> +1-646-741-21-42
 				<span class="flag-icon flag-icon-gb"></span> +44-203-695-04-02
 			</span>
-			<span class="ml-auto">
+			<span class="ml-auto" *ngIf="!(authService.user | async)">
 				<a class="p-1 p-md-2 text-white" [routerLink]="'/signin'">Sign In</a>
 				<a class="p-1 p-md-2 text-white" [routerLink]="'/signup'">Sign Up</a>
+			</span>
+			<span class="ml-auto" *ngIf="(authService.user | async)">
+				<a class="p-1 p-md-2 text-white" [routerLink]="'/console'">Console</a>
+				<a class="p-1 p-md-2 text-white" (click)="authService.signout()">Sign Out</a>
 			</span>
 		</div>
 	</div>

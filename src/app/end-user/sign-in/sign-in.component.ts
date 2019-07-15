@@ -23,7 +23,7 @@ export class SignInComponent implements OnInit {
 				if ( this.authService.userDetails.email === 'admin@epmvirtual.com' ) {
 					this.router.navigate( [ '/admin' ] );
 				} else {
-					this.router.navigate( [ '/cloud' ] );
+					this.router.navigate( [ '/console' ] );
 				}
 			}, 1000 );
 		}
@@ -40,7 +40,7 @@ export class SignInComponent implements OnInit {
 				if ( result.user.email === 'admin@epmvirtual.com' ) {
 					this.router.navigate( [ '/admin' ] );
 				} else {
-					this.router.navigate( [ '/cloud' ] );
+					this.router.navigate( [ '/console' ] );
 				}
 			} ).catch( ( error: firebase.auth.Error ) => {
 				this.signInError = error.message;

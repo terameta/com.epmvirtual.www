@@ -10,7 +10,7 @@
 				corporate applications serving 100s of users. EPMVirtual gets out of your way so you can focus on creating amazing applications.
 			</p>
 		</div>
-		<div class="col-12 col-md-4">
+		<div class="col-12 col-md-4" *ngIf="!(authService.user | async)">
 			<div class="card epmsignupbox bg-accent">
 				<div class="card-body">
 					<h2 class="card-title epmsignupheader">
@@ -36,9 +36,16 @@
 			</div>
 		</div>
 		<div class="col-12 col-md-4" *ngIf="authService.user | async as user">
-			<div class="card bg-accent">
-
-				{{ user | json }}
+			<div class="card epmsignupbox bg-accent">
+				<div class="card-body">
+					<h2 class="card-title epmsignupheader">
+						Welcome back {{ user.displayName || user.email }}
+					</h2>
+					<div class="d-flex">
+						<a routerLink="/console" class="btn btn-sm btn-evwarning ml-auto">Go to Console</a>
+						<button type="button" class="btn btn-sm btn-dark ml-1" (click)="authService.signout()">Sign Out</button>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>

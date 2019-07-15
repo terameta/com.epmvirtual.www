@@ -1,17 +1,21 @@
 @import './style.variables';
 @import '../node_modules/bootstrap/scss/bootstrap';
 @import '../node_modules/xterm/dist/xterm.css';
-@import url('https://fonts.googleapis.com/css?family=Ubuntu:400,700,900');
+// @import url('https://fonts.googleapis.com/css?family=Ubuntu:400,700,900');
+@import url('https://fonts.googleapis.com/css?family=Nunito&display=swap');
+
 :root {
   --input-padding-x: .75rem;
   --input-padding-y: .75rem;
   font-size: 14px;
+  line-height: 1.6;
 }
 
 html,
 body {
   font-size: 14px;
-  font-family: 'Ubuntu', sans-serif;
+  // font-family: 'Ubuntu', sans-serif;
+  font-family: 'Nunito', sans-serif;
   background-color: white;
 }
 
@@ -40,7 +44,6 @@ body {
   border-bottom: 1px solid #e5e5e5;
 }
 
-// .box-shadow { box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05); }
 .box-shadow {
   box-shadow: 0px 3px 3px 0px rgba(0, 0, 0, 0.5);
 }
