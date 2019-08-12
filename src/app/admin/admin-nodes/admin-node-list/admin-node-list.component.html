@@ -29,7 +29,7 @@
 							<i class="far fa-trash-alt fa-fw pointer text-danger ml-3" title="Delete Node" (click)="nodeDelete(node.id, node.name)"></i>
 						</td>
 						<td>
-							{{node.name}}
+							<a routerLink="{{node.id}}">{{node.name}}</a>
 						</td>
 					</tr>
 				</tbody>
