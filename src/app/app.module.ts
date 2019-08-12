@@ -5,7 +5,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth';
-import { AngularFirestoreModule } from '../../node_modules/@angular/fire/firestore';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 
 import { AppComponent } from './app.component';
@@ -24,10 +24,21 @@ import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 const routes: Routes = [
-	{ path: '', loadChildren: './end-user/end-user.module#EndUserModule' },
-	{ path: 'admin', canActivate: [ AuthGuardService ], data: { expectedRole: 'admin' }, loadChildren: './admin/admin.module#AdminModule' },
-	{ path: 'console', canActivate: [ AuthGuardService ], loadChildren: './console/console.module#ConsoleModule' }
+	{ path: '', loadChildren: () => import( './end-user/end-user.module' ).then( m => m.EndUserModule ) },
+	{ path: 'admin', canActivate: [ AuthGuardService ], data: { expectedRole: 'admin' }, loadChildren: () => import( './admin/admin.module' ).then( m => m.AdminModule ) },
+	{ path: 'console', canActivate: [ AuthGuardService ], loadChildren: () => import( './console/console.module' ).then( m => m.ConsoleModule ) }
+	// { path: '', loadChildren: './end-user/end-user.module#EndUserModule' },
+	// 	{ path: 'admin', canActivate: [ AuthGuardService ], data: { expectedRole: 'admin' }, loadChildren: './admin/admin.module#AdminModule' },
+	// { path: 'console', canActivate: [ AuthGuardService ], loadChildren: './console/console.module#ConsoleModule' }
 ];
+
+// const routes: Routes = [
+// 	{
+// 		path: 'lazy',
+// 		loadChildren: './lazy/lazy.module#LazyModule', // use this syntax for non-ivy or Angular 7 and below
+// 		loadChildren: () => import( './lazy/lazy.module' ).then( m => m.LazyModule ), // new dynamic import method
+// 	}
+// ];
 
 
 @NgModule( {

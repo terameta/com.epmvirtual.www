@@ -26,19 +26,31 @@ export class FrontPageComponent implements OnInit {
 	public signUp = ( form: NgForm ) => {
 		this.signUpError = '';
 		this.authService.signup( form.value.email, form.value.password ).
-			then( ( result ) => {
-				if ( result.user.email === 'admin@epmvirtual.com' ) {
-					this.router.navigate( [ '/admin' ] );
-				} else {
-					this.router.navigate( [ '/console' ] );
+			then( this.postSignUpIn ).
+			catch( ( e: FirebaseError ) => {
+				this.reportSignUpInError( e );
+				if ( e.code === 'auth/email-already-in-use' ) {
+					console.log( 'User already exists, trying sign in' );
+					this.signUpError += ' Trying sign in with given credentials.';
+					this.authService.signin( form.value.email, form.value.password ).then( this.postSignUpIn ).catch( this.reportSignUpInError );
 				}
-			} ).catch( ( e: FirebaseError ) => {
-				this.signUpError = e.message;
-				console.log( 'Error.code:', e.code );
-				console.log( 'Error.Message:', e.message );
-				console.log( 'Error.Name:', e.name );
-				console.log( 'Error.Stack:', e.stack );
 			} );
+	}
+
+	private postSignUpIn = ( result: firebase.auth.UserCredential ) => {
+		if ( result.user.email === 'admin@epmvirtual.com' ) {
+			this.router.navigate( [ '/admin' ] );
+		} else {
+			this.router.navigate( [ '/console' ] );
+		}
+	}
+
+	private reportSignUpInError = ( e: FirebaseError ) => {
+		this.signUpError = e.message;
+		console.log( 'Error.code:', e.code );
+		console.log( 'Error.Message:', e.message );
+		console.log( 'Error.Name:', e.name );
+		console.log( 'Error.Stack:', e.stack );
 	}
 
 }

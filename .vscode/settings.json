@@ -14,5 +14,7 @@
 	"zenMode.hideStatusBar": false,
 	"typescript.tsdk": "node_modules\\typescript\\lib",
 	"editor.fontFamily": "'Fira Code', Consolas, 'Courier New', monospace",
-	"editor.fontSize": 12
+	"editor.fontSize": 12,
+	"debug.console.fontSize": 13,
+	"terminal.integrated.fontSize": 13
 }

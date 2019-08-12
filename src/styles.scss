@@ -5,10 +5,10 @@
 @import url('https://fonts.googleapis.com/css?family=Nunito&display=swap');
 
 :root {
-  --input-padding-x: .75rem;
-  --input-padding-y: .75rem;
   font-size: 14px;
   line-height: 1.6;
+  --input-padding-x: .5rem;
+  --input-padding-y: .5rem;
 }
 
 html,
@@ -17,6 +17,7 @@ body {
   // font-family: 'Ubuntu', sans-serif;
   font-family: 'Nunito', sans-serif;
   background-color: white;
+  height: 100%;
 }
 
 @media (min-width: 768px) {
@@ -65,7 +66,7 @@ body {
   display: block;
   width: 100%;
   margin-bottom: 0;
-  line-height: 1.75;
+  line-height: 1.5;
   color: #495057;
   border: 1px solid transparent;
   border-radius: .25rem;
@@ -100,7 +101,7 @@ body {
 .form-label-group input:not(:placeholder-shown)~label {
   padding-top: calc(var(--input-padding-y) / 3);
   padding-bottom: calc(var(--input-padding-y) / 3);
-  font-size: 12px;
+  font-size: 10px;
   color: #777;
 }
 
@@ -131,8 +132,8 @@ a:hover {
   cursor: pointer;
 }
 
-.ng-invalid:not(form) {
-  border-left: 5px solid theme-color("danger") !important;
+.ng-dirty.ng-invalid:not(form) {
+  border-color: theme-color("danger") !important;
 }
 
 .ng-dirty {
