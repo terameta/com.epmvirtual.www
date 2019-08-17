@@ -1,142 +1,169 @@
-<ng-container *ngIf="item$ | async as item">
-	<form (ngSubmit)="ss.save( item, f )" #f="ngForm">
-		<div class="container-fluid">
-			<div class="row">
-				<div class="col">
-					<div class="btn-toolbar my-2">
-						<div class="btn-group btn-group-xs ml-auto">
-							<button type="submit" class="btn btn-success" [disabled]="f.invalid && f.dirty">
-								<i class="fas fa-save fa-fw"></i>
-							</button>
-						</div>
+<!-- <ng-container *ngIf="item$ | async as item"> -->
+<form (ngSubmit)="ss.save( item, f )" #f="ngForm">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col">
+				<div class="btn-toolbar my-2">
+					<div class="btn-group btn-group-xs ml-auto">
+						<ng-container *ngFor="let plan of plans$ | async">
+							<button type="button" class="btn btn-outline-dark" (click)="applyPlan(plan, f)">{{plan.name}}</button>
+						</ng-container>
 					</div>
-					<div class="table-responsive m-0">
-						<table class="table table-sm table-borderless m-0">
-							<tbody>
-								<tr>
-									<td class="text-nowrap align-middle font-weight-bold" width="10">Status:</td>
-									<td>
-										{{statuses[item.status]}}
-									</td>
-								</tr>
-								<tr>
-									<td class="text-nowrap align-middle font-weight-bold" width="10">Name:</td>
-									<td>
-										<input type="text" name="sName" id="sName" class="form-control form-control-sm" [(ngModel)]="item.name">
-									</td>
-								</tr>
-								<tr>
-									<td class="text-nowrap align-middle font-weight-bold" width="10">CPU:</td>
-									<td>
-										<div class="input-group input-group-sm">
-											<input type="number" name="sCPU" id="sCPU" class="form-control form-control-sm" [(ngModel)]="item.cpu">
-											<div class="input-group-append">
-												<span class="input-group-text">Core<ng-container *ngIf="item.cpu > 1">s</ng-container></span>
-											</div>
+					<div class="btn-group btn-group-xs ml-3">
+						<button type="submit" class="btn btn-success" [disabled]="f.invalid && f.dirty">
+							<i class="fas fa-save fa-fw"></i>
+						</button>
+					</div>
+				</div>
+				<div class="table-responsive m-0">
+					<table class="table table-sm table-borderless m-0">
+						<tbody>
+							<tr>
+								<td class="text-nowrap align-middle font-weight-bold" width="10">Status:</td>
+								<td>
+									{{statuses[item.status]}}
+								</td>
+							</tr>
+							<tr>
+								<td class="text-nowrap align-middle font-weight-bold" width="10">Name:</td>
+								<td>
+									<input type="text" name="sName" id="sName" class="form-control form-control-sm" [(ngModel)]="item.name">
+								</td>
+							</tr>
+							<tr>
+								<td class="text-nowrap align-middle font-weight-bold" width="10">CPU:</td>
+								<td>
+									<div class="input-group input-group-sm">
+										<input type="number" name="sCPU" id="sCPU" class="form-control form-control-sm" [(ngModel)]="item.cpu">
+										<div class="input-group-append">
+											<span class="input-group-text">Core<ng-container *ngIf="item.cpu > 1">s</ng-container></span>
 										</div>
-									</td>
-								</tr>
-								<tr>
-									<td class="text-nowrap align-middle font-weight-bold" width="10">RAM:</td>
-									<td>
-										<div class="input-group input-group-sm">
-											<input type="number" name="sRAM" id="sRAM" class="form-control form-control-sm" [(ngModel)]="item.ram">
-											<div class="input-group-append">
-												<span class="input-group-text">MB ({{(item.ram || 0) / 1024}} GB)</span>
-											</div>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td class="text-nowrap align-middle font-weight-bold" width="10">RAM:</td>
+								<td>
+									<div class="input-group input-group-sm">
+										<input type="number" name="sRAM" id="sRAM" class="form-control form-control-sm" [(ngModel)]="item.ram">
+										<div class="input-group-append">
+											<span class="input-group-text">MB ({{(item.ram || 0) / 1024}} GB)</span>
 										</div>
-									</td>
-								</tr>
-								<tr>
-									<td class="text-nowrap align-middle font-weight-bold" width="10">HDD:</td>
-									<td>
-										<div class="input-group input-group-sm">
-											<input type="number" name="sHDD" id="sHDD" class="form-control form-control-sm" [(ngModel)]="item.hdd">
-											<div class="input-group-append">
-												<span class="input-group-text">GB</span>
-											</div>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td class="text-nowrap align-middle font-weight-bold" width="10">HDD:</td>
+								<td>
+									<div class="input-group input-group-sm">
+										<input type="number" name="sHDD" id="sHDD" class="form-control form-control-sm" [(ngModel)]="item.hdd">
+										<div class="input-group-append">
+											<span class="input-group-text">GB</span>
 										</div>
-									</td>
-								</tr>
-								<tr>
-									<td class="text-nowrap align-middle font-weight-bold" width="10">Bandwidth:</td>
-									<td>
-										<div class="input-group input-group-sm">
-											<input type="number" name="sBandwidth" id="sBandwidth" class="form-control form-control-sm" [(ngModel)]="item.bandwidth">
-											<div class="input-group-append">
-												<span class="input-group-text">GB</span>
-											</div>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td class="text-nowrap align-middle font-weight-bold" width="10">Bandwidth:</td>
+								<td>
+									<div class="input-group input-group-sm">
+										<input type="number" name="sBandwidth" id="sBandwidth" class="form-control form-control-sm" [(ngModel)]="item.bandwidth">
+										<div class="input-group-append">
+											<span class="input-group-text">GB</span>
 										</div>
-									</td>
-								</tr>
-								<tr>
-									<td class="text-nowrap align-middle font-weight-bold" width="10">IP Address:</td>
-									<td>
-										<input type="text" name="sIP" id="sIP" class="form-control form-control-sm" [(ngModel)]="item.ip">
-									</td>
-								</tr>
-								<tr>
-									<td class="text-nowrap align-middle font-weight-bold" width="10">MAC Address:</td>
-									<td>
-										<input type="text" name="sMac" id="sMac" class="form-control form-control-sm" [(ngModel)]="item.mac">
-									</td>
-								</tr>
-								<tr>
-									<td class="text-nowrap align-middle font-weight-bold" width="10">Owner:</td>
-									<td>
-										<select name="sOwner" id="sOwner" class="form-control form-control-sm" [(ngModel)]="item.owner">
-											<option [value]="owner.id" *ngFor="let owner of users$ | async">{{ owner.displayName }} ({{ owner.email }})</option>
-										</select>
-									</td>
-								</tr>
-								<tr>
-									<td class="text-nowrap align-middle font-weight-bold" width="10">Node / DC:</td>
-									<td>
-										<div class="input-group input-group-sm">
-											<select name="sNode" id="sNode" class="form-control form-control-sm" [(ngModel)]="item.node">
-												<option [value]="node.id" *ngFor="let node of nodes$ | async">{{ node.name }}</option>
-											</select>
-											<div class="input-group-append">
-												<ng-container *ngFor="let node of nodes$ | async">
-													<ng-container *ngIf="node.id == item.node">
-														<div class="input-group-text" *ngFor="let dc of dcs$ | async">
-															<ng-container *ngIf="dc.id == node.dc">
-																@ {{ dc.name }}
-															</ng-container>
-														</div>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td class="text-nowrap align-middle font-weight-bold" width="10">Price:</td>
+								<td>
+									<div class="input-group input-group-sm">
+										<div class="input-group-prepend">
+											<span class="input-group-text">$</span>
+										</div>
+										<input type="number" name="sPrice" id="sPrice" class="form-control form-control-sm" [(ngModel)]="item.price">
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td class="text-nowrap align-middle font-weight-bold" width="10">Owner:</td>
+								<td>
+									<select name="sOwner" id="sOwner" class="form-control form-control-sm" [(ngModel)]="item.owner" required>
+										<option [value]="owner.id" *ngFor="let owner of users$ | async">{{ owner.displayName }} ({{ owner.email }})</option>
+									</select>
+								</td>
+							</tr>
+							<tr>
+								<td class="text-nowrap align-middle font-weight-bold" width="10">DC:</td>
+								<td>
+									<select name="sDC" id="sDc" class="form-control form-control-sm" [(ngModel)]="item.dc">
+										<option [value]="undefined" default>Please select</option>
+										<option [value]="dc.id" *ngFor="let dc of dcs$ | async">{{ dc.name }}</option>
+									</select>
+								</td>
+							</tr>
+							<tr>
+								<td class="text-nowrap align-middle font-weight-bold" width="10">Node / DC:</td>
+								<td>
+									<select name="sNode" id="sNode" class="form-control form-control-sm" [(ngModel)]="item.node" [disabled]="!item.dc">
+										<ng-container *ngFor="let node of nodes$ | async">
+											<option [value]="undefined" default>Please select</option>
+											<option [value]="node.id" *ngIf="node.dc === item.dc">{{ node.name }}</option>
+										</ng-container>
+									</select>
+								</td>
+							</tr>
+							<tr>
+								<td class="text-nowrap align-middle font-weight-bold" width="10">IP Address:</td>
+								<td>
+									<ng-container *ngIf="(ipblocks$ | async) as ipblocks">
+										<select name="sIP" id="sIP" class="form-control form-control-sm" [(ngModel)]="item.ip" (change)="ipChanged(ipblocks, item.ip)">
+											<option [value]="undefined" default>Please select</option>
+											<option [value]="'auto'">Auto Select</option>
+											<ng-container *ngFor="let ipblock of ipblocks">
+												<ng-container *ngIf="ipblock.dc === item.dc">
+													<ng-container *ngFor="let ip of ipblock.ips">
+														<option [ngValue]="ip.ip" *ngIf="!ip.assigned">{{ ip.ip }}</option>
 													</ng-container>
 												</ng-container>
-											</div>
-										</div>
-									</td>
-								</tr>
-								<tr>
-									<td class="text-nowrap align-middle font-weight-bold" width="10">Image:</td>
-									<td>
-										<select name="sImage" id="sImage" class="form-control form-control-sm" [(ngModel)]="item.image">
-											<option [value]="image.id" *ngFor="let image of images$ | async">{{ image.name }}</option>
+											</ng-container>
 										</select>
-									</td>
-								</tr>
-								<tr>
-									<td class="text-nowrap align-middle font-weight-bold" width="10">Plan:</td>
-									<td>
-										<select name="sPlan" id="sPlan" class="form-control form-control-sm" [(ngModel)]="item.plan">
-											<option [value]="plan.id" *ngFor="let plan of plans$ | async">{{ plan.name }}</option>
-										</select>
-									</td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
+									</ng-container>
+								</td>
+							</tr>
+							<tr>
+								<td class="text-nowrap align-middle font-weight-bold" width="10">MAC Address:</td>
+								<td>
+									<input type="text" name="sMac" id="sMac" class="form-control form-control-sm" [(ngModel)]="item.mac" disabled>
+								</td>
+							</tr>
+							<tr>
+								<td class="text-nowrap align-middle font-weight-bold" width="10">Image:</td>
+								<td>
+									<select name="sImage" id="sImage" class="form-control form-control-sm" [(ngModel)]="item.image">
+										<option [value]="image.id" *ngFor="let image of images$ | async">{{ image.name }}</option>
+									</select>
+								</td>
+							</tr>
+							<tr>
+								<td class="text-nowrap align-middle font-weight-bold" width="10">Plan:</td>
+								<td>
+									<select name="sPlan" id="sPlan" class="form-control form-control-sm" [(ngModel)]="item.plan">
+										<option [value]="plan.id" *ngFor="let plan of plans$ | async">{{ plan.name }}</option>
+									</select>
+								</td>
+							</tr>
+						</tbody>
+					</table>
 				</div>
 			</div>
 		</div>
-	</form>
-	<pre>{{ plans$ | async | json }}</pre>
-	<pre>{{ users$ | async | json }}</pre>
-	<pre>{{ item | json }}</pre>
-</ng-container>
+	</div>
+</form>
+<!-- <pre>{{ plans$ | async | json }}</pre>
+<pre>{{ users$ | async | json }}</pre>
+<pre>{{ item | json }}</pre> -->
+<!-- </ng-container> -->
 <!-- <p>
 	server-detail works!
 </p>

@@ -4,7 +4,7 @@ import { Server } from 'src/app/models/server.models';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { UtilitiesService } from 'src/app/shared/utilities.service';
 import { SortByName } from 'src/utilities/utilityFunctions';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 
 @Component( {
 	selector: 'app-servers',
@@ -12,9 +12,7 @@ import { map } from 'rxjs/operators';
 	styleUrls: [ './servers.component.scss' ]
 } )
 export class ServersComponent implements OnInit {
-	public items$: Observable<Server[]> = this.db.collection<Server>( 'servers' ).snapshotChanges().pipe(
-		map( d => this.us.actions2Data<Server>( d ).sort( SortByName ) )
-	);
+	public items$ = this.db.collection<Server>( 'servers', ref => ref.orderBy( 'name' ) ).valueChanges( { idField: 'id' } );
 
 	constructor(
 		private db: AngularFirestore,

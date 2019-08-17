@@ -14,7 +14,9 @@ export interface Server {
 	dc: string,
 	price: number,
 	status: ServerStatus
-	connectionDetails: string
+	connectionDetails: string,
+	node: string,
+	image: string
 }
 
 export enum ServerStatus {

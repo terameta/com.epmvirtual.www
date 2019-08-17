@@ -12,9 +12,7 @@ import { SortByName } from 'src/utilities/utilityFunctions';
 	styleUrls: [ './server-list.component.scss' ]
 } )
 export class ServerListComponent implements OnInit {
-	public items$ = this.db.collection<Server>( 'servers' ).snapshotChanges().pipe(
-		map( d => this.us.actions2Data<Server>( d ).sort( SortByName ) )
-	);
+	public items$ = this.db.collection<Server>( 'servers', ref => ref.orderBy( 'name' ) ).valueChanges( { idField: 'id' } );
 
 	constructor(
 		private db: AngularFirestore,

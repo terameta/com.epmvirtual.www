@@ -34,11 +34,11 @@ export class UtilitiesService {
 	public deepCopy = ( payload: any ) => JSON.parse( JSON.stringify( payload ) );
 
 	public actions2Data = <T>( actions: DocumentChangeAction<any>[] ): T[] => {
+		console.log( 'actions2Data is deprecated, please dont use' );
 		return actions.map( a => ( { ...a.payload.doc.data(), id: a.payload.doc.id } ) );
 	}
-	public action2Data = <T>( action: Action<DocumentSnapshot<any>> ): T => {
-		return ( { ...action.payload.data(), ...{ id: action.payload.id } } );
-	}
+	public action2Data = <T>( action: Action<DocumentSnapshot<any>> ): T => ( { ...action.payload.data(), ...{ id: action.payload.id } } );
+
 	public assignOver = <T extends object>( base: T, over: T ) => {
 		return <T>{ ...( base as object ), ...( over as object ) };
 	}

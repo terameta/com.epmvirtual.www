@@ -42,7 +42,8 @@
 						Welcome back {{ user.displayName || user.email }}
 					</h2>
 					<div class="d-flex">
-						<a routerLink="/console" class="btn btn-sm btn-evwarning ml-auto">Go to Console</a>
+						<a routerLink="/console" class="btn btn-sm btn-evwarning ml-auto" *ngIf="user.email !== 'admin@epmvirtual.com'">Go to Console</a>
+						<a routerLink="/admin" class="btn btn-sm btn-evwarning ml-auto" *ngIf="user.email === 'admin@epmvirtual.com'">Go to Console</a>
 						<button type="button" class="btn btn-sm btn-dark ml-1" (click)="authService.signout()">Sign Out</button>
 					</div>
 				</div>
